@@ -4,9 +4,16 @@ return {
     local lspconfig = require('lspconfig')
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+    --lsp for python
+    lspconfig.pyright.setup{
+      capabilities = capabilities,
+    }
+
+    -- lsp for lua
+    lspconfig.lua_ls.setup{}
 
     --lsp for bicep
-    local bicep_lsp_bin = "/usr/local/bin/bicep-langserver/bicep-LangServer.dll"
+    local bicep_lsp_bin = "/usr/local/bin/bicep-langserver/Bicep.LangServer.dll"
 
     vim.cmd [[ autocmd BufNewFile,BufRead *.bicep set filetype=bicep ]]
 
@@ -15,19 +22,9 @@ return {
       filetypes = { "bicep" },
       capabilities = capabilities,
       root_dir = lspconfig.util.root_pattern("*.bicep"),
-      }
-
-    --lsp for python
-    lspconfig.pyright.setup{
-      capabilities = capabilities,
     }
 
-    -- lsp for lua
-    lspconfig.lua_ls.setup{
-      capabilities = capabilities,
-    }
-
-    -- lsp for azurepipeline
+    -- -- lsp for azurepipeline
     lspconfig.azure_pipelines_ls.setup {
       cmd = { "azure-pipelines-language-server", "--stdio" },
       capabilities = capabilities,
@@ -36,16 +33,16 @@ return {
         return lspconfig.util.find_git_ancestor(fname) or vim.loop.os_homedir()
       end,
       settings = {
-          yaml = {
-              schemas = {
-                  ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
-                      "/azure-pipeline*.y*l",
-                      "/*.azure*",
-                      "Azure-Pipelines/**/*.y*l",
-                      "Pipelines/*.y*l",
-                  },
-              },
+        yaml = {
+          schemas = {
+            ["https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json"] = {
+              "/azure-pipeline*.y*l",
+              "/*.azure*",
+              "Azure-Pipelines/**/*.y*l",
+              "Pipelines/*.y*l",
+            },
           },
+        },
       },
     }
 
@@ -56,6 +53,14 @@ return {
     lspconfig.jsonls.setup {
       capabilities = jsonCapabilities,
     }
+
+    -- lsp for bash
+    lspconfig.bashls.setup{}
+
+
+    -- lsp for powershell 
+    lspconfig.powershell_es.setup{
+      bundle_path = '/usr/local/bin/PowerShell/PowerShellEditorServices',
+    }
   end,
 }
-

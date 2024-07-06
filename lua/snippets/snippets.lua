@@ -83,3 +83,17 @@ ls.add_snippets('all', {
      }))
  })
 
+ls.add_snippets('all', {
+  s("azurecli",
+     t({
+"    - task: AzureCLI@2",
+"      displayName: Azure CLI",
+"      inputs:",
+"        azureSubscription: <Name of the Azure Resource Manager service connection>",
+"        scriptType: ps",
+"        scriptLocation: inlineScript",
+"        inlineScript: |",
+"          az --version",
+"          az account show"
+     }))
+ })
