@@ -1,6 +1,9 @@
 return {
-  'nvim-telescope/telescope.nvim', tag = '0.1.5',
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  'nvim-telescope/telescope.nvim',
+  tag = '0.1.5',
+  dependencies = {
+    'nvim-lua/plenary.nvim'
+  },
   config = function()
     require("telescope").load_extension('grapple')
     local builtin = require('telescope.builtin')

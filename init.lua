@@ -4,6 +4,9 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.cursorline = true
 vim.opt.clipboard:append("unnamedplus")
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.opt.termguicolors = true
 vim.opt.shiftwidth = 2
 vim.opt.expandtab = true
 vim.opt.smartindent = true

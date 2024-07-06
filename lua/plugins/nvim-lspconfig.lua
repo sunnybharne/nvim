@@ -21,10 +21,10 @@ return {
       cmd = { "dotnet", bicep_lsp_bin },
       filetypes = { "bicep" },
       capabilities = capabilities,
-      root_dir = lspconfig.util.root_pattern("*.bicep"),
+      root_dir = lspconfig.util.root_pattern("*.git"),
     }
 
-    -- -- lsp for azurepipeline
+    -- lsp for azurepipeline
     lspconfig.azure_pipelines_ls.setup {
       cmd = { "azure-pipelines-language-server", "--stdio" },
       capabilities = capabilities,
