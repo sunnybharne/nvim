@@ -19,9 +19,6 @@ return {
 
     lspconfig.bicep.setup{
       cmd = { "dotnet", bicep_lsp_bin },
-      filetypes = { "bicep" },
-      capabilities = capabilities,
-      root_dir = lspconfig.util.root_pattern("*.git"),
     }
 
     -- lsp for azurepipeline
