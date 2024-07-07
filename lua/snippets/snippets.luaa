@@ -4,7 +4,7 @@ local t = ls.text_node
 local i = ls.insert_node
 
 ls.add_snippets('all', {
-  s("trigger azure devops pipeline", 
+  s("trigger azure devops pipeline",
     t({
 "name: my-first-azure-pipeline",
 "trigger: none",
@@ -48,7 +48,7 @@ ls.add_snippets('all', {
 })
 
 ls.add_snippets('all', {
-  s("-task azure devops pipeline", 
+  s("-task azure devops pipeline",
     t({
 "- task: AzurePowerShell@5",
 "  inputs:",
@@ -68,7 +68,7 @@ ls.add_snippets('all', {
 })
 
 ls.add_snippets('all', {
-  s("checkout self", 
+  s("checkout self",
      t({
 "steps:",
  "- checkout: none",
@@ -97,3 +97,44 @@ ls.add_snippets('all', {
 "          az account show"
      }))
  })
+
+ls.add_snippets('bicep', {
+  s("subscription create",
+     t({
+"targetScope = 'managementGroup'",
+
+"@description('Provide a name for the alias. This name will also be the display name of the subscription.')",
+"param subscriptionAliasName string",
+
+"@description('Provide the full resource ID of billing scope to use for subscription creation.')",
+"param billingScope string",
+
+"resource subscriptionAlias 'Microsoft.Subscription/aliases@2021-10-01' = {",
+"  scope: tenant()",
+"  name: subscriptionAliasName",
+"  properties: {",
+"    workload: 'Production'",
+"    displayName: subscriptionAliasName",
+"    billingScope: billingScope",
+
+"  }",
+"}"
+     }))
+ })
+targetScope = 'managementGroup'
+
+@description('Provide a name for the alias. This name will also be the display name of the subscription.')
+param subscriptionAliasName string
+
+@description('Provide the full resource ID of billing scope to use for subscription creation.')
+param billingScope string
+
+resource subscriptionAlias 'Microsoft.Subscription/aliases@2021-10-01' = {
+  scope: tenant()
+  name: subscriptionAliasName
+  properties: {
+    workload: 'Production'
+    displayName: subscriptionAliasName
+    billingScope: billingScope
+  }
+}
