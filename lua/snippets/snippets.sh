@@ -26,10 +26,14 @@ for folder in "${folders[@]}"; do
           echo "#######################"
           echo $file
 
+          output_string=$(echo "$file" | sed -e 's|.*/||' -e 's|\..*||')
+
+          echo "$output_string"
+
             # Write the starting lines to the output file
             {
                 echo "ls.add_snippets('all', {"
-                echo "  s(\"trigger azure devops pipeline\","
+                echo "  s(\"$output_string\","
                 echo "    t({"
             } >> "$folder$output_file"
 

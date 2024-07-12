@@ -4,34 +4,26 @@ local t = ls.text_node
 local i = ls.insert_node
 
 ls.add_snippets('all', {
-  s("trigger azure devops pipeline",
+  s("management-group-create",
     t({
-"some other ",
-"files ",
-"with bice",
-"code",
+"targetScope = 'tenant'",
 "",
-    }))
-})
-
-ls.add_snippets('all', {
-  s("trigger azure devops pipeline",
-    t({
-"targetScope = 'managementGroup'",
+"@description ('Name of the management group to create')",
+"param managementGroupsName string",
 "",
-"@description('Provide a name for the alias. This name will also be the display name of the subscription.')",
-"param subscriptionAliasName string",
+"@description ('ID of the parent management group')",
+"param managementGroupsParentId string",
 "",
-"@description('Provide the full resource ID of billing scope to use for subscription creation.')",
-"param billingScope string",
-"",
-"resource subscriptionAlias 'Microsoft.Subscription/aliases@2021-10-01' = {",
+"resource symbolicname 'Microsoft.Management/managementGroups@2021-04-01' = {",
+"  name: 'mgmtGroups-${managementGroupsName}'",
 "  scope: tenant()",
-"  name: subscriptionAliasName",
 "  properties: {",
-"    workload: 'Production'",
-"    displayName: subscriptionAliasName",
-"    billingScope: billingScope",
+"    details: {",
+"      parent: {",
+"        id: managementGroupsParentId",
+"      }",
+"    }",
+"    displayName: managementGroupsName",
 "  }",
 "}",
     }))
