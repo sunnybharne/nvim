@@ -1,17 +1,26 @@
 return {
-  "numToStr/FTerm.nvim",
+  'akinsho/toggleterm.nvim',
+  version = "*",
   config = function()
-
-    require'FTerm'.setup({
-      border = 'double',
-      dimensions  = {
-        height = 0.9,
-        width = 0.9,
+    require("toggleterm").setup{
+      open_mapping = [[<c-\>]],
+      hide_numbers = true,
+      autochdir = true,
+      start_in_insert = true,
+      insert_mappings = true,
+      terminal_mappings = true,
+      persist_size = true,
+      persist_mode = true,
+      direction = 'horizontal',
+      close_on_exit = true,
+      shell = vim.o.shell,
+      auto_scroll = true,
+      winbar = {
+        enabled = false,
+        name_formatter = function(term)
+          return term.name
+        end
       },
-    })
-
-    -- Example keybindings
-    vim.keymap.set('n', '<leader>m', '<CMD>lua require("FTerm").toggle()<CR>')
-    vim.keymap.set('t', '<leader>m', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+    }
   end
 }
