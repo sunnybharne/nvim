@@ -20,3 +20,5 @@ trigger:
     exclude:
     - v2.0
 
+pool:
+  name: selfhosted
