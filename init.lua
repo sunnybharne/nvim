@@ -14,7 +14,7 @@ vim.opt.smartindent = true
 vim.opt.wrap = true
 vim.opt.tabstop = 2
 -- Set the colorscheme using the `vim.cmd` function
-vim.cmd([[colorscheme torte]])
+vim.cmd([[colorscheme elflord]])
 
 vim.api.nvim_set_hl(0, 'CursorLine', { underline = true, sp = '#ff0000', bg = '#000000' })  -- Bright red underline
 
