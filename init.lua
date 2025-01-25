@@ -36,10 +36,6 @@ vim.api.nvim_set_keymap("n", "<leader>cc", ":CopilotChat<CR>", { noremap = true 
 -- Telescope
 vim.api.nvim_set_keymap("n", "<leader>pp", ":Telescope neovim-project discover<CR>", { noremap = true })  -- Open Telescope project discover
 
---Oil.nvim
-vim.api.nvim_set_keymap('n', '-', ':lua require("oil").open_float()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', 'q', ':close<CR>', { noremap = true, silent = true })
-
 -- Autocommand for Bicep files
 vim.api.nvim_exec([[
   augroup bicep
