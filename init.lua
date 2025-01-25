@@ -13,9 +13,6 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.wrap = true
 vim.opt.tabstop = 2
--- Set the colorscheme using the `vim.cmd` function
-vim.cmd([[colorscheme elflord]])
-
 vim.api.nvim_set_hl(0, 'CursorLine', { underline = true, sp = '#ff0000', bg = '#000000' })  -- Bright red underline
 
 vim.api.nvim_set_keymap("n", "<Leader>|", ":vsplit<CR>", { noremap = true })
@@ -32,7 +29,10 @@ vim.api.nvim_set_keymap("n", "<leader>bp", ":bprevious<CR>", { noremap = true })
 -- Close current buffer
 vim.api.nvim_set_keymap("n", "<leader>bk", ":bd<CR>", { noremap = true })
 
+-- Keymap to open Copilot Chat
+vim.api.nvim_set_keymap("n", "<leader>cc", ":CopilotChat<CR>", { noremap = true })
 
+-- Telescope
 vim.api.nvim_set_keymap("n", "<leader>pp", ":Telescope neovim-project discover<CR>", { noremap = true })
 
 vim.api.nvim_exec([[
