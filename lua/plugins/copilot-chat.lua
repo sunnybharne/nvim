@@ -14,7 +14,7 @@ return {
         height = 0.9, -- fractional height of parent, or absolute height in rows when > 1
         -- Options below only apply to floating windows
         relative = 'editor', -- 'editor', 'win', 'cursor', 'mouse'
-        border = 'single', -- 'double', 'rounded', 'solid', 'shadow'
+        border =  'double',
         title = 'AI will destroy you', -- title of chat window
         footer = nil, -- footer of chat window
         zindex = 1, -- determines if window is on top or below other floating windows
