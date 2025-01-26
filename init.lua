@@ -36,6 +36,9 @@ vim.api.nvim_set_keymap("n", "<leader>cc", ":CopilotChat<CR>", { noremap = true 
 -- Telescope
 vim.api.nvim_set_keymap("n", "<leader>pp", ":Telescope neovim-project discover<CR>", { noremap = true })  -- Open Telescope project discover
 
+-- Todo Comments
+vim.api.nvim_set_keymap("n", "<leader>fd", ":TodoTelescope<CR>", { noremap = true })  -- Open Telescope todo comments
+
 -- Autocommand for Bicep files
 vim.api.nvim_exec([[
   augroup bicep
