@@ -1,33 +1,33 @@
-return  {
+return {
   {
-    'hrsh7th/cmp-buffer'
+    'hrsh7th/cmp-buffer'  -- Buffer completion source for nvim-cmp
   },
   {
-    'hrsh7th/cmp-path'
+    'hrsh7th/cmp-path'  -- Path completion source for nvim-cmp
   },
   {
-    'hrsh7th/cmp-cmdline'
+    'hrsh7th/cmp-cmdline'  -- Command line completion source for nvim-cmp
   },
   {
-    'hrsh7th/cmp-nvim-lsp'
+    'hrsh7th/cmp-nvim-lsp'  -- LSP completion source for nvim-cmp
   },
   {
-    'saadparwaiz1/cmp_luasnip'
+    'saadparwaiz1/cmp_luasnip'  -- Snippet completion source for nvim-cmp
   },
   {
-    'rafamadriz/friendly-snippets'
+    'rafamadriz/friendly-snippets'  -- A collection of snippets for various languages
   },
   {
-    'L3MON4D3/LuaSnip',
-    version = "v2.*",
-    build = "make install_jsregexp",
+    'L3MON4D3/LuaSnip',  -- Snippet engine for Neovim written in Lua
+    version = "v2.*",  -- Specify the version to use
+    build = "make install_jsregexp",  -- Build command to install jsregexp
     config = function()
       local ls = require("luasnip")
-      local s = ls.snippet
-      local t = ls.text_node
-      local i = ls.insert_node
+      local s = ls.snippet  -- Define snippet
+      local t = ls.text_node  -- Define text node
+      local i = ls.insert_node  -- Define insert node
 
-      -- Keymaps
+      -- Keymaps for snippet expansion and navigation
       vim.keymap.set({"i"}, "<C-K>", function() ls.expand() end, {silent = true})
       vim.keymap.set({"i", "s"}, "<C-L>", function() ls.jump( 1) end, {silent = true})
       vim.keymap.set({"i", "s"}, "<C-J>", function() ls.jump(-1) end, {silent = true})
@@ -37,7 +37,7 @@ return  {
         end
       end, {silent = true})
 
-      -- Snippets
+      -- Load snippets from specified paths
       require("luasnip.loaders.from_vscode").lazy_load({ paths = { "~/.config/nvim/lua/snippets" } })
       require('luasnip.loaders.from_lua').load({paths = "~/.config/nvim/lua/snippets"})
     end
