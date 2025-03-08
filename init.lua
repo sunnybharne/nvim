@@ -1,7 +1,6 @@
 -- Options
 vim.g.mapleader = " "  -- Set leader key to space
-vim.opt.number = true  -- Show line numbers
-vim.opt.relativenumber = true  -- Show relative line numbers
+vim.opt.number = true  -- Show line numbers vim.opt.relativenumber = true  -- Show relative line numbers
 vim.opt.cursorline = true  -- Highlight the current line
 vim.opt.cursorlineopt = 'line'  -- Highlight only the line
 vim.opt.clipboard:append("unnamedplus")  -- Use system clipboard
@@ -37,6 +36,9 @@ vim.api.nvim_set_keymap("n", "<leader>pp", ":Telescope neovim-project discover<C
 
 -- Todo Comments
 vim.api.nvim_set_keymap("n", "<leader>fd", ":TodoTelescope<CR>", { noremap = true })  -- Open Telescope todo comments
+
+-- LazyDocker
+vim.keymap.set("n", "<leader>k", "<cmd>LazyDocker<CR>", { desc = "Toggle LazyDocker", noremap = true, silent = true })
 
 -- Autocommand for Bicep files
 vim.api.nvim_exec([[
