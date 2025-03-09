@@ -62,4 +62,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)  -- Prepend lazy.nvim to runtime path
 
+
+-- set terraform filetype for .tf files to terraform
+vim.filetype.add({
+  extension = {
+    tf = "terraform",
+  },
+})
+
 require("lazy").setup("plugins")  -- Setup lazy.nvim with plugins
