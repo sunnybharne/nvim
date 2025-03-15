@@ -54,6 +54,15 @@ return {
     -- lsp for bash
     lspconfig.bashls.setup{}
 
+    lspconfig.terraformls.setup({
+      cmd = { "terraform-ls", "serve" },
+      filetypes = { "terraform", "tf", "hcl" },
+      root_dir = lspconfig.util.root_pattern(".terraform", ".git"),
+    })
+
+    vim.cmd [[
+      autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
+    ]]
 
     -- lsp for powershell 
     lspconfig.powershell_es.setup{
