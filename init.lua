@@ -73,4 +73,8 @@ vim.filetype.add({
   },
 })
 
+vim.cmd [[
+  autocmd BufRead,BufNewFile *.tf,*.tfvars set filetype=terraform
+]]
+
 require("lazy").setup("plugins")  -- Setup lazy.nvim with plugins
