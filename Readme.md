@@ -4,7 +4,7 @@ This repository contains my personal Neovim configuration files. Below is a deta
 
 ## Directory Structure
 
-```
+```bash
 ~/.config/nvim/
 ├── init.lua
 ├── lazy-lock.json

@@ -3,6 +3,7 @@ return {
   dependencies = {
     "williamboman/mason-lspconfig.nvim",
     "jay-babu/mason-null-ls.nvim",
+    "neovim/nvim-lspconfig",
   },
   config = function()
     require("mason").setup({
@@ -14,6 +15,10 @@ return {
         },
       }
     })
+
+    require("mason-lspconfig").setup {
+        ensure_installed = { "terraformls", "tflint" },
+    }
 
     -- require("mason-lspconfig").setup({
     --   ensure_installed = {

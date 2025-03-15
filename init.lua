@@ -13,6 +13,9 @@ vim.opt.smartindent = true  -- Smart indenting
 vim.opt.wrap = true  -- Wrap long lines
 vim.opt.tabstop = 2  -- Number of spaces that a <Tab> in the file counts for vim.api.nvim_set_hl(0, 'CursorLine', { underline = true, sp = '#ff0000', bg = '#000000' })  -- Bright red underline
 
+
+vim.cmd.colorscheme("retrobox") -- Replace "retrobox" with any built-in theme
+
 -- Key mappings
 vim.api.nvim_set_keymap("n", "<Leader>|", ":vsplit<CR>", { noremap = true })  -- Vertical split
 vim.api.nvim_set_keymap("n", "<Leader>-", ":hsplit<CR>", { noremap = true })  -- Horizontal split
