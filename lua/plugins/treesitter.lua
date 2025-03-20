@@ -16,7 +16,7 @@ local treesitter_languages = {
   "git_rebase",
   "gitattributes",
   "gitcommit",
-  "gitignore", 
+  "gitignore",
   "groovy",
   "go",
   "helm",

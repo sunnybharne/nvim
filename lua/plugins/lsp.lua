@@ -12,7 +12,7 @@ return {
       local lspconfig = require("lspconfig")
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-      -- ✅ List of LSP servers with correct `lspconfig` references
+      --  List of LSP servers with correct `lspconfig` references
       local servers = {
         "lua_ls",
         "azure_pipelines_ls",
@@ -55,7 +55,7 @@ return {
       })
 
       require("mason-lspconfig").setup({
-        ensure_installed = servers, -- ✅ Install only correct LSPs
+        ensure_installed = servers, --  Install only correct LSPs
       })
 
       -- Common LSP Keybindings
@@ -75,7 +75,7 @@ return {
       for _, lsp in ipairs(servers) do
         lspconfig[lsp].setup({
           on_attach = on_attach,
-          capabilities = capabilities -- ✅ Added capabilities for better autocomplete
+          capabilities = capabilities --  Added capabilities for better autocomplete
         })
       end
 
@@ -84,7 +84,7 @@ return {
         settings = {
           Lua = {
             diagnostics = {
-              globals = { "vim" } -- ✅ Prevents "Undefined global 'vim'" warning
+              globals = { "vim" } --  Prevents "Undefined global 'vim'" warning
             }
           }
         }
