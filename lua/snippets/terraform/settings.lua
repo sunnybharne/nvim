@@ -2,16 +2,6 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 
--- terraform provider block
-ls.add_snippets('terraform', {
-  s("terraform-provider-block-azure", {
-    t({"provider \"azurerm\" {",""}),
-    t({"  features {}",""}),
-    t({"  subscription_id = \"\"",""}),
-    t({"}",""})
-  })
-})
-
 -- terraform settings and provider block
 ls.add_snippets('terraform', {
   s("terraform-settingsandprovider-block-azure", {
