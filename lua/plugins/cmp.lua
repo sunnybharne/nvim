@@ -14,8 +14,9 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
-      -- Load VSCode-style snippets
+      -- Load snippets
       require("luasnip.loaders.from_vscode").lazy_load()
+      require('luasnip.loaders.from_lua').load({paths = "~/.config/nvim/lua/snippets"})
 
       -- Add `capabilities` for LSP completion
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
