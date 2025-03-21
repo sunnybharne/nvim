@@ -1,6 +1,5 @@
 # Task List
-
-- [ ] Make the readme file better
+- [x] Make the readme file better
 - [ ] Add Jakly site to the portfolio
 - [ ] Pester Automation
 - [ ] Robot Framework automation
@@ -19,21 +18,6 @@
 
 ----
 ----
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Made by Sunny Bharne
 

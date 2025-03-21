@@ -4,4 +4,3 @@ require("config.filetypes")
 require("config.keymap")
 require("config.terminal")
 require("config.scratchpad")
-
