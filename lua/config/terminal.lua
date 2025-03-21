@@ -34,4 +34,3 @@ end, { noremap = true, silent = true })
 
 -- Make Esc exit terminal mode
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true, silent = true })
-
