@@ -1,40 +1,80 @@
-local scratch_win = nil
-local scratch_buf = nil
+local previous_buffer = nil
+local scratchpad_files = {}
+local current_index = 1
 
-function ToggleScratchMarkdown()
-  if scratch_win and vim.api.nvim_win_is_valid(scratch_win) then
-    -- Close window if already open
-    vim.api.nvim_win_close(scratch_win, true)
-    scratch_win = nil
-    return
-  end
+function OpenScratchpad()
+    local scratchpad_dir = vim.fn.stdpath("config") .. "/scratchpad/"
+    scratchpad_files = vim.fn.glob(scratchpad_dir .. "*", false, true)
 
-  local scratch_path = vim.fn.stdpath("config") .. "/scratch.md"
+    if #scratchpad_files == 0 then
+        print("No files found in the scratchpad folder")
+        return
+    end
 
-  -- Reuse buffer if already loaded, else load from file
-  if not scratch_buf or not vim.api.nvim_buf_is_valid(scratch_buf) then
-    vim.cmd("edit " .. scratch_path)
-    scratch_buf = vim.api.nvim_get_current_buf()
-    vim.api.nvim_buf_set_option(scratch_buf, 'filetype', 'markdown')
-  end
-
-  -- Create floating window
-  local width = math.floor(vim.o.columns * 0.7)
-  local height = math.floor(vim.o.lines * 0.6)
-  local row = math.floor((vim.o.lines - height) / 2)
-  local col = math.floor((vim.o.columns - width) / 2)
-
-  local opts = {
-    style = "minimal",
-    relative = "editor",
-    width = width,
-    height = height,
-    row = row,
-    col = col,
-    border = "rounded"
-  }
-
-  scratch_win = vim.api.nvim_open_win(scratch_buf, true, opts)
+    if vim.fn.bufname() == scratchpad_files[current_index] then
+        if previous_buffer and vim.fn.bufexists(previous_buffer) == 1 then
+            vim.cmd("buffer " .. previous_buffer)
+            previous_buffer = nil
+        else
+            print("No previous buffer to return to")
+        end
+    else
+        previous_buffer = vim.fn.bufnr()
+        current_index = 1
+        vim.cmd("edit " .. scratchpad_files[current_index])
+        vim.bo.bufhidden = "wipe" -- Set buffer to be wiped when hidden
+    end
 end
 
-vim.keymap.set("n", "<leader>sp", ToggleScratchMarkdown, { noremap = true, silent = true })
+function NextScratchpadFile()
+    if #scratchpad_files == 0 then
+        print("No files to cycle through")
+        return
+    end
+
+    current_index = (current_index % #scratchpad_files) + 1
+    vim.cmd("edit " .. scratchpad_files[current_index])
+    vim.bo.bufhidden = "wipe" -- Set buffer to be wiped when hidden
+end
+
+vim.api.nvim_set_keymap('n', '<leader>sp', ':lua OpenScratchpad()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sn', ':lua NextScratchpadFile()<CR>', { noremap = true, silent = true })
+-- local previous_buffer = nil
+-- local scratchpad_files = {}
+-- local current_index = 1
+--
+-- function OpenScratchpad()
+--     local scratchpad_dir = vim.fn.stdpath("config") .. "/scratchpad/"
+--     scratchpad_files = vim.fn.glob(scratchpad_dir .. "*", false, true)
+--
+--     if #scratchpad_files == 0 then
+--         print("No files found in the scratchpad folder")
+--         return
+--     end
+--
+--     if vim.fn.bufname() == scratchpad_files[current_index] then
+--         if previous_buffer and vim.fn.bufexists(previous_buffer) == 1 then
+--             vim.cmd("buffer " .. previous_buffer)
+--             previous_buffer = nil
+--         else
+--             print("No previous buffer to return to")
+--         end
+--     else
+--         previous_buffer = vim.fn.bufnr()
+--         current_index = 1
+--         vim.cmd("edit " .. scratchpad_files[current_index])
+--     end
+-- end
+--
+-- function NextScratchpadFile()
+--     if #scratchpad_files == 0 then
+--         print("No files to cycle through")
+--         return
+--     end
+--
+--     current_index = (current_index % #scratchpad_files) + 1
+--     vim.cmd("edit " .. scratchpad_files[current_index])
+-- end
+--
+-- vim.api.nvim_set_keymap('n', '<leader>sp', ':lua OpenScratchpad()<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('n', '<leader>sn', ':lua NextScratchpadFile()<CR>', { noremap = true, silent = true })
