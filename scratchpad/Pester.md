@@ -1,4 +1,4 @@
-# Docker
+# Pester
 
 ## Run pester tests
 ```bash
