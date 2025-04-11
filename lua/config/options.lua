@@ -25,3 +25,4 @@ vim.opt.softtabstop = 2 -- Consistent backspacing
 vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.autoindent = true -- Maintain indentation from previous line
 vim.opt.smartindent = true -- Smart indenting based on syntax
+

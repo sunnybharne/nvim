@@ -28,3 +28,5 @@ ls.add_snippets('bicep', {
     t({"}", ""})
   })
 })
+
+
