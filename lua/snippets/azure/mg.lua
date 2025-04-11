@@ -2,48 +2,58 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
--- local f = ls.function_node
+local c = ls.choice_node
 
--- local function fn(args, parent, user_args)
---   return '' .. args[1][1] .. user_args .. ''
--- end
-
---Reference
---https://learn.microsoft.com/en-us/azure/templates/microsoft.resources/resourcegroups?pivots=deployment-language-bicep
--- Scope: Subscription
-
--- Snippet for defining a management group in Azure using bicep
--- Deploy management groups on subscription scope mg scope does not work
---  ----------------------------------------------------------------------------------
---[[
-resource mg 'Microsoft.Management/managementGroups@2023-04-01' = { 
-  scope: tenant()
-  name: 'mg'
-  displayName: 'mgname'
-  properties: {
-    details: {
-      parent: {
-        id: '/providers/Microsoft.Management/managementGroups/parentname'
-      }
-    }
-  }
-}
-]]
+-- Scope: management group are only deployed on tenant level
 
 ls.add_snippets('bicep', {
-  s("managementgroup-bicep", {
-    t("resource "), i(1, "mg"), t(" 'Microsoft.Management/managementGroups@2023-04-01' = {"),
-    -- t({"resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {", ""}),
-    t({"  scope: tenant()", ""}),
-    t({"  name: 'mg'", ""}),
-    t({"  displayName: 'mgname'", ""}),
-    t({"  properties: {", ""}),
-    t({"    details: {", ""}),
-    t({"      parent: {", ""}),
-    t({"        id: '/providers/Microsoft.Management/managementGroups/parentname'", ""}),
-    t({"      }", ""}),
-    t({"    }", ""}),
-    t({"  }", ""}),
-    t({"}", ""})
-  })
+ s("managementgroup-bicep", c(1, {
+ 	t({
+      "targetScope = 'managementGroup'",
+      "",
+      "@description('The name of the management group.')",
+      "param mgName string",
+      "",
+      "@description('The Id of the parent management group.')",
+      "param parentId string",
+      "",
+      "resource parentManagementGroup 'Microsoft.Management/managementGroups@2021-04-01' existing = {",
+      "  name: parentId",
+      "  scope: tenant()",
+      "}",
+      "",
+      "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
+      "  scope: tenant()",
+      "  name: mgName",
+      "  properties: {",
+      "    details: {",
+      "      parent: {",
+      "        id: parentManagementGroup.id",
+      "      }",
+      "    }",
+      "    displayName: mgName",
+      "  }",
+      "}",
+      "",
+      "@description('The name of the management group.')",
+      "output name string = mg.name",
+      "",
+      "@description('The resource ID of the management group.')",
+      "output resourceId string = mg.id"
+    }),
+ 	t({
+      "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
+      "  scope: tenant()",
+      "  name: 'mgName'",
+      "  properties: {",
+      "    details: {",
+      "      parent: {",
+      "        id: 'parentId'",
+      "      }",
+      "    },",
+      "    displayName: 'mgName'",
+      "  }",
+      "}"
+    })
+ }))
 })
