@@ -17,12 +17,6 @@
 ----
 ----
 
-
 Bicep
-
-
-
-
-
 
 ## Made by Sunny Bharne
