@@ -10,5 +10,3 @@
    - operations - logic-app, insights, alerts, automatic-actions
 
 continue from log table
-
-
