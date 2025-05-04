@@ -11,7 +11,6 @@ Used for:
 - Rport on and analyze costs in the Azure portal, Microsoft 365 admin center, or externally by exporting data.
 - Mnitor costs proactively with budget and scheduled alerts.
 
-
 For each billing period, you normally receive an invoice in email. The invoice is a representation of your Azure bill. The same cost information on the invoice is available in the Azure portal. In this tutorial, you compare your invoice with the detailed daily usage file and with cost analysis in the Azure portal.
 
 This tutorial applies only to Azure customers with an individual subscription. Common individual subscriptions have pay-as-you-go rates purchased directly from the Azure website.
@@ -30,4 +29,3 @@ In this tutorial, you learn how to:
 |Billing Scope| |
 |Diagnose and solve problems| FAQ's and problems |
 |Settings|Properties(some basic info, not much)|
-

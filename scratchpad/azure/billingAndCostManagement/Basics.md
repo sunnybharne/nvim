@@ -11,5 +11,3 @@
 ### MS Commerce System data pipeline
 ![data pipeline](https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/media/overview-cost-management/commerce-pipeline.svg#lightbox)
 - Credits are applied like a gift card just before monthly invoicing; unused until then.
-
-
