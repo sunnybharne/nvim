@@ -12,7 +12,6 @@
     - Use of services not covered by the enterprise agreement
   - Organizational credits are called prepayments or monetary commitments
 
-
 ### Subscription > Billing
 - cost analysis
 - invoices > bill
