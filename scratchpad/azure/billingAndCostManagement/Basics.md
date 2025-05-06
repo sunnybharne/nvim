@@ -1,7 +1,7 @@
 # Cost Management and Billing
 
 > [!NOTE]
-> - I am here -> Billing Doc: https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/mpa-invoice-terms
+> - Billing Doc: https://learn.microsoft.com/en-us/azure/cost-management-billing/manage/ea-direct-portal-get-started
 > - Cost Management Doc: https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/
 > - Training: https://learn.microsoft.com/en-us/training/paths/control-spending-manage-bills/?source=recommendations
 > - Training: https://learn.microsoft.com/en-us/training/modules/manage-costs-partner-cost-management/?source=recommendations
@@ -35,5 +35,18 @@
 > - vm meters example:
 >   - Compute Hours, IP Address Hours, Data Transfer In, Data Transfer Out, Standard Managed Disk, Standard Managed Disk Operations, Standard IO-Disk, Standard IO-Block Blob Read, Standard IO-Block Blob Write, Standard IO-Block Blob Delete
 
-### Subscription
-- A way to manage products and services that you buy from ms or from outside azure.
+## Billing hierarchy
+
+![Billing hierarchy](https://learn.microsoft.com/en-us/azure/cost-management-billing/understand/media/mosp-new-customer-experience/new-billing-account-hierarchy.png#lightbox)
+
+- Billing account
+    - Billing profile(manage your invoice and payment methods)
+        - Invoice sections(For example, you might need a single invoice but want to organize costs by department, team, or project)
+
+> [!NOTE]
+> Get a single monthly invoice for Azure subscriptions.
+> Cost Management and Billing > Subscriptions > ... > Change invoice section 
+> Automatically publish your cost and usage data to a storage account on a daily, weekly, or monthly basis.
+> Apply policies to control purchases of Azure Reservations and Marketplace products.
+
+---

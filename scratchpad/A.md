@@ -1,22 +1,11 @@
 # Task List
-- [x] Pester Automation
-- [ ] Robot Framework automation
-- [ ] Pilot environemtn setup
 
-----
-----
-
-# Things to remember
-
-|Name |Age |
-| --- | --- |
-|John |23 |
-|Doe |24 |
-|Jane |25 |
-
-----
-----
-
-Bicep
+- [ ] Make IA the first for the suggestions
+- [ ] Flat handover call
+- [ ] Delivery Delay
+- [ ] DNA Sim activation
+- [ ] Ping Praveen
+- [ ] ZMK tutorials
+- [ ] Some new neovim plugins
 
 ## Made by Sunny Bharne
