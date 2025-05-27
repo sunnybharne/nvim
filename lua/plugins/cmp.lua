@@ -56,24 +56,32 @@ return {
         }),
 
         sources = cmp.config.sources({
-          { name = "nvim_lsp" }, -- LSP autocompletion
-          { name = "luasnip" }, --  Snippets
-          { name = "buffer" }, -- Buffer words
-          { name = "path" }, -- Path suggestions
-        }, {
-          { name = "copilot" },
+          { name = "copilot", priority = 1000 }, -- Copilot with highest priority
+          { name = "nvim_lsp", priority = 900 }, -- LSP autocompletion
+          { name = "luasnip", priority = 800 }, -- Snippets
+          { name = "buffer", priority = 700 }, -- Buffer words
+          { name = "path", priority = 600 }, -- Path suggestions
         })
       })
     end
   },
 
-  --  GitHub Copilot Integration
+  -- GitHub Copilot Integration
   {
     "zbirenbaum/copilot.lua",
     event = "InsertEnter",
     config = function()
       require("copilot").setup({
-        suggestion = { enabled = false },
+        suggestion = { 
+          enabled = true,
+          auto_trigger = true,
+          keymap = {
+            accept = "<Tab>",
+            next = "<C-n>",
+            prev = "<C-p>",
+            dismiss = "<C-c>",
+          },
+        },
         panel = { enabled = false },
       })
     end,
@@ -82,7 +90,14 @@ return {
     "zbirenbaum/copilot-cmp",
     dependencies = { "copilot.lua" },
     config = function()
-      require("copilot_cmp").setup()
+      require("copilot_cmp").setup({
+        method = "getCompletionsCycling",
+        formatters = {
+          label = require("copilot_cmp.format").format_label_text,
+          insert_text = require("copilot_cmp.format").format_insert_text,
+          preview = require("copilot_cmp.format").deindent,
+        },
+      })
     end,
   },
 }
