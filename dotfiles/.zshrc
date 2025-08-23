@@ -69,9 +69,3 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 source $ZSH/oh-my-zsh.sh
-
-complete -o nospace -C /usr/bin/terraform terraform
-source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-source /opt/homebrew/opt/chruby/share/chruby/auto.sh
-chruby ruby-3.4.1
