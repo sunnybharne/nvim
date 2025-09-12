@@ -15,32 +15,15 @@ return {
       --  List of LSP servers with correct `lspconfig` references
       local servers = {
         "lua_ls",
-        "azure_pipelines_ls",
-        "bashls",
-        "bicep",
         "ts_ls",
         "terraformls",
-        "sqlls",
         "robotframework_ls",
         "pyright",
         "powershell_es",
         "jsonls",
-        "html",
         "yamlls",
-        "cssls",
         "dockerls",
         "docker_compose_language_service",
-        "ansiblels",
-        "graphql",
-        "kotlin_language_server",
-        "grammarly",
-        "cucumber_language_server",
-        "diagnosticls",
-        "nextls",
-        "mutt_ls",
-        "mdx_analyzer",
-        "gradle_ls",
-        "helm_ls",
       }
 
       -- Mason Setup (LSP Installer)
