@@ -8,24 +8,24 @@ ls.add_snippets('terraform', {
   s("mg", {
     t({"resource \"azurerm_management_group\" \"example\" {",""}),
     t({"  display_name = \"Management Group\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   -- Policy Assignment
   s("policy", {
     t({"resource \"azurerm_management_group_policy_assignment\" \"example\" {",""}),
     t({"  name                 = \"policy-assignment\"",""}),
-    t({"  management_group_id  = azurerm_management_group.example.id",""}),
+    t({"", "  management_group_id  = azurerm_management_group.example.id"}),
     t({"  policy_definition_id = \"/providers/Microsoft.Authorization/policyDefinitions/...\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   -- Role Assignment
   s("role", {
     t({"resource \"azurerm_role_assignment\" \"example\" {",""}),
-    t({"  scope                = azurerm_management_group.example.id",""}),
+    t({"", "  scope                = azurerm_management_group.example.id"}),
     t({"  role_definition_name = \"Contributor\"",""}),
     t({"  principal_id         = \"principal-id\"",""}),
-    t({"}",""})
+    t({"", "}"})
   })
 })

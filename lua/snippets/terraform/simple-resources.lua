@@ -9,7 +9,7 @@ ls.add_snippets('terraform', {
     t({"resource \"azurerm_resource_group\" \"example\" {",""}),
     t({"  name     = \"example-rg\"",""}),
     t({"  location = \"East US\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   s("vnet", {
@@ -18,7 +18,7 @@ ls.add_snippets('terraform', {
     t({"  address_space       = [\"10.0.0.0/16\"]",""}),
     t({"  location            = \"East US\"",""}),
     t({"  resource_group_name = \"example-rg\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   s("subnet", {
@@ -27,7 +27,7 @@ ls.add_snippets('terraform', {
     t({"  resource_group_name  = \"example-rg\"",""}),
     t({"  virtual_network_name = \"example-vnet\"",""}),
     t({"  address_prefixes     = [\"10.0.1.0/24\"]",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   s("vm", {
@@ -38,27 +38,27 @@ ls.add_snippets('terraform', {
     t({"  size                = \"Standard_B1s\"",""}),
     t({"  admin_username      = \"adminuser\"",""}),
     t({"",""}),
-    t({"  admin_ssh_key {",""}),
+    t({"", "  admin_ssh_key {"}),
     t({"    username   = \"adminuser\"",""}),
     t({"    public_key = file(\"~/.ssh/id_rsa.pub\")",""}),
-    t({"  }",""}),
+    t({"", "  }"}),
     t({"",""}),
-    t({"  network_interface_ids = [",""}),
-    t({"    azurerm_network_interface.example.id",""}),
-    t({"  ]",""}),
+    t({"", "  network_interface_ids = ["}),
+    t({"", "    azurerm_network_interface.example.id"}),
+    t({"", "  ]"}),
     t({"",""}),
-    t({"  os_disk {",""}),
+    t({"", "  os_disk {"}),
     t({"    caching              = \"ReadWrite\"",""}),
     t({"    storage_account_type = \"Standard_LRS\"",""}),
-    t({"  }",""}),
+    t({"", "  }"}),
     t({"",""}),
-    t({"  source_image_reference {",""}),
+    t({"", "  source_image_reference {"}),
     t({"    publisher = \"Canonical\"",""}),
     t({"    offer     = \"0001-com-ubuntu-server-jammy\"",""}),
     t({"    sku       = \"22_04-lts\"",""}),
     t({"    version   = \"latest\"",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   s("sa", {
@@ -68,20 +68,20 @@ ls.add_snippets('terraform', {
     t({"  location                 = \"East US\"",""}),
     t({"  account_tier             = \"Standard\"",""}),
     t({"  account_replication_type = \"LRS\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   -- AWS Resources
   s("vpc", {
     t({"resource \"aws_vpc\" \"example\" {",""}),
     t({"  cidr_block           = \"10.0.0.0/16\"",""}),
-    t({"  enable_dns_hostnames = true",""}),
-    t({"  enable_dns_support   = true",""}),
+    t({"", "  enable_dns_hostnames = true"}),
+    t({"", "  enable_dns_support   = true"}),
     t({"",""}),
-    t({"  tags = {",""}),
+    t({"", "  tags = {"}),
     t({"    Name = \"example-vpc\"",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   s("ec2", {
@@ -89,50 +89,50 @@ ls.add_snippets('terraform', {
     t({"  ami           = \"ami-0c02fb55956c7d316\"",""}),
     t({"  instance_type = \"t3.micro\"",""}),
     t({"",""}),
-    t({"  tags = {",""}),
+    t({"", "  tags = {"}),
     t({"    Name = \"example-instance\"",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   s("s3", {
     t({"resource \"aws_s3_bucket\" \"example\" {",""}),
     t({"  bucket = \"example-bucket\"",""}),
     t({"",""}),
-    t({"  tags = {",""}),
+    t({"", "  tags = {"}),
     t({"    Name = \"example-bucket\"",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   -- Common Patterns
   s("variable", {
     t({"variable \"example\" {",""}),
     t({"  description = \"Example variable\"",""}),
-    t({"  type        = string",""}),
+    t({"", "  type        = string"}),
     t({"  default     = \"default-value\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   s("output", {
     t({"output \"example\" {",""}),
     t({"  description = \"Example output\"",""}),
-    t({"  value       = resource.example.name",""}),
-    t({"}",""})
+    t({"", "  value       = resource.example.name"}),
+    t({"", "}"})
   }),
 
   s("data", {
     t({"data \"azurerm_resource_group\" \"example\" {",""}),
     t({"  name = \"example-rg\"",""}),
-    t({"}",""})
+    t({"", "}"})
   }),
 
   s("locals", {
-    t({"locals {",""}),
-    t({"  common_tags = {",""}),
+    t({"", "locals {"}),
+    t({"", "  common_tags = {"}),
     t({"    Environment = \"dev\"",""}),
     t({"    Project     = \"example\"",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "  }"}),
+    t({"", "}"})
   })
 })

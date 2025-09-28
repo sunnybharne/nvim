@@ -255,9 +255,48 @@ function M.show()
     M.show_for_filetype(ft)
 end
 
+-- Smart snippets function that shows appropriate snippets based on file type
+function M.show_smart_snippets()
+    local ft = vim.bo.filetype or ""
+    
+    -- Check if it's a Terraform file
+    if ft == "terraform" or ft == "hcl" then
+        local terraform_file = fn.stdpath("config") .. "/scratchpad/terraform-snippets.md"
+        if fn.filereadable(terraform_file) == 1 then
+            vim.cmd("edit " .. fn.fnameescape(terraform_file))
+            vim.bo.bufhidden = "wipe"
+        else
+            notify("Terraform snippets file not found", vim.log.levels.WARN)
+        end
+    -- Check if it's a TypeScript/JavaScript file (likely CDKTF)
+    elseif ft == "typescript" or ft == "javascript" or ft == "ts" or ft == "js" then
+        local cdktf_file = fn.stdpath("config") .. "/scratchpad/cdktf-snippets.md"
+        if fn.filereadable(cdktf_file) == 1 then
+            vim.cmd("edit " .. fn.fnameescape(cdktf_file))
+            vim.bo.bufhidden = "wipe"
+        else
+            notify("CDKTF snippets file not found", vim.log.levels.WARN)
+        end
+    -- Check if it's a Bicep file
+    elseif ft == "bicep" then
+        local bicep_file = fn.stdpath("config") .. "/scratchpad/bicep-snippets.md"
+        if fn.filereadable(bicep_file) == 1 then
+            vim.cmd("edit " .. fn.fnameescape(bicep_file))
+            vim.bo.bufhidden = "wipe"
+        else
+            -- Fall back to general snippets for this file type
+            M.show_for_filetype(ft)
+        end
+    else
+        -- Fall back to general snippets for this file type
+        M.show_for_filetype(ft)
+    end
+end
+
 -- Keymaps
 vim.keymap.set("n", "<leader>sp", M.open_scratchpad, { desc = "Open scratchpad", noremap = true, silent = true })
 vim.keymap.set("n", "<leader>sn", M.next_scratchpad, { desc = "Next scratchpad file", noremap = true, silent = true })
 vim.keymap.set("n", "<space>hh", M.show, { desc = "Show snippets / scratchpad", noremap = true, silent = true })
+vim.keymap.set("n", "<leader>ts", M.show_smart_snippets, { desc = "Show Smart Snippets", noremap = true, silent = true })
 
 return M

@@ -5,6 +5,7 @@ vim.filetype.add({
   extension = {
     tf = "terraform", -- Files with .tf extension are recognized as Terraform
     tfvars = "terraform", -- Files with .tfvars extension are also recognized as Terraform
+    bicep = "bicep", -- Files with .bicep extension are recognized as Bicep
   }
 })
 
@@ -16,4 +17,12 @@ vim.filetype.add({
   pattern = {
     ["Dockerfile%..*"] = "dockerfile", -- Files matching 'Dockerfile.<something>' are recognized as Dockerfile
   },
+})
+
+-- Set comment configuration for specific filetypes
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "bicep",
+  callback = function()
+    vim.bo.commentstring = "// %s"
+  end,
 })
