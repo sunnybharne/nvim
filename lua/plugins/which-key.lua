@@ -50,7 +50,6 @@ return {
         { "<leader>lf", function() require("conform").format() end,           desc = "Format Code" }, -- ✅ Added Formatter Keybinding
         { "gd",         function() vim.lsp.buf.definition() end,              desc = "Go to Definition" },
         { "gr",         function() vim.lsp.buf.references() end,              desc = "Find References" },
-        { "K",          function() vim.lsp.buf.hover() end,                   desc = "Hover Documentation" },
 
         -- 📂 File Manager (`mini.files`)
         { "<leader>e",  function() require("mini.files").open() end,          desc = "Open File Manager" },
@@ -66,6 +65,22 @@ return {
         -- ⚡ Flash.nvim (Fast Navigation)
         { "s",          function() require("flash").jump() end,               desc = "Flash Jump" },
         { "S",          function() require("flash").treesitter() end,         desc = "Flash Treesitter" },
+
+        -- 🏗️ Infrastructure
+        { "<leader>t",  group = "Infrastructure" },
+        { "<leader>ts", function() require("config.scratchpad").show_smart_snippets() end, desc = "Show Smart Snippets", mode = "n" },
+        { "<leader>tfi", "<cmd>!terraform init<cr>",                          desc = "Terraform Init",        mode = "n" },
+        { "<leader>tfp", "<cmd>!terraform plan<cr>",                          desc = "Terraform Plan",        mode = "n" },
+        { "<leader>tfa", "<cmd>!terraform apply<cr>",                         desc = "Terraform Apply",       mode = "n" },
+        { "<leader>tfd", "<cmd>!terraform destroy<cr>",                       desc = "Terraform Destroy",     mode = "n" },
+        { "<leader>tff", "<cmd>!terraform fmt<cr>",                           desc = "Terraform Format",      mode = "n" },
+        { "<leader>tfv", "<cmd>!terraform validate<cr>",                      desc = "Terraform Validate",    mode = "n" },
+        { "<leader>cdi", "<cmd>!cdktf init --template=typescript --local<cr>", desc = "CDKTF Init",            mode = "n" },
+        { "<leader>cdd", "<cmd>!cdktf deploy<cr>",                            desc = "CDKTF Deploy",          mode = "n" },
+        { "<leader>cds", "<cmd>!cdktf synth<cr>",                             desc = "CDKTF Synth",           mode = "n" },
+
+        -- 💻 Terminal
+        { "<leader>tt", "<cmd>ToggleTerm<cr>",                                desc = "Toggle Terminal",       mode = "n" },
 
         -- 📜 Help Menu
         { "<leader>?",  "<cmd>Cheatsheet<cr>",                                desc = "Show Keymaps" },

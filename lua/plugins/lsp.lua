@@ -46,7 +46,7 @@ return {
         local opts = { buffer = bufnr, silent = true }
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)         -- Go to definition
         vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)         -- Show references
-        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)               -- Hover docs
+        vim.keymap.set("n", "K", vim.diagnostic.open_float, opts)               -- Hover docs
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)     -- Rename symbol
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts) -- Code actions
         vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, opts) -- Show diagnostics
@@ -72,6 +72,19 @@ return {
           }
         }
       }
+
+      -- Terraform-specific LSP settings
+      lspconfig.terraformls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          terraform = {
+            format = {
+              enable = true,
+            },
+          },
+        },
+      })
     end
   }
 }

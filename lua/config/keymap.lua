@@ -10,3 +10,6 @@ vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true }) -- Move to t
 vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true }) -- Move to the window above
 vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true }) -- Move to the right window
 
+-- Azure Subscription Keymap
+vim.api.nvim_set_keymap("n", "<leader>zz", "<cmd>AzureSubscription<cr>", { noremap = true, desc = "Show Azure Subscription" })
+

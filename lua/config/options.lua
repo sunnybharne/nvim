@@ -26,3 +26,96 @@ vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.autoindent = true -- Maintain indentation from previous line
 vim.opt.smartindent = true -- Smart indenting based on syntax
 
+-- Azure Subscription Function
+local function get_azure_subscription()
+  local handle = io.popen("az account show --query name -o tsv 2>/dev/null")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    return result:gsub("^%s*(.-)%s*$", "%1") -- trim whitespace
+  end
+  return nil
+end
+
+local function get_azure_subscription_id()
+  local handle = io.popen("az account show --query id -o tsv 2>/dev/null")
+  if handle then
+    local result = handle:read("*a")
+    handle:close()
+    return result:gsub("^%s*(.-)%s*$", "%1") -- trim whitespace
+  end
+  return nil
+end
+
+local function show_azure_subscription()
+  local subscription_name = get_azure_subscription()
+  local subscription_id = get_azure_subscription_id()
+  
+  if not subscription_name or subscription_name == "" then
+    vim.notify("Not logged into Azure CLI or no subscription found", vim.log.levels.WARN)
+    return
+  end
+
+  -- Create buffer
+  local buf = vim.api.nvim_create_buf(false, true)
+  
+  -- Prepare content
+  local content = {
+    "Azure Subscription Info",
+    "======================",
+    "",
+    "Subscription Name: " .. subscription_name,
+    "Subscription ID: " .. (subscription_id or "N/A"),
+    "",
+    "Press 'q' to close this window"
+  }
+  
+  -- Set buffer content
+  vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
+  
+  -- Make buffer readonly
+  vim.api.nvim_buf_set_option(buf, "readonly", true)
+  vim.api.nvim_buf_set_option(buf, "modifiable", false)
+  
+  -- Calculate window dimensions
+  local width = 50
+  local height = #content
+  local row = (vim.o.lines - height) / 2
+  local col = (vim.o.columns - width) / 2
+  
+  -- Create floating window
+  local win = vim.api.nvim_open_win(buf, true, {
+    relative = "editor",
+    row = row,
+    col = col,
+    width = width,
+    height = height,
+    border = "rounded",
+    title = "Azure Subscription",
+    title_pos = "center",
+    style = "minimal",
+  })
+  
+  -- Set window options
+  vim.api.nvim_win_set_option(win, "number", false)
+  vim.api.nvim_win_set_option(win, "relativenumber", false)
+  vim.api.nvim_win_set_option(win, "wrap", false)
+  
+  -- Add keymap to close window
+  vim.api.nvim_buf_set_keymap(buf, "n", "q", "<cmd>close<cr>", { noremap = true, silent = true })
+  vim.api.nvim_buf_set_keymap(buf, "n", "<Esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+  
+  -- Auto close after 10 seconds (optional)
+  vim.defer_fn(function()
+    if vim.api.nvim_win_is_valid(win) then
+      vim.api.nvim_win_close(win, true)
+    end
+  end, 10000)
+end
+
+-- Create user command
+vim.api.nvim_create_user_command("AzureSubscription", show_azure_subscription, {
+  desc = "Show current Azure subscription information"
+})
+
+

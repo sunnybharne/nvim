@@ -14,6 +14,7 @@ return {
       local cmp = require("cmp")
       local luasnip = require("luasnip")
 
+      -- LuaSnip keymaps (as per official documentation)
       vim.keymap.set({"i"}, "<C-K>", function() luasnip.expand() end, {silent = true})
       vim.keymap.set({"i", "s"}, "<C-L>", function() luasnip.jump( 1) end, {silent = true})
       vim.keymap.set({"i", "s"}, "<C-J>", function() luasnip.jump(-1) end, {silent = true})
@@ -23,6 +24,35 @@ return {
           luasnip.change_choice(1)
         end
       end, {silent = true})
+
+      -- Smart Tab mapping for LuaSnip and nvim-cmp
+      vim.keymap.set({"i", "s"}, "<Tab>", function()
+        if luasnip.expand_or_jumpable() then
+          return luasnip.expand_or_jump()
+        elseif luasnip.jumpable(1) then
+          return luasnip.jump(1)
+        else
+          return "<Tab>"
+        end
+      end, { expr = true, silent = true })
+
+      vim.keymap.set({"i", "s"}, "<S-Tab>", function()
+        if luasnip.jumpable(-1) then
+          return luasnip.jump(-1)
+        else
+          return "<S-Tab>"
+        end
+      end, { expr = true, silent = true })
+
+      -- Additional navigation keys for better snippet control
+      -- Note: <C-L> and <C-J> are already defined above for snippet navigation
+
+      -- Exit snippet completely
+      vim.keymap.set({"i", "s"}, "<C-c>", function()
+        if luasnip.get_active_snippet() then
+          luasnip.unlink_current()
+        end
+      end, { silent = true })
 
       -- Load snippets
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -49,10 +79,10 @@ return {
           }),
         },
         mapping = cmp.mapping.preset.insert({
-          ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<CR>"] = cmp.mapping.confirm({ select = false }),
           ["<C-Space>"] = cmp.mapping.complete(), -- Trigger manual completion
+          ["<CR>"] = cmp.mapping.confirm({ select = false }),
+          ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
         }),
 
         sources = cmp.config.sources({

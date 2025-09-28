@@ -15,33 +15,33 @@ ls.add_snippets('typescript', {
 
   -- Main stack class
   s("cdktf-stack", {
-    t({"export class MyStack extends TerraformStack {",""}),
-    t({"  constructor(scope: Construct, id: string) {",""}),
-    t({"    super(scope, id);",""}),
+    t({"", "export class MyStack extends TerraformStack {"}),
+    t({"", "  constructor(scope: Construct, id: string) {"}),
+    t({"", "    super(scope, id);"}),
     t({"",""}),
-    t({"    // Define resources here",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "    // Define resources here"}),
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   -- App and stack instantiation
   s("cdktf-app", {
-    t({"const app = new App();",""}),
+    t({"", "const app = new App();"}),
     t({"new MyStack(app, \"my-stack\");",""}),
-    t({"app.synth();",""})
+    t({"", "app.synth();"})
   }),
 
   -- Providers
   s("aws-provider", {
     t({"new AwsProvider(this, \"aws\", {",""}),
     t({"  region: \"us-east-1\"",""}),
-    t({"});",""})
+    t({"", "});"})
   }),
 
   s("azure-provider", {
     t({"new AzurermProvider(this, \"azurerm\", {",""}),
-    t({"  features: {}",""}),
-    t({"});",""})
+    t({"", "  features: {}"}),
+    t({"", "});"})
   }),
 
   -- Variables
@@ -50,23 +50,23 @@ ls.add_snippets('typescript', {
     t({"  type: \"string\"",""}),
     t({"  description: \"Example variable\"",""}),
     t({"  default: \"default-value\"",""}),
-    t({"});",""})
+    t({"", "});"})
   }),
 
   -- Outputs
   s("cdktf-output", {
     t({"new TerraformOutput(this, \"example-output\", {",""}),
-    t({"  value: resource.property",""}),
+    t({"", "  value: resource.property"}),
     t({"  description: \"Example output value\"",""}),
-    t({"});",""})
+    t({"", "});"})
   }),
 
   -- Local values
   s("cdktf-local", {
-    t({"const commonTags = {",""}),
+    t({"", "const commonTags = {"}),
     t({"  Environment: \"dev\"",""}),
     t({"  Project: \"example\"",""}),
-    t({"};",""})
+    t({"", "};"})
   }),
 
   -- Modules
@@ -75,21 +75,21 @@ ls.add_snippets('typescript', {
     t({"  source: \"./modules/example\"",""}),
     t({"  version: \"1.0.0\"",""}),
     t({"",""}),
-    t({"  variables: {",""}),
+    t({"", "  variables: {"}),
     t({"    input_var: \"value\"",""}),
-    t({"  }",""}),
-    t({"});",""})
+    t({"", "  }"}),
+    t({"", "});"})
   }),
 
   -- Constructs
   s("cdktf-construct", {
-    t({"export class ExampleConstruct extends Construct {",""}),
-    t({"  constructor(scope: Construct, id: string) {",""}),
-    t({"    super(scope, id);",""}),
+    t({"", "export class ExampleConstruct extends Construct {"}),
+    t({"", "  constructor(scope: Construct, id: string) {"}),
+    t({"", "    super(scope, id);"}),
     t({"",""}),
-    t({"    // Define resources here",""}),
-    t({"  }",""}),
-    t({"}",""})
+    t({"", "    // Define resources here"}),
+    t({"", "  }"}),
+    t({"", "}"})
   }),
 
   -- Testing
@@ -99,10 +99,10 @@ ls.add_snippets('typescript', {
     t({"",""}),
     t({"describe(\"My CDKTF Application\", () => {",""}),
     t({"  it(\"should synthesize without error\", () => {",""}),
-    t({"    const app = Testing.app();",""}),
+    t({"", "    const app = Testing.app();"}),
     t({"    const stack = new MyStack(app, \"test\");",""}),
-    t({"    expect(Testing.synth(stack)).toMatchSnapshot();",""}),
-    t({"  });",""}),
-    t({"});",""})
+    t({"", "    expect(Testing.synth(stack)).toMatchSnapshot();"}),
+    t({"", "  });"}),
+    t({"", "});"})
   })
 })
