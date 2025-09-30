@@ -1,33 +1,53 @@
 return {
-  {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",  -- Load when `:Copilot` is used
-    event = "InsertEnter",  -- Start in insert mode
+    cmd = "Copilot",
+    event = "InsertEnter",
     config = function()
-      require("copilot").setup({
-        panel = { enabled = false }, -- Disable suggestion panel
-        suggestion = {
-          enabled = true,
-          auto_trigger = true, -- Auto-show suggestions as you type
-          keymap = {
-            accept = "<Tab>",  -- Use <Tab> to accept suggestions
-            next = "<C-n>",    -- Next suggestion
-            prev = "<C-p>",    -- Previous suggestion
-            dismiss = "<C-c>", -- Dismiss suggestion
-          },
-        },
-      })
+        require("copilot").setup({
+            -- Panel configuration
+            panel = {
+                enabled = true,
+                auto_refresh = false,
+                keymap = {
+                    jump_prev = "[[",
+                    jump_next = "]]",
+                    accept = "<CR>",
+                    refresh = "gr",
+                    open = "<M-CR>"
+                },
+                layout = {
+                    position = "bottom", -- | top | left | right
+                    ratio = 0.4
+                },
+            },
+            -- Suggestion configuration
+            suggestion = {
+                enabled = true,
+                auto_trigger = false,
+                debounce = 75,
+                keymap = {
+                    accept = "<M-l>",
+                    accept_word = false,
+                    accept_line = false,
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                    dismiss = "<C-]>",
+                },
+            },
+            -- File types to enable copilot for
+            filetypes = {
+                yaml = false,
+                markdown = false,
+                help = false,
+                gitcommit = false,
+                gitrebase = false,
+                hgcommit = false,
+                svn = false,
+                cvs = false,
+                ["."] = false,
+            },
+            -- Server configuration
+            server_opts_overrides = {},
+        })
     end,
-  },
-  {
-   "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
-      { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
-    },
-    build = "make tiktoken", -- Only on MacOS or Linux
-    opts = {
-      -- See Configuration section for options
-    }
-  }
 }

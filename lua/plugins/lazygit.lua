@@ -1,22 +1,24 @@
 return {
-  "kdheepak/lazygit.nvim",
-  cmd = {
-    "LazyGit",
-    "LazyGitConfig",
-    "LazyGitCurrentFile",
-    "LazyGitFilter",
-    "LazyGitFilterCurrentFile",
+  {
+    "kdheepak/lazygit.nvim",
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    keys = {
+      { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
+      { "<leader>lc", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit current file" },
+      { "<leader>lf", "<cmd>LazyGitFilter<cr>", desc = "LazyGit filter" },
+      { "<leader>lF", "<cmd>LazyGitFilterCurrentFile<cr>", desc = "LazyGit filter current file" },
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function() end,
   },
-  dependencies = { "nvim-lua/plenary.nvim" },
-  keys = {
-    { "<leader>gg", "<cmd>LazyGit<cr>", desc = "Open LazyGit" },
-    { "<leader>gl", "<cmd>LazyGitCurrentFile<cr>", desc = "LazyGit Current File" },
-    { "<leader>gf", "<cmd>LazyGitFilter<cr>", desc = "LazyGit Filter" },
-  },
-  config = function()
-    -- Optional: Define a floating window command for LazyGit
-    vim.api.nvim_create_user_command("LazyGitFloat", function()
-      require("lazy.util").float_term({ "lazygit" })
-    end, { desc = "Open LazyGit in Floating Window" })
-  end
 }
