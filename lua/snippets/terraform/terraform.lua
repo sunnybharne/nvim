@@ -1,6 +1,16 @@
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+
+-- Import common utilities
+local utils = require("snippets.utils")
+local fn = utils.fn
+local generate_resource_name = utils.generate_resource_name
+local generate_var_description = utils.generate_var_description
+local generate_output_description = utils.generate_output_description
+local generate_tags = utils.generate_tags
 
 -- Terraform configuration snippets
 -- Version: 1.2.0
@@ -45,19 +55,23 @@ local terraform_snippets = {
 
   -- Variables block
   s("variables", {
-    t({"variable \"example\" {",""}),
-    t({"  description = \"Example variable\"",""}),
-    t({"", "  type        = string"}),
-    t({"  default     = \"default-value\"",""}),
-    t({"", "}"})
+    t({"variable \""}), i(1, "variableName"), t({"\" {",""}),
+    t({"  description = \""}), f(generate_var_description, {1}), t({"\""}),
+    t({"", "  type        = "}), i(2, "string"),
+    t({"", "  default     = "}), i(3, "\"default-value\""),
+    t({"", "}"}),
+    t({"", ""}),
+    i(0, ""), -- Final insert node
   }),
 
   -- Output block
   s("output", {
-    t({"output \"example\" {",""}),
-    t({"  description = \"Example output\"",""}),
-    t({"", "  value       = resource.example.name"}),
-    t({"", "}"})
+    t({"output \""}), i(1, "outputName"), t({"\" {",""}),
+    t({"  description = \""}), f(generate_output_description, {1}), t({"\""}),
+    t({"", "  value       = "}), i(2, "resource.example.name"),
+    t({"", "}"}),
+    t({"", ""}),
+    i(0, ""), -- Final insert node
   }),
 
   -- Data source
