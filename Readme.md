@@ -267,6 +267,37 @@
 - **Tab operations**: Create, close, and manage tabs
 - **Project isolation**: Use tabs for different projects
 
+## Copilot Chat
+| Keymap | Description |
+|--------|-------------|
+| `<Leader>cc` | Open chat panel |
+| `<Leader>cq` | Quick inline chat |
+| `<Leader>cd` | Explain current code |
+| `<Leader>cr` | Review code |
+| `<Leader>cf` | Fix code issues |
+| `<Leader>co` | Optimize code |
+| `<Leader>ct` | Generate tests |
+
+### Copilot Chat Features:
+- **Full chat panel**: Interactive conversation with Copilot
+- **Quick inline chat**: Fast questions without opening panel
+- **Code explanation**: Ask Copilot to explain your code
+- **Code review**: Get feedback on code quality
+- **Code fixing**: Ask Copilot to fix bugs and issues
+- **Code optimization**: Get suggestions for better performance
+- **Test generation**: Generate unit tests for your code
+- **Context awareness**: Understands your current file and selected code
+
+### How to Use Copilot Chat:
+1. **Open chat**: Press `<Leader>cc` to start a conversation
+2. **Quick questions**: Use `<Leader>cq` for fast inline questions
+3. **Code help**: Select code and use `<Leader>cc` to ask about it
+4. **Code explanation**: Use `<Leader>cd` to explain current file
+5. **Code review**: Use `<Leader>cr` to get code review feedback
+6. **Fix issues**: Use `<Leader>cf` to ask Copilot to fix problems
+7. **Optimize**: Use `<Leader>co` to get optimization suggestions
+8. **Generate tests**: Use `<Leader>ct` to create unit tests
+
 ## Visual Mode
 | Keymap | Description |
 |--------|-------------|

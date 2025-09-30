@@ -15,6 +15,13 @@ return {
         -- Default: { "lsp", "pattern" }, in this case, if the lsp method is not
         -- available, it will fall back to pattern matching.
         detection_methods = { "lsp", "pattern" },
+        
+        -- Custom project detection for ~/code folder
+        exclude_dirs = {},
+        show_hidden = false,
+        silent_chdir = true,
+        scope_chdir = 'global',
+        datapath = vim.fn.stdpath("data"),
 
         -- All the patterns used to detect root dir, when **"pattern"** method is
         -- used
@@ -162,6 +169,7 @@ return {
 
       -- Telescope integration
       require('telescope').load_extension('projects')
+      
     end,
   },
 }

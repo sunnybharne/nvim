@@ -48,7 +48,17 @@ return {
           lualine_c = { "filename" },
           lualine_x = { "encoding", "fileformat", "filetype" },
           lualine_y = { "progress" },
-          lualine_z = { "location" },
+          lualine_z = { 
+            function()
+              local current_tab = vim.fn.tabpagenr()
+              local total_tabs = vim.fn.tabpagenr("$")
+              if total_tabs > 1 then
+                return string.format("Tab %d/%d", current_tab, total_tabs)
+              end
+              return ""
+            end,
+            "location" 
+          },
         },
         inactive_sections = {
           lualine_a = {},
