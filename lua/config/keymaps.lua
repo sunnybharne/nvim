@@ -14,11 +14,10 @@ vim.keymap.set("n", "<Leader>ms", ":MarkdownPreviewStop<CR>", { desc = "Stop mar
 vim.keymap.set("n", "<Leader>mt", ":MarkdownPreviewToggle<CR>", { desc = "Toggle markdown preview" })
 
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true }) -- Indent left and reselect
-vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true }) -- Indent right and reselec
-vim.api.nvim_set_keymap("n", "<C-h>", "<C-w>h", { noremap = true }) -- Move to the left window
-vim.api.nvim_set_keymap("n", "<C-j>", "<C-w>j", { noremap = true }) -- Move to the window below
-vim.api.nvim_set_keymap("n", "<C-k>", "<C-w>k", { noremap = true }) -- Move to the window above
-vim.api.nvim_set_keymap("n", "<C-l>", "<C-w>l", { noremap = true }) -- Move to the right window
+vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true }) -- Indent right and reselect
+
+-- Window navigation is handled by vim-tmux-navigator plugin
+-- See lua/plugins/tmux-navigator.lua for configuration
 
 -- Smart quit keybindings for Neo-tree scenarios
 vim.keymap.set("n", "<Leader>q", function()
