@@ -1,5 +1,8 @@
 # Bicep Snippets
 
+## Installation
+Default nvim configuration does not work out of the box. you need to do the manual installation from here.
+
 ## Files
 - `basic-snippets.lua` - Core Bicep snippets
 - `azure-resources.lua` - Azure resources

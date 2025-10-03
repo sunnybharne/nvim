@@ -1,5 +1,7 @@
 # Path to your Oh My Zsh installation
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+export ZSH_CACHE_DIR="$HOME/.oh-my-zsh/cache"
 
 # Use the Robby Russell Theme
 ZSH_THEME="robbyrussell"
@@ -35,6 +37,7 @@ alias vi='nvim'
 alias vim='nvim'
 alias reload='source ~/.zshrc'
 alias t='tmux attach || tmux new -s main'
+alias mux='tmuxinator'
 alias gco='git checkout'
 alias gs='git status'
 alias gl='git pull'
@@ -62,10 +65,25 @@ export VISUAL=nvim
 #   tmux attach || tmux new -s main
 # fi
 
-# Enable zsh-autosuggestions
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Ensure Homebrew env (helps inside tmux too)
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 
-# Enable zsh-syntax-highlighting
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# zsh-autosuggestions
+if [[ -f "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
+  source "$(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+fi
+
+# zsh-syntax-highlighting should be sourced last
+if [[ -f "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
+  source "$(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+fi
 
 source $ZSH/oh-my-zsh.sh
+
+complete -o nospace -C /usr/bin/terraform terraform
+
+# Added by Windsurf
+export PATH="/Users/sunnybharne/.codeium/windsurf/bin:$PATH"
+
