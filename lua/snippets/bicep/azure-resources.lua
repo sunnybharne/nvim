@@ -1,215 +1,235 @@
-local ls = require("luasnip")
-local s = ls.snippet
-local t = ls.text_node
-
--- Azure Resource snippets - consistent with Terraform and CDKTF keywords
-ls.add_snippets('bicep', {
-  -- Resource Group
-  s("rg", {
-    t({"", "resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {"}),
-    t({"", "  name: 'example-rg'"}),
-    t({"", "  location: 'East US'"}),
-    t({"", "  tags: {"}),
-    t({"", "    Environment: 'dev'"}),
-    t({"", "    Project: 'example'"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Virtual Network
-  s("vnet", {
-    t({"", "resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {"}),
-    t({"", "  name: 'example-vnet'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  properties: {"}),
-    t({"", "    addressSpace: {"}),
-    t({"", "      addressPrefixes: ["}),
-    t({"", "        '10.0.0.0/16'"}),
-    t({"", "      ]"}),
-    t({"", "    }"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Subnet
-  s("subnet", {
-    t({"", "resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {"}),
-    t({"", "  parent: virtualNetwork"}),
-    t({"", "  name: 'example-subnet'"}),
-    t({"", "  properties: {"}),
-    t({"", "    addressPrefix: '10.0.1.0/24'"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Network Security Group
-  s("nsg", {
-    t({
-      "resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {",
-      "  name: 'example-nsg'",
-      "  location: resourceGroup.location",
-      "  properties: {",
-      "    securityRules: [",
-      "      {",
-      "        name: 'AllowHTTP'",
-      "        properties: {",
-      "          priority: 1000",
-      "          access: 'Allow'",
-      "          direction: 'Inbound'",
-      "          destinationPortRange: '80'",
-      "          protocol: 'Tcp'",
-      "          sourceAddressPrefix: '*'",
-      "        }",
-      "      }",
-      "    ]",
-      "  }",
-      "}"
-    })
-  }),
-
-  -- Public IP
-  s("pip", {
-    t({"", "resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {"}),
-    t({"", "  name: 'example-pip'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  sku: {"}),
-    t({"", "    name: 'Basic'"}),
-    t({"", "    tier: 'Regional'"}),
-    t({"", "  }"}),
-    t({"", "  properties: {"}),
-    t({"", "    publicIPAllocationMethod: 'Dynamic'"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Network Interface
-  s("nic", {
-    t({"", "resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' = {"}),
-    t({"", "  name: 'example-nic'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  properties: {"}),
-    t({"", "    ipConfigurations: ["}),
-    t({"", "      {"}),
-    t({"", "        name: 'ipconfig1'"}),
-    t({"", "        properties: {"}),
-    t({"", "          privateIPAllocationMethod: 'Dynamic'"}),
-    t({"", "          subnet: {"}),
-    t({"", "            id: subnet.id"}),
-    t({"", "          }"}),
-    t({"", "          publicIPAddress: {"}),
-    t({"", "            id: publicIP.id"}),
-    t({"", "          }"}),
-    t({"", "        }"}),
-    t({"", "      }"}),
-    t({"", "    ]"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Virtual Machine
-  s("vm", {
-    t({"", "resource virtualMachine 'Microsoft.Compute/virtualMachines@2021-11-01' = {"}),
-    t({"", "  name: 'example-vm'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  properties: {"}),
-    t({"", "    hardwareProfile: {"}),
-    t({"", "      vmSize: 'Standard_B1s'"}),
-    t({"", "    }"}),
-    t({"", "    osProfile: {"}),
-    t({"", "      computerName: 'example-vm'"}),
-    t({"", "      adminUsername: 'adminuser'"}),
-    t({"", "      adminPassword: 'AdminPassword123!'"}),
-    t({"", "    }"}),
-    t({"", "    storageProfile: {"}),
-    t({"", "      imageReference: {"}),
-    t({"", "        publisher: 'Canonical'"}),
-    t({"", "        offer: '0001-com-ubuntu-server-jammy'"}),
-    t({"", "        sku: '22_04-lts'"}),
-    t({"", "        version: 'latest'"}),
-    t({"", "      }"}),
-    t({"", "      osDisk: {"}),
-    t({"", "        name: 'example-osdisk'"}),
-    t({"", "        createOption: 'FromImage'"}),
-    t({"", "        diskSizeGB: 30"}),
-    t({"", "      }"}),
-    t({"", "    }"}),
-    t({"", "    networkProfile: {"}),
-    t({"", "      networkInterfaces: ["}),
-    t({"", "        {"}),
-    t({"", "          id: networkInterface.id"}),
-    t({"", "        }"}),
-    t({"", "      ]"}),
-    t({"", "    }"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Storage Account
-  s("sa", {
-    t({"", "resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {"}),
-    t({"", "  name: 'examplestorage'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  sku: {"}),
-    t({"", "    name: 'Standard_LRS'"}),
-    t({"", "  }"}),
-    t({"", "  kind: 'StorageV2'"}),
-    t({"", "  properties: {"}),
-    t({"", "    accessTier: 'Hot'"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Key Vault
-  s("kv", {
-    t({"", "resource keyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {"}),
-    t({"", "  name: 'example-kv'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  properties: {"}),
-    t({"", "    sku: {"}),
-    t({"", "      family: 'A'"}),
-    t({"", "      name: 'standard'"}),
-    t({"", "    }"}),
-    t({"", "    tenantId: subscription().tenantId"}),
-    t({"", "    accessPolicies: ["}),
-    t({"", "      {"}),
-    t({"", "        tenantId: subscription().tenantId"}),
-    t({"", "        objectId: 'object-id-here'"}),
-    t({"", "        permissions: {"}),
-    t({"", "          keys: ['all']"}),
-    t({"", "          secrets: ['all']"}),
-    t({"", "        }"}),
-    t({"", "      }"}),
-    t({"", "    ]"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- App Service Plan
-  s("asp", {
-    t({"", "resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {"}),
-    t({"", "  name: 'example-asp'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  sku: {"}),
-    t({"", "    name: 'F1'"}),
-    t({"", "    tier: 'Free'"}),
-    t({"", "  }"}),
-    t({"", "  properties: {"}),
-    t({"", "    reserved: true"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- App Service
-  s("app", {
-    t({"", "resource webApp 'Microsoft.Web/sites@2021-03-01' = {"}),
-    t({"", "  name: 'example-app'"}),
-    t({"", "  location: resourceGroup.location"}),
-    t({"", "  properties: {"}),
-    t({"", "    serverFarmId: appServicePlan.id"}),
-    t({"", "    siteConfig: {"}),
-    t({"", "      linuxFxVersion: 'NODE|14-lts'"}),
-    t({"", "    }"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  })
-})
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local fmt = require("luasnip.extras.fmt").fmt
+--
+-- -- Import common utilities
+-- local utils = require("snippets.utils")
+-- local fn = utils.fn
+-- local generate_resource_name = utils.generate_resource_name
+-- local generate_param_description = utils.generate_param_description
+--
+-- -- Azure Resource snippets - comprehensive collection
+-- ls.add_snippets('bicep', {
+--   -- Resource Group
+--   s("rg", {
+--     t({"", "resource resourceGroup 'Microsoft.Resources/resourceGroups@2021-04-01' = {"}),
+--     t({"", "  name: '"}),
+--     i(1, "example-rg"),
+--     t({"'"}),
+--     t({"", "  location: '"}),
+--     i(2, "East US"),
+--     t({"'"}),
+--     t({"", "  tags: {"}),
+--     t({"", "    Environment: '"}),
+--     i(3, "dev"),
+--     t({"'"}),
+--     t({"", "    Project: '"}),
+--     i(4, "example"),
+--     t({"'"}),
+--     t({"", "  }"}),
+--     t({"", "}"}),
+--     t({"", ""}),
+--     i(0, ""), -- Final insert node
+--   }),
+-- --
+-- --   -- Virtual Network
+-- --   s("vnet", {
+-- --     t({"", "resource virtualNetwork 'Microsoft.Network/virtualNetworks@2021-05-01' = {"}),
+-- --     t({"", "  name: 'example-vnet'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    addressSpace: {"}),
+-- --     t({"", "      addressPrefixes: ["}),
+-- --     t({"", "        '10.0.0.0/16'"}),
+-- --     t({"", "      ]"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Subnet
+-- --   s("subnet", {
+-- --     t({"", "resource subnet 'Microsoft.Network/virtualNetworks/subnets@2021-05-01' = {"}),
+-- --     t({"", "  parent: virtualNetwork"}),
+-- --     t({"", "  name: 'example-subnet'"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    addressPrefix: '10.0.1.0/24'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Network Security Group
+-- --   s("nsg", {
+-- --     t({
+-- --       "resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2021-05-01' = {",
+-- --       "  name: 'example-nsg'",
+-- --       "  location: resourceGroup.location",
+-- --       "  properties: {",
+-- --       "    securityRules: [",
+-- --       "      {",
+-- --       "        name: 'AllowHTTP'",
+-- --       "        properties: {",
+-- --       "          priority: 1000",
+-- --       "          access: 'Allow'",
+-- --       "          direction: 'Inbound'",
+-- --       "          destinationPortRange: '80'",
+-- --       "          protocol: 'Tcp'",
+-- --       "          sourceAddressPrefix: '*'",
+-- --       "        }",
+-- --       "      }",
+-- --       "    ]",
+-- --       "  }",
+-- --       "}"
+-- --     })
+-- --   }),
+-- --
+-- --   -- Public IP
+-- --   s("pip", {
+-- --     t({"", "resource publicIP 'Microsoft.Network/publicIPAddresses@2021-05-01' = {"}),
+-- --     t({"", "  name: 'example-pip'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  sku: {"}),
+-- --     t({"", "    name: 'Basic'"}),
+-- --     t({"", "    tier: 'Regional'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    publicIPAllocationMethod: 'Dynamic'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Network Interface
+-- --   s("nic", {
+-- --     t({"", "resource networkInterface 'Microsoft.Network/networkInterfaces@2021-05-01' = {"}),
+-- --     t({"", "  name: 'example-nic'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    ipConfigurations: ["}),
+-- --     t({"", "      {"}),
+-- --     t({"", "        name: 'ipconfig1'"}),
+-- --     t({"", "        properties: {"}),
+-- --     t({"", "          privateIPAllocationMethod: 'Dynamic'"}),
+-- --     t({"", "          subnet: {"}),
+-- --     t({"", "            id: subnet.id"}),
+-- --     t({"", "          }"}),
+-- --     t({"", "          publicIPAddress: {"}),
+-- --     t({"", "            id: publicIP.id"}),
+-- --     t({"", "          }"}),
+-- --     t({"", "        }"}),
+-- --     t({"", "      }"}),
+-- --     t({"", "    ]"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Virtual Machine
+-- --   s("vm", {
+-- --     t({"", "resource virtualMachine 'Microsoft.Compute/virtualMachines@2021-11-01' = {"}),
+-- --     t({"", "  name: 'example-vm'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    hardwareProfile: {"}),
+-- --     t({"", "      vmSize: 'Standard_B1s'"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "    osProfile: {"}),
+-- --     t({"", "      computerName: 'example-vm'"}),
+-- --     t({"", "      adminUsername: 'adminuser'"}),
+-- --     t({"", "      adminPassword: 'AdminPassword123!'"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "    storageProfile: {"}),
+-- --     t({"", "      imageReference: {"}),
+-- --     t({"", "        publisher: 'Canonical'"}),
+-- --     t({"", "        offer: '0001-com-ubuntu-server-jammy'"}),
+-- --     t({"", "        sku: '22_04-lts'"}),
+-- --     t({"", "        version: 'latest'"}),
+-- --     t({"", "      }"}),
+-- --     t({"", "      osDisk: {"}),
+-- --     t({"", "        name: 'example-osdisk'"}),
+-- --     t({"", "        createOption: 'FromImage'"}),
+-- --     t({"", "        diskSizeGB: 30"}),
+-- --     t({"", "      }"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "    networkProfile: {"}),
+-- --     t({"", "      networkInterfaces: ["}),
+-- --     t({"", "        {"}),
+-- --     t({"", "          id: networkInterface.id"}),
+-- --     t({"", "        }"}),
+-- --     t({"", "      ]"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Storage Account
+-- --   s("sa", {
+-- --     t({"", "resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {"}),
+-- --     t({"", "  name: 'examplestorage'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  sku: {"}),
+-- --     t({"", "    name: 'Standard_LRS'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "  kind: 'StorageV2'"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    accessTier: 'Hot'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- Key Vault
+-- --   s("kv", {
+-- --     t({"", "resource keyVault 'Microsoft.KeyVault/vaults@2021-10-01' = {"}),
+-- --     t({"", "  name: 'example-kv'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    sku: {"}),
+-- --     t({"", "      family: 'A'"}),
+-- --     t({"", "      name: 'standard'"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "    tenantId: subscription().tenantId"}),
+-- --     t({"", "    accessPolicies: ["}),
+-- --     t({"", "      {"}),
+-- --     t({"", "        tenantId: subscription().tenantId"}),
+-- --     t({"", "        objectId: 'object-id-here'"}),
+-- --     t({"", "        permissions: {"}),
+-- --     t({"", "          keys: ['all']"}),
+-- --     t({"", "          secrets: ['all']"}),
+-- --     t({"", "        }"}),
+-- --     t({"", "      }"}),
+-- --     t({"", "    ]"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- App Service Plan
+-- --   s("asp", {
+-- --     t({"", "resource appServicePlan 'Microsoft.Web/serverfarms@2021-03-01' = {"}),
+-- --     t({"", "  name: 'example-asp'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  sku: {"}),
+-- --     t({"", "    name: 'F1'"}),
+-- --     t({"", "    tier: 'Free'"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    reserved: true"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   }),
+-- --
+-- --   -- App Service
+-- --   s("app", {
+-- --     t({"", "resource webApp 'Microsoft.Web/sites@2021-03-01' = {"}),
+-- --     t({"", "  name: 'example-app'"}),
+-- --     t({"", "  location: resourceGroup.location"}),
+-- --     t({"", "  properties: {"}),
+-- --     t({"", "    serverFarmId: appServicePlan.id"}),
+-- --     t({"", "    siteConfig: {"}),
+-- --     t({"", "      linuxFxVersion: 'NODE|14-lts'"}),
+-- --     t({"", "    }"}),
+-- --     t({"", "  }"}),
+-- --     t({"", "}"})
+-- --   })
+-- -- })

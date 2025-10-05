@@ -1,0 +1,649 @@
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local fmt = require("luasnip.extras.fmt").fmt
+--
+-- -- Advanced Bicep patterns and complex scenarios
+-- ls.add_snippets('bicep', {
+--   -- Complete template structure
+--   s("template", fmt([[
+-- targetScope = 'resourceGroup'
+--
+-- // Parameters
+-- @description('The location for all resources.')
+-- param location string = resourceGroup().location
+--
+-- @description('The environment name.')
+-- @allowed([
+--   'dev'
+--   'test'
+--   'prod'
+-- ])
+-- param environment string = 'dev'
+--
+-- @description('The project name.')
+-- @minLength(3)
+-- @maxLength(20)
+-- param projectName string
+--
+-- // Variables
+-- var resourcePrefix = '{}'
+-- var tags = {{
+--   Environment: environment
+--   Project: projectName
+--   CreatedBy: 'Bicep'
+-- }}
+--
+-- // Resources
+-- {}
+--
+-- // Outputs
+-- @description('The resource group name.')
+-- output resourceGroupName string = resourceGroup().name
+--
+-- @description('The deployment location.')
+-- output deploymentLocation string = location
+-- ]], {
+--     i(1, "projectName"),
+--     i(2, "// Add your resources here"),
+--   })),
+--
+--   -- Conditional deployment
+--   s("conditional", fmt([[
+-- resource {} '{}@{}' = if ({}) {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+--   tags: {{
+--     Environment: '{}'
+--     Condition: 'Deployed when {}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "condition"),
+--     i(5, "resource-name"),
+--     i(6, "resourceGroup().location"),
+--     i(7, "resource properties"),
+--     i(8, "dev"),
+--     i(9, "condition is true"),
+--   })),
+--
+--   -- Loop with complex logic
+--   s("loop-complex", fmt([[
+-- resource {} '{}@{}' = [for (item, index) in {}: {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+--   tags: {{
+--     Index: index
+--     OriginalName: item.name
+--     Environment: '{}'
+--   }}
+-- }}]
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "array"),
+--     i(5, "resource-name"),
+--     i(6, "resourceGroup().location"),
+--     i(7, "resource properties"),
+--     i(8, "dev"),
+--   })),
+--
+--   -- Nested loops (fixed syntax)
+--   s("nested-loop", fmt([[
+-- resource {} '{}@{}' = [for region in {}: [
+--   for environment in {}: {{
+--     name: '{}'
+--     location: region.location
+--     properties: {{
+--       {}
+--     }}
+--     tags: {{
+--       Region: region.name
+--       Environment: environment
+--     }}
+--   }}
+-- ]]
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "regions"),
+--     i(5, "environments"),
+--     i(6, "resource-name"),
+--     i(7, "resource properties"),
+--   })),
+--
+--   -- Complex object with nested properties
+--   s("complex-object", fmt([[
+-- var {} = {{
+--   {}: {{
+--     {}: '{}'
+--     {}: {}
+--     {}: [
+--       '{}'
+--       '{}'
+--     ]
+--   }}
+--   {}: {{
+--     {}: '{}'
+--     {}: {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "objectName"),
+--     i(2, "section1"),
+--     i(3, "property1"),
+--     i(4, "value1"),
+--     i(5, "property2"),
+--     i(6, "value2"),
+--     i(7, "property3"),
+--     i(8, "item1"),
+--     i(9, "item2"),
+--     i(10, "section2"),
+--     i(11, "property1"),
+--     i(12, "value1"),
+--     i(13, "property2"),
+--     i(14, "value2"),
+--   })),
+--
+--   -- Multi-environment configuration
+--   s("multi-env", fmt([[
+-- var {} = {{
+--   dev: {{
+--     {}: '{}'
+--     {}: '{}'
+--     {}: {}
+--   }}
+--   test: {{
+--     {}: '{}'
+--     {}: '{}'
+--     {}: {}
+--   }}
+--   prod: {{
+--     {}: '{}'
+--     {}: '{}'
+--     {}: {}
+--   }}
+-- }}
+--
+-- var {} = {}[environment]
+-- ]], {
+--     i(1, "configName"),
+--     i(2, "property1"),
+--     i(3, "dev-value1"),
+--     i(4, "property2"),
+--     i(5, "dev-value2"),
+--     i(6, "property3"),
+--     i(7, "dev-value3"),
+--     i(8, "property1"),
+--     i(9, "test-value1"),
+--     i(10, "property2"),
+--     i(11, "test-value2"),
+--     i(12, "property3"),
+--     i(13, "test-value3"),
+--     i(14, "property1"),
+--     i(15, "prod-value1"),
+--     i(16, "property2"),
+--     i(17, "prod-value2"),
+--     i(18, "property3"),
+--     i(19, "prod-value3"),
+--     i(20, "currentConfig"),
+--     i(21, "configName"),
+--   })),
+--
+--   -- Resource with dependencies
+--   s("dependencies", fmt([[
+-- resource {} '{}@{}' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+--   dependsOn: [
+--     {}
+--   ]
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "resource-name"),
+--     i(5, "resourceGroup().location"),
+--     i(6, "resource properties"),
+--     i(7, "dependencyResource"),
+--   })),
+--
+--   -- Cross-resource references
+--   s("cross-ref", fmt([[
+-- resource {} '{}@{}' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}: {}.id
+--     {}: {}.properties.{}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "resource-name"),
+--     i(5, "resourceGroup().location"),
+--     i(6, "referenceProperty"),
+--     i(7, "referencedResource"),
+--     i(8, "anotherProperty"),
+--     i(9, "anotherResource"),
+--     i(10, "propertyName"),
+--   })),
+--
+--   -- Complex parameter validation
+--   s("param-validation", fmt([[
+-- @description('The storage account name.')
+-- @minLength(3)
+-- @maxLength(24)
+-- @pattern('^[a-z0-9]+$')
+-- param storageAccountName string
+--
+-- @description('The storage account SKU.')
+-- @allowed([
+--   'Standard_LRS'
+--   'Standard_GRS'
+--   'Standard_RAGRS'
+--   'Standard_ZRS'
+--   'Premium_LRS'
+--   'Premium_ZRS'
+-- ])
+-- param storageAccountSku string = 'Standard_LRS'
+--
+-- @description('The location for all resources.')
+-- param location string = resourceGroup().location
+--
+-- @description('The environment.')
+-- @allowed([
+--   'dev'
+--   'test'
+--   'staging'
+--   'prod'
+-- ])
+-- param environment string = 'dev'
+--
+-- @description('The project name.')
+-- @minLength(1)
+-- @maxLength(50)
+-- param projectName string
+--
+-- @description('The cost center for billing.')
+-- param costCenter string
+--
+-- @description('The owner of the resources.')
+-- param owner string
+--
+-- @description('The application name.')
+-- param applicationName string
+-- ]], {
+--     i(1, "storageAccountName"),
+--     i(2, "Standard_LRS"),
+--     i(3, "resourceGroup().location"),
+--     i(4, "dev"),
+--     i(5, "projectName"),
+--     i(6, "costCenter"),
+--     i(7, "owner"),
+--     i(8, "applicationName"),
+--   })),
+--
+--   -- Complex variable calculations
+--   s("var-calc", fmt([[
+-- var {} = {{
+--   {}: concat('{}', '{}', '{}')
+--   {}: format('{}', {})
+--   {}: uniqueString({})
+--   {}: toLower('{}')
+--   {}: toUpper('{}')
+--   {}: length({})
+--   {}: contains({}, '{}')
+--   {}: indexOf({}, '{}')
+--   {}: substring('{}', {}, {})
+--   {}: replace('{}', '{}', '{}')
+-- }}
+--
+-- var {} = {{
+--   {}: add({}, {})
+--   {}: sub({}, {})
+--   {}: mul({}, {})
+--   {}: div({}, {})
+--   {}: mod({}, {})
+--   {}: min({})
+--   {}: max({})
+--   {}: range({}, {})
+-- }}
+--
+-- var {} = {{
+--   {}: and({}, {})
+--   {}: or({}, {})
+--   {}: not({})
+--   {}: equals({}, {})
+--   {}: less({}, {})
+--   {}: greater({}, {})
+--   {}: lessOrEquals({}, {})
+--   {}: greaterOrEquals({}, {})
+-- }}
+-- ]], {
+--     i(1, "stringFunctions"),
+--     i(2, "concat"),
+--     i(3, "string1"),
+--     i(4, "string2"),
+--     i(5, "string3"),
+--     i(6, "format"),
+--     i(7, "format string {0}"),
+--     i(8, "argument"),
+--     i(9, "unique"),
+--     i(10, "resourceGroup().id"),
+--     i(11, "toLower"),
+--     i(12, "STRING"),
+--     i(13, "toUpper"),
+--     i(14, "string"),
+--     i(15, "length"),
+--     i(16, "array"),
+--     i(17, "contains"),
+--     i(18, "array"),
+--     i(19, "value"),
+--     i(20, "indexOf"),
+--     i(21, "array"),
+--     i(22, "value"),
+--     i(23, "substring"),
+--     i(24, "string"),
+--     i(25, "start"),
+--     i(26, "length"),
+--     i(27, "replace"),
+--     i(28, "string"),
+--     i(29, "old"),
+--     i(30, "new"),
+--     i(31, "numericFunctions"),
+--     i(32, "add"),
+--     i(33, "number1"),
+--     i(34, "number2"),
+--     i(35, "sub"),
+--     i(36, "number1"),
+--     i(37, "number2"),
+--     i(38, "mul"),
+--     i(39, "number1"),
+--     i(40, "number2"),
+--     i(41, "div"),
+--     i(42, "number1"),
+--     i(43, "number2"),
+--     i(44, "mod"),
+--     i(45, "number1"),
+--     i(46, "number2"),
+--     i(47, "min"),
+--     i(48, "array"),
+--     i(49, "max"),
+--     i(50, "array"),
+--     i(51, "range"),
+--     i(52, "start"),
+--     i(53, "count"),
+--     i(54, "logicalFunctions"),
+--     i(55, "and"),
+--     i(56, "condition1"),
+--     i(57, "condition2"),
+--     i(58, "or"),
+--     i(59, "condition1"),
+--     i(60, "condition2"),
+--     i(61, "not"),
+--     i(62, "condition"),
+--     i(63, "equals"),
+--     i(64, "value1"),
+--     i(65, "value2"),
+--     i(66, "less"),
+--     i(67, "value1"),
+--     i(68, "value2"),
+--     i(69, "greater"),
+--     i(70, "value1"),
+--     i(71, "value2"),
+--     i(72, "lessOrEquals"),
+--     i(73, "value1"),
+--     i(74, "value2"),
+--     i(75, "greaterOrEquals"),
+--     i(76, "value1"),
+--     i(77, "value2"),
+--   })),
+--
+--   -- Complex output with calculations
+--   s("output-complex", fmt([[
+-- @description('The primary storage account name.')
+-- output primaryStorageAccountName string = {}.name
+--
+-- @description('The primary storage account ID.')
+-- output primaryStorageAccountId string = {}.id
+--
+-- @description('The primary storage account endpoint.')
+-- output primaryStorageAccountEndpoint string = {}.properties.primaryEndpoints.blob
+--
+-- @description('The primary storage account key.')
+-- output primaryStorageAccountKey string = listKeys({}.id, {}.apiVersion).keys[0].value
+--
+-- @description('The resource group information.')
+-- output resourceGroupInfo object = {{
+--   name: resourceGroup().name
+--   location: resourceGroup().location
+--   id: resourceGroup().id
+-- }}
+--
+-- @description('The subscription information.')
+-- output subscriptionInfo object = {{
+--   id: subscription().subscriptionId
+--   name: subscription().displayName
+--   tenantId: subscription().tenantId
+-- }}
+--
+-- @description('The deployment information.')
+-- output deploymentInfo object = {{
+--   name: deployment().name
+--   properties: deployment().properties
+-- }}
+-- ]], {
+--     i(1, "storageAccount"),
+--     i(2, "storageAccount"),
+--     i(3, "storageAccount"),
+--     i(4, "storageAccount"),
+--     i(5, "storageAccount"),
+--   })),
+--
+--   -- User-defined function with complex logic
+--   s("func-complex", fmt([[
+-- func {}({} string, {} int, {} bool) object => {{
+--   {}: concat('{}', {})
+--   {}: add({}, {})
+--   {}: if({}, '{}', '{}')
+--   {}: length({})
+--   {}: contains({}, '{}')
+-- }}
+--
+-- func {}({} array) array => [for item in {}: {{
+--   {}: item.{}
+--   {}: item.{}
+--   {}: concat('{}', item.{})
+-- }}]
+--
+-- func {}({} object) object => {{
+--   {}: {}.{}
+--   {}: {}.{}
+--   {}: concat('{}', {}.{})
+-- }}
+-- ]], {
+--     i(1, "processItem"),
+--     i(2, "name"),
+--     i(3, "count"),
+--     i(4, "enabled"),
+--     i(5, "processedName"),
+--     i(6, "prefix-"),
+--     i(7, "name"),
+--     i(8, "totalCount"),
+--     i(9, "count"),
+--     i(10, "1"),
+--     i(11, "status"),
+--     i(12, "enabled"),
+--     i(13, "active"),
+--     i(14, "inactive"),
+--     i(15, "nameLength"),
+--     i(16, "name"),
+--     i(17, "hasSpecialChars"),
+--     i(18, "name"),
+--     i(19, "special"),
+--     i(20, "processArray"),
+--     i(21, "items"),
+--     i(22, "items"),
+--     i(23, "processedName"),
+--     i(24, "name"),
+--     i(25, "processedValue"),
+--     i(26, "value"),
+--     i(27, "processedDescription"),
+--     i(28, "processed-"),
+--     i(29, "description"),
+--     i(30, "processObject"),
+--     i(31, "input"),
+--     i(32, "processedName"),
+--     i(33, "input"),
+--     i(34, "name"),
+--     i(35, "processedValue"),
+--     i(36, "input"),
+--     i(37, "value"),
+--     i(38, "processedDescription"),
+--     i(39, "processed-"),
+--     i(40, "input"),
+--     i(41, "description"),
+--   })),
+--
+--   -- Assertions for validation
+--   s("assertions", fmt([[
+-- assert {} = {}
+-- assert {} = {}
+-- assert {} = {}
+-- assert {} = {}
+-- assert {} = {}
+-- ]], {
+--     i(1, "validStorageAccountName"),
+--     i(2, "length(storageAccountName) >= 3"),
+--     i(3, "validLocation"),
+--     i(4, "contains(['East US', 'West US', 'Central US'], location)"),
+--     i(5, "validEnvironment"),
+--     i(6, "contains(['dev', 'test', 'prod'], environment)"),
+--     i(7, "validProjectName"),
+--     i(8, "length(projectName) >= 1"),
+--     i(9, "validCostCenter"),
+--     i(10, "length(costCenter) >= 3"),
+--   })),
+--
+--   -- Complex module with multiple outputs
+--   s("module-complex", fmt([[
+-- module {} '{}' = {{
+--   name: '{}'
+--   params: {{
+--     {}: '{}'
+--     {}: {}
+--     {}: {}
+--     {}: {}
+--     {}: {}
+--   }}
+-- }}
+--
+-- // Use module outputs
+-- var {} = {}.outputs.{}
+-- var {} = {}.outputs.{}
+-- var {} = {}.outputs.{}
+-- ]], {
+--     i(1, "moduleName"),
+--     i(2, "./path/to/module.bicep"),
+--     i(3, "module-deployment-name"),
+--     i(4, "param1"),
+--     i(5, "value1"),
+--     i(6, "param2"),
+--     i(7, "value2"),
+--     i(8, "param3"),
+--     i(9, "value3"),
+--     i(10, "param4"),
+--     i(11, "value4"),
+--     i(12, "param5"),
+--     i(13, "value5"),
+--     i(14, "output1"),
+--     i(15, "moduleName"),
+--     i(16, "output1"),
+--     i(17, "output2"),
+--     i(18, "moduleName"),
+--     i(19, "output2"),
+--     i(20, "output3"),
+--     i(21, "moduleName"),
+--     i(22, "output3"),
+--   })),
+--
+--   -- Complete infrastructure template
+--   s("infrastructure", fmt([[
+-- targetScope = 'resourceGroup'
+--
+-- // Parameters
+-- @description('The location for all resources.')
+-- param location string = resourceGroup().location
+--
+-- @description('The environment name.')
+-- @allowed([
+--   'dev'
+--   'test'
+--   'prod'
+-- ])
+-- param environment string = 'dev'
+--
+-- @description('The project name.')
+-- @minLength(3)
+-- @maxLength(20)
+-- param projectName string
+--
+-- @description('The admin username for VMs.')
+-- param adminUsername string
+--
+-- @description('The admin password for VMs.')
+-- @secure()
+-- param adminPassword string
+--
+-- // Variables
+-- var resourcePrefix = '{}'
+-- var tags = {{
+--   Environment: environment
+--   Project: projectName
+--   CreatedBy: 'Bicep'
+--   CostCenter: 'IT'
+-- }}
+--
+-- // Resources
+-- {}
+--
+-- // Outputs
+-- @description('The resource group name.')
+-- output resourceGroupName string = resourceGroup().name
+--
+-- @description('The deployment location.')
+-- output deploymentLocation string = location
+-- ]], {
+--     i(1, "projectName"),
+--     i(2, "// Add your infrastructure resources here"),
+--   })),
+-- })
+--
+-- -- Return the snippets for proper module loading
+-- return {
+--   snippets = ls.get_snippets('bicep'),
+--   version = "1.0.0",
+--   description = "Advanced Bicep patterns and complex scenarios"
+-- }
+
