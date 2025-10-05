@@ -1,4 +1,4 @@
-return {
+ return {
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
@@ -10,14 +10,14 @@ return {
     },
     config = function()
       require("chatgpt").setup({
-        -- API configuration for Ollama with CodeLLaMA
-        api_key_cmd = "echo 'ollama'", -- Use Ollama instead of OpenAI
+        -- API configuration - disabled CodeLlama
+        api_key_cmd = "echo 'disabled'", -- Disabled API
         api_base_url = "http://localhost:11434/v1",
-        model = "codellama:7b",
+        model = "gpt-3.5-turbo", -- Using GPT instead of CodeLlama
         
         -- Chat configuration
         chat = {
-          welcome_message = "Hello! I'm CodeLLaMA, ready to help with your coding tasks.",
+          welcome_message = "Hello! I'm ChatGPT, ready to help with your coding tasks.",
           loading_text = "Thinking...",
           question_sign = "?",
           answer_sign = "A",
@@ -85,7 +85,7 @@ return {
         
         -- Settings
         openai_params = {
-          model = "codellama:7b",
+          model = "gpt-3.5-turbo", -- Using GPT instead of CodeLlama
           frequency_penalty = 0,
           presence_penalty = 0,
           max_tokens = 1000,
@@ -135,7 +135,7 @@ return {
         },
       })
       
-      -- Keymaps for ChatGPT with CodeLLaMA
+      -- Keymaps for ChatGPT
       vim.keymap.set("n", "<leader>ac", ":ChatGPT<CR>", { desc = "ChatGPT - Open chat" })
       vim.keymap.set("n", "<leader>ae", ":ChatGPTEditWithInstruction<CR>", { desc = "ChatGPT - Edit with instruction" })
       vim.keymap.set("n", "<leader>ar", ":ChatGPTRun explain_code<CR>", { desc = "ChatGPT - Explain code" })

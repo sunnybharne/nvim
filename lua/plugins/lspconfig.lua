@@ -44,31 +44,6 @@ return {
         properties = { "documentation", "detail", "additionalTextEdits" }
       }
 
-      -- Language servers configuration
-      local servers = {
-        "lua_ls",
-        "pyright",
-        "tsserver",
-        "jsonls",
-        "yamlls",
-        "bashls",
-        "dockerls",
-        "terraformls",
-        "bicep",
-        "omnisharp", -- C# language server
-        "azure_pipelines_ls",
-        "github_actions_ls",
-        "powershell_es", -- PowerShell language server
-      }
-
-      -- Setup language servers
-      for _, server in ipairs(servers) do
-        vim.lsp.config(server, {
-          on_attach = on_attach,
-          capabilities = capabilities,
-        })
-      end
-
       -- Lua LSP specific settings
       vim.lsp.config("lua_ls", {
         on_attach = on_attach,
@@ -92,163 +67,114 @@ return {
         },
       })
 
-      -- Python LSP specific settings
-      vim.lsp.config("pyright", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "basic",
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
-            },
-          },
-        },
-      })
-
-      -- TypeScript/JavaScript LSP specific settings
-      vim.lsp.config("tsserver", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-          javascript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-        },
-      })
-
-      -- Terraform LSP specific settings
-      vim.lsp.config("terraformls", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          terraform = {
-            format = {
-              enable = true,
-            },
-            validate = {
-              enable = true,
-            },
-          },
-        },
-      })
-
-      -- Bicep LSP specific settings
+      -- Bicep LSP specific settings with comprehensive features
       vim.lsp.config("bicep", {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           bicep = {
+            -- Enable all Bicep language features
             format = {
               enable = true,
             },
             validate = {
               enable = true,
             },
-          },
-        },
-      })
-
-      -- C# LSP specific settings (OmniSharp)
-      vim.lsp.config("omnisharp", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          OmniSharp = {
-            enableEditorConfigSupport = true,
-            enableMsBuildLoadProjectsOnDemand = false,
-            enableRoslynAnalyzers = true,
-            organizeImportsOnFormat = true,
-            enableImportCompletion = true,
-            sdkPath = nil, -- Will use OmniSharp's built-in SDK
-            useModernNet = true,
-          },
-        },
-      })
-
-      -- Azure Pipelines LSP specific settings
-      vim.lsp.config("azure_pipelines_ls", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          azurePipelines = {
-            validate = true,
-            format = true,
-          },
-        },
-      })
-
-      -- GitHub Actions LSP specific settings
-      vim.lsp.config("github_actions_ls", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          githubActions = {
-            validate = true,
-            format = true,
-          },
-        },
-      })
-
-      -- PowerShell LSP specific settings
-      vim.lsp.config("powershell_es", {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          powershell = {
-            enableProfileLoading = true,
-            scriptAnalysis = {
+            -- Enable IntelliSense and autocompletion
+            completions = {
+              getAllAccessibleAzureContainerRegistries = true,
+            },
+            -- Enable decompilation features
+            decompileOnPaste = true,
+            -- Enable output timestamps for better debugging
+            enableOutputTimestamps = true,
+            -- Enable surveys for feedback (optional)
+            enableSurveys = false,
+            -- Configure tracing for debugging
+            trace = {
+              server = "off", -- Can be "off", "messages", "verbose"
+            },
+            -- Enable all Bicep language features
+            language = {
               enable = true,
             },
-            codeFormatting = {
-              Preset = "OTBS",
-              openBraceOnSameLine = true,
-              newLineAfterOpenBrace = true,
-              newLineAfterCloseBrace = true,
-              whitespaceBeforeOpenBrace = true,
-              whitespaceAfterOpenBrace = true,
-              whitespaceAroundOperator = true,
-              whitespaceAfterSeparator = true,
-              whitespaceBeforeSeparator = true,
-              whitespaceInsideBrace = true,
-              whitespaceAroundPipe = true,
-              ignoreOneLineBlock = true,
-              alignPropertyValuePairs = true,
+            -- Enable semantic highlighting
+            semanticHighlighting = {
+              enable = true,
             },
-            integratedConsole = {
-              showOnStartup = false,
+            -- Enable hover information
+            hover = {
+              enable = true,
             },
-            useX86Host = false,
-            promptToUpdatePowerShell = false,
-            enableTelemetry = false,
+            -- Enable signature help
+            signatureHelp = {
+              enable = true,
+            },
+            -- Enable code actions
+            codeActions = {
+              enable = true,
+            },
+            -- Enable document symbols
+            documentSymbols = {
+              enable = true,
+            },
+            -- Enable workspace symbols
+            workspaceSymbols = {
+              enable = true,
+            },
+            -- Enable references
+            references = {
+              enable = true,
+            },
+            -- Enable rename
+            rename = {
+              enable = true,
+            },
+            -- Enable diagnostics
+            diagnostics = {
+              enable = true,
+            },
+            -- Enable folding
+            folding = {
+              enable = true,
+            },
+            -- Enable breadcrumbs
+            breadcrumbs = {
+              enable = true,
+            },
+            -- Enable inlay hints
+            inlayHints = {
+              enable = true,
+            },
           },
+        },
+        -- Additional Bicep-specific configuration
+        filetypes = { "bicep" },
+        root_dir = function(fname)
+          return vim.fn.getcwd()
+        end,
+        -- Enable all LSP features for Bicep
+        flags = {
+          debounce_text_changes = 150,
         },
       })
 
-      -- Enable LSP for all configured servers
-      for _, server in ipairs(servers) do
-        vim.lsp.enable(server)
-      end
+      -- Enable filetype detection for Bicep
+      vim.cmd([[autocmd BufNewFile,BufRead *.bicep set filetype=bicep]])
+      
+      -- Set commentstring for Bicep files
+      vim.cmd([[autocmd FileType bicep setlocal commentstring=//\ %s]])
+      
+      -- Ensure Bicep filetype is recognized
+      vim.filetype.add({
+        extension = {
+          bicep = "bicep",
+        },
+      })
+      
+      -- Enable LSP servers
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("bicep")
     end,
   }
 }

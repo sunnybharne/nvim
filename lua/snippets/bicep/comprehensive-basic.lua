@@ -1,0 +1,682 @@
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local fmt = require("luasnip.extras.fmt").fmt
+--
+-- -- Comprehensive Basic Bicep snippets
+-- ls.add_snippets('bicep', {
+--   -- Parameters with decorators
+--   s("param", fmt([[
+-- @description('{}')
+-- @allowed([
+--   '{}'
+--   '{}'
+-- ])
+-- param {} {} = '{}'
+-- ]], {
+--     i(1, "Parameter description"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--     i(4, "parameterName"),
+--     c(5, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(6, "defaultValue"),
+--   })),
+--
+--   -- Secure parameter
+--   s("param-secure", fmt([[
+-- @description('{}')
+-- @secure()
+-- param {} string = '{}'
+-- ]], {
+--     i(1, "Secure parameter description"),
+--     i(2, "secureParameterName"),
+--     i(3, "defaultSecureValue"),
+--   })),
+--
+--   -- Parameter with min/max length
+--   s("param-length", fmt([[
+-- @description('{}')
+-- @minLength({})
+-- @maxLength({})
+-- param {} string = '{}'
+-- ]], {
+--     i(1, "Parameter description"),
+--     i(2, "3"),
+--     i(3, "50"),
+--     i(4, "parameterName"),
+--     i(5, "defaultValue"),
+--   })),
+--
+--   -- Variables
+--   s("var", fmt([[
+-- var {} = {}
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "expression"),
+--   })),
+--
+--   -- Variable with string interpolation
+--   s("var-string", fmt([[
+-- var {} = '{}'
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "string with ${interpolation}"),
+--   })),
+--
+--   -- Variable with function
+--   s("var-func", fmt([[
+-- var {} = {}({})
+-- ]], {
+--     i(1, "variableName"),
+--     c(2, { 
+--       t("uniqueString"), 
+--       t("resourceGroup().id"), 
+--       t("subscription().id"),
+--       t("concat"),
+--       t("format"),
+--       t("length"),
+--       t("toLower"),
+--       t("toUpper")
+--     }),
+--     i(3, "arguments"),
+--   })),
+--
+--   -- Outputs
+--   s("output", fmt([[
+-- @description('{}')
+-- output {} {} = {}
+-- ]], {
+--     i(1, "Output description"),
+--     i(2, "outputName"),
+--     c(3, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(4, "value"),
+--   })),
+--
+--   -- Resource
+--   s("resource", fmt([[
+-- resource {} '{}@{}' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "resource-name"),
+--     i(5, "resourceGroup().location"),
+--     i(6, "resource properties"),
+--   })),
+--
+--   -- Resource with parent
+--   s("resource-parent", fmt([[
+-- resource {} '{}@{}' = {{
+--   parent: {}
+--   name: '{}'
+--   properties: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "childResourceName"),
+--     i(2, "Microsoft.Provider/type/childType"),
+--     i(3, "2023-01-01"),
+--     i(4, "parentResource"),
+--     i(5, "child-resource-name"),
+--     i(6, "child resource properties"),
+--   })),
+--
+--   -- Module
+--   s("module", fmt([[
+-- module {} '{}' = {{
+--   name: '{}'
+--   params: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "moduleName"),
+--     i(2, "./path/to/module.bicep"),
+--     i(3, "module-deployment-name"),
+--     i(4, "parameterName: 'value'"),
+--   })),
+--
+--   -- Target scope
+--   s("target", fmt([[
+-- targetScope = '{}'
+-- ]], {
+--     c(1, { t("'resourceGroup'"), t("'subscription'"), t("'managementGroup'"), t("'tenant'") }),
+--   })),
+--
+--   -- Metadata
+--   s("metadata", fmt([[
+-- metadata {} = '{}'
+-- ]], {
+--     i(1, "description"),
+--     i(2, "Template description"),
+--   })),
+--
+--   -- User-defined types
+--   s("type", fmt([[
+-- @description('{}')
+-- type {} = {{
+--   {}: {}
+--   {}: {}
+-- }}
+-- ]], {
+--     i(1, "Type description"),
+--     i(2, "typeName"),
+--     i(3, "property1"),
+--     c(4, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(5, "property2"),
+--     c(6, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--   })),
+--
+--   -- Union types
+--   s("type-union", fmt([[
+-- type {} = {} | {} | {}
+-- ]], {
+--     i(1, "unionTypeName"),
+--     i(2, "type1"),
+--     i(3, "type2"),
+--     i(4, "type3"),
+--   })),
+--
+--   -- Array types
+--   s("type-array", fmt([[
+-- type {} = {}[]
+-- ]], {
+--     i(1, "arrayTypeName"),
+--     i(2, "elementType"),
+--   })),
+--
+--   -- Object types
+--   s("type-object", fmt([[
+-- type {} = {{
+--   {}: {}
+--   {}: {}
+-- }}
+-- ]], {
+--     i(1, "objectTypeName"),
+--     i(2, "property1"),
+--     i(3, "string"),
+--     i(4, "property2"),
+--     i(5, "int"),
+--   })),
+--
+--   -- Sealed types
+--   s("type-sealed", fmt([[
+-- @sealed()
+-- type {} = {{
+--   {}: {}
+-- }}
+-- ]], {
+--     i(1, "sealedTypeName"),
+--     i(2, "property"),
+--     i(3, "string"),
+--   })),
+--
+--   -- For loops
+--   s("for", fmt([[
+-- resource {} '{}@{}' = [for {} in {}: {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}]
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "item"),
+--     i(5, "array"),
+--     i(6, "resource-name"),
+--     i(7, "resourceGroup().location"),
+--     i(8, "resource properties"),
+--   })),
+--
+--   -- For loop with index
+--   s("for-index", fmt([[
+-- resource {} '{}@{}' = [for (item, index) in {}: {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}]
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "array"),
+--     i(5, "resource-name"),
+--     i(6, "resourceGroup().location"),
+--     i(7, "resource properties"),
+--   })),
+--
+--   -- Conditional resources
+--   s("if", fmt([[
+-- resource {} '{}@{}' = if ({}) {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "condition"),
+--     i(5, "resource-name"),
+--     i(6, "resourceGroup().location"),
+--     i(7, "resource properties"),
+--   })),
+--
+--   -- Ternary operator
+--   s("ternary", fmt([[
+-- var {} = {} ? {} : {}
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "condition"),
+--     i(3, "trueValue"),
+--     i(4, "falseValue"),
+--   })),
+--
+--   -- String functions
+--   s("concat", fmt([[
+-- var {} = concat('{}', '{}', '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "string1"),
+--     i(3, "string2"),
+--     i(4, "string3"),
+--   })),
+--
+--   s("format", fmt([[
+-- var {} = format('{}', {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "format string {0} {1}"),
+--     i(3, "arguments"),
+--   })),
+--
+--   s("substring", fmt([[
+-- var {} = substring('{}', {}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "string"),
+--     i(3, "startIndex"),
+--     i(4, "length"),
+--   })),
+--
+--   -- Array functions
+--   s("array", fmt([[
+-- var {} = [
+--   '{}'
+--   '{}'
+--   '{}'
+-- ]
+-- ]], {
+--     i(1, "arrayName"),
+--     i(2, "item1"),
+--     i(3, "item2"),
+--     i(4, "item3"),
+--   })),
+--
+--   s("length", fmt([[
+-- var {} = length({})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "array"),
+--   })),
+--
+--   s("contains", fmt([[
+-- var {} = contains({}, '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "array"),
+--     i(3, "value"),
+--   })),
+--
+--   s("indexOf", fmt([[
+-- var {} = indexOf({}, '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "array"),
+--     i(3, "value"),
+--   })),
+--
+--   -- Object functions
+--   s("object", fmt([[
+-- var {} = {{
+--   {}: '{}'
+--   {}: {}
+--   {}: {}
+-- }}
+-- ]], {
+--     i(1, "objectName"),
+--     i(2, "property1"),
+--     i(3, "value1"),
+--     i(4, "property2"),
+--     i(5, "value2"),
+--     i(6, "property3"),
+--     i(7, "value3"),
+--   })),
+--
+--   s("keys", fmt([[
+-- var {} = keys({})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "object"),
+--   })),
+--
+--   s("values", fmt([[
+-- var {} = values({})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "object"),
+--   })),
+--
+--   -- Numeric functions
+--   s("add", fmt([[
+-- var {} = add({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "number1"),
+--     i(3, "number2"),
+--   })),
+--
+--   s("sub", fmt([[
+-- var {} = sub({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "number1"),
+--     i(3, "number2"),
+--   })),
+--
+--   s("mul", fmt([[
+-- var {} = mul({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "number1"),
+--     i(3, "number2"),
+--   })),
+--
+--   s("div", fmt([[
+-- var {} = div({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "number1"),
+--     i(3, "number2"),
+--   })),
+--
+--   s("mod", fmt([[
+-- var {} = mod({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "number1"),
+--     i(3, "number2"),
+--   })),
+--
+--   -- Date functions
+--   s("utcNow", fmt([[
+-- var {} = utcNow('{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "yyyy-MM-dd"),
+--   })),
+--
+--   s("dateTimeAdd", fmt([[
+-- var {} = dateTimeAdd('{}', '{}', {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "baseDateTime"),
+--     i(3, "duration"),
+--     i(4, "format"),
+--   })),
+--
+--   -- Logical functions
+--   s("and", fmt([[
+-- var {} = and({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "condition1"),
+--     i(3, "condition2"),
+--   })),
+--
+--   s("or", fmt([[
+-- var {} = or({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "condition1"),
+--     i(3, "condition2"),
+--   })),
+--
+--   s("not", fmt([[
+-- var {} = not({})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "condition"),
+--   })),
+--
+--   s("if", fmt([[
+-- var {} = if({}, {}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "condition"),
+--     i(3, "trueValue"),
+--     i(4, "falseValue"),
+--   })),
+--
+--   -- Comparison functions
+--   s("equals", fmt([[
+-- var {} = equals({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--   })),
+--
+--   s("less", fmt([[
+-- var {} = less({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--   })),
+--
+--   s("lessOrEquals", fmt([[
+-- var {} = lessOrEquals({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--   })),
+--
+--   s("greater", fmt([[
+-- var {} = greater({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--   })),
+--
+--   s("greaterOrEquals", fmt([[
+-- var {} = greaterOrEquals({}, {})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--   })),
+--
+--   -- Resource functions
+--   s("resourceId", fmt([[
+-- var {} = resourceId('{}', '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "resourceName"),
+--   })),
+--
+--   s("subscriptionResourceId", fmt([[
+-- var {} = subscriptionResourceId('{}', '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "resourceName"),
+--   })),
+--
+--   s("tenantResourceId", fmt([[
+-- var {} = tenantResourceId('{}', '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "resourceName"),
+--   })),
+--
+--   s("managementResourceId", fmt([[
+-- var {} = managementResourceId('{}', '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "resourceName"),
+--   })),
+--
+--   -- Reference function
+--   s("reference", fmt([[
+-- var {} = reference({})
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "resourceId"),
+--   })),
+--
+--   -- List functions
+--   s("listKeys", fmt([[
+-- var {} = listKeys({}, '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "resourceId"),
+--     i(3, "apiVersion"),
+--   })),
+--
+--   s("listSecrets", fmt([[
+-- var {} = listSecrets({}, '{}')
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "resourceId"),
+--     i(3, "apiVersion"),
+--   })),
+--
+--   -- Deployment functions
+--   s("deployment", fmt([[
+-- var {} = deployment()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   s("environment", fmt([[
+-- var {} = environment()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   s("subscription", fmt([[
+-- var {} = subscription()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   s("resourceGroup", fmt([[
+-- var {} = resourceGroup()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   s("tenant", fmt([[
+-- var {} = tenant()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   s("managementGroup", fmt([[
+-- var {} = managementGroup()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   -- Scope functions
+--   s("getClientConfig", fmt([[
+-- var {} = getClientConfig()
+-- ]], {
+--     i(1, "variableName"),
+--   })),
+--
+--   -- User-defined functions
+--   s("func", fmt([[
+-- func {}({}) {} => {{
+--   {}
+-- }}
+-- ]], {
+--     i(1, "functionName"),
+--     i(2, "param1 string, param2 int"),
+--     c(3, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(4, "function body"),
+--   })),
+--
+--   -- Assertions
+--   s("assert", fmt([[
+-- assert {} = {}
+-- ]], {
+--     i(1, "assertionName"),
+--     i(2, "condition"),
+--   })),
+--
+--   -- With statement
+--   s("with", fmt([[
+-- var {} = {} with {{
+--   {}: {}
+-- }}
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "object"),
+--     i(3, "property"),
+--     i(4, "value"),
+--   })),
+--
+--   -- Using statement
+--   s("using", fmt([[
+-- using '{}'
+-- ]], {
+--     i(1, "./path/to/template.bicep"),
+--   })),
+--
+--   -- Import statement
+--   s("import", fmt([[
+-- import {} from '{}'
+-- ]], {
+--     i(1, "alias"),
+--     i(2, "br:registry.azurecr.io/module:tag"),
+--   })),
+--
+--   -- Export statement
+--   s("export", fmt([[
+-- export {} = {}
+-- ]], {
+--     i(1, "exportName"),
+--     i(2, "value"),
+--   })),
+-- })
+--
+-- -- Return the snippets for proper module loading
+-- return {
+--   snippets = ls.get_snippets('bicep'),
+--   version = "1.0.0",
+--   description = "Comprehensive basic Bicep language constructs"
+-- }

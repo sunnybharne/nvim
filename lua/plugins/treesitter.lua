@@ -11,30 +11,15 @@ return {
           "vim",
           "vimdoc",
           "query",
-          "javascript",
-          "typescript",
-          "html",
-          "css",
+          "bicep",
           "json",
-          "yaml",
+          "jsonc",
           "markdown",
           "markdown_inline",
-          "bash",
-          "python",
-          "rust",
-          "go",
-          "java",
-          "c",
-          "cpp",
-          "c_sharp",
-          "sql",
+          "yaml",
+          "toml",
           "dockerfile",
-          "gitignore",
-          "diff",
-          "terraform",
-          "hcl",
-          "bicep",
-          "yaml", -- Use YAML parser for Azure Pipelines and GitHub Actions
+          "bash",
           "powershell",
         },
         
@@ -55,7 +40,12 @@ return {
           disable = { "help" },
           
           -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-          additional_vim_regex_highlighting = false,
+          additional_vim_regex_highlighting = { "bicep" },
+          
+          -- Enable semantic highlighting for Bicep
+          semantic_tokens = {
+            enable = true,
+          },
         },
         
         indent = {

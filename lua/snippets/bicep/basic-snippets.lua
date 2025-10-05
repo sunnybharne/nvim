@@ -1,77 +1,181 @@
-local ls = require("luasnip")
-local s = ls.snippet
-local t = ls.text_node
-local i = ls.insert_node
-local f = ls.function_node
-
--- Import common utilities
-local utils = require("snippets.utils")
-local fn = utils.fn
-local generate_resource_name = utils.generate_resource_name
-local generate_param_description = utils.generate_param_description
-
--- Basic Bicep structure snippets
-ls.add_snippets('bicep', {
-  -- Parameters
-  s("param", {
-    t({"@description('")}), f(generate_param_description, {1}),
-    t({"'"}),
-    t({"", "param "}), i(1, "parameterName"), t({" string = "}), i(2, "'default-value'"),
-    t({"", ""}),
-    i(0, ""), -- Final insert node
-  }),
-
-  -- Variables
-  s("var", {
-    t({"var "}), i(1, "variableName"), t({" = "}), i(2, "'example-value'"),
-    t({"", ""}),
-    i(0, ""), -- Final insert node
-  }),
-
-  -- Outputs
-  s("output", {
-    t({"@description('")}), f(generate_param_description, {1}),
-    t({"'"}),
-    t({"", "output "}), i(1, "outputName"), t({" string = "}), i(2, "resourceGroup.name"),
-    t({"", ""}),
-    i(0, ""), -- Final insert node
-  }),
-
-  -- Modules
-  s("module", {
-    t({"module example 'path/to/module.bicep' = {"}),
-    t({"", "  name: 'example-module'"}),
-    t({"", "  params: {"}),
-    t({"", "    inputParam: 'value'"}),
-    t({"", "  }"}),
-    t({"", "}"})
-  }),
-
-  -- Arrays
-  s("array", {
-    t({"", "param arrayName array = ["}),
-    t({"", "  'value1',"}),
-    t({"", "  'value2'"}),
-    t({"", "]"})
-  }),
-
-  -- For loops
-  s("for", {
-    t({"", "resource name 'type' = [for item in array : {"}),
-    t({"", "  'resource definition'"}),
-    t({"", "}]"})
-  }),
-
-  -- Data Sources
-  s("data-client", {
-    t({"", "var clientConfig = getClientConfig()"})
-  }),
-
-  s("data-az", {
-    t({"", "var availabilityZones = ["}),
-    t({"", "  '1'"}),
-    t({"", "  '2'"}),
-    t({"", "  '3'"}),
-    t({"", "]"})
-  })
-})
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local fmt = require("luasnip.extras.fmt").fmt
+--
+-- -- Import common utilities
+-- local utils = require("snippets.utils")
+-- local fn = utils.fn
+-- local generate_resource_name = utils.generate_resource_name
+-- local generate_param_description = utils.generate_param_description
+--
+-- -- Basic Bicep structure snippets
+-- ls.add_snippets('bicep', {
+--   -- Parameters
+--   s("param", fmt([[
+-- @description('{}')
+-- param {} {} = '{}'
+-- ]], {
+--     f(generate_param_description, {1}),
+--     i(1, "parameterName"),
+--     c(2, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(3, "default-value"),
+--   })),
+--   -- Variables
+--   s("var", fmt([[
+-- var {} = {}
+-- ]], {
+--     i(1, "variableName"),
+--     i(2, "expression"),
+--   })),
+--
+--   -- Outputs
+--   s("output", fmt([[
+-- @description('{}')
+-- output {} {} = {}
+-- ]], {
+--     f(generate_param_description, {1}),
+--     i(1, "outputName"),
+--     c(2, { t("string"), t("int"), t("bool"), t("array"), t("object") }),
+--     i(3, "value"),
+--   })),
+--
+--   -- Modules
+--   s("module", fmt([[
+-- module {} '{}' = {{
+--   name: '{}'
+--   params: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "moduleName"),
+--     i(2, "./path/to/module.bicep"),
+--     i(3, "module-deployment-name"),
+--     i(4, "inputParam: 'value'"),
+--   })),
+--
+--   -- Arrays
+--   s("array", fmt([[
+-- param {} array = [
+--   '{}'
+--   '{}'
+--   '{}'
+-- ]
+-- ]], {
+--     i(1, "arrayName"),
+--     i(2, "value1"),
+--     i(3, "value2"),
+--     i(4, "value3"),
+--   })),
+--
+--   -- For loops
+--   s("for", fmt([[
+-- resource {} '{}@{}' = [for {} in {}: {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}]
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "item"),
+--     i(5, "array"),
+--     i(6, "resource-name"),
+--     i(7, "resourceGroup().location"),
+--     i(8, "resource properties"),
+--   })),
+--
+--   -- Data Sources
+--   s("data-client", fmt([[
+-- var clientConfig = getClientConfig()
+-- ]], {})),
+--
+--   s("data-az", fmt([[
+-- var availabilityZones = [
+--   '1'
+--   '2'
+--   '3'
+-- ]
+-- ]], {})),
+--
+--   -- Resource with basic structure
+--   s("resource-basic", fmt([[
+-- resource {} '{}@{}' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "resource-name"),
+--     i(5, "resourceGroup().location"),
+--     i(6, "resource properties"),
+--   })),
+--
+--   -- Conditional resource
+--   s("resource-if", fmt([[
+-- resource {} '{}@{}' = if ({}) {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "resourceName"),
+--     i(2, "Microsoft.Provider/type"),
+--     i(3, "2023-01-01"),
+--     i(4, "condition"),
+--     i(5, "resource-name"),
+--     i(6, "resourceGroup().location"),
+--     i(7, "resource properties"),
+--   })),
+--
+--   -- Target scope
+--   s("target", fmt([[
+-- targetScope = '{}'
+-- ]], {
+--     c(1, { t("'resourceGroup'"), t("'subscription'"), t("'managementGroup'"), t("'tenant'") }),
+--   })),
+--
+--   -- Metadata
+--   s("metadata", fmt([[
+-- metadata {} = '{}'
+-- ]], {
+--     i(1, "description"),
+--     i(2, "Template description"),
+--   })),
+--
+--   -- Tags
+--   s("tags", fmt([[
+-- tags: {{
+--   Environment: '{}'
+--   Project: '{}'
+--   CreatedBy: '{}'
+--   CostCenter: '{}'
+-- }}
+-- ]], {
+--     i(1, "dev"),
+--     i(2, "projectName"),
+--     i(3, "Bicep"),
+--     i(4, "IT"),
+--   })),
+-- })
+--
+-- -- Return the snippets for proper module loading
+-- return {
+--   snippets = ls.get_snippets('bicep'),
+--   version = "1.0.0",
+--   description = "Basic Bicep snippets for infrastructure as code"
+-- }

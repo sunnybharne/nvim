@@ -1,101 +1,101 @@
-local ls = require("luasnip")
-local s = ls.snippet
-local t = ls.text_node
-local c = ls.choice_node
-
--- Management Group and Subscription snippets
-ls.add_snippets('bicep', {
-  -- Management Group
-  s("mg", c(1, {
-    t({
-      "targetScope = 'managementGroup'",
-      "",
-      "@description('The name of the management group.')",
-      "param mgName string",
-      "",
-      "@description('The Id of the parent management group.')",
-      "param parentId string",
-      "",
-      "resource parentManagementGroup 'Microsoft.Management/managementGroups@2021-04-01' existing = {",
-      "  name: parentId",
-      "  scope: tenant()",
-      "}",
-      "",
-      "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
-      "  scope: tenant()",
-      "  name: mgName",
-      "  properties: {",
-      "    details: {",
-      "      parent: {",
-      "        id: parentManagementGroup.id",
-      "      }",
-      "    }",
-      "    displayName: mgName",
-      "  }",
-      "}",
-      "",
-      "@description('The name of the management group.')",
-      "output name string = mg.name",
-      "",
-      "@description('The resource ID of the management group.')",
-      "output resourceId string = mg.id"
-    }),
-    t({
-      "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
-      "  scope: tenant()",
-      "  name: 'mgName'",
-      "  properties: {",
-      "    details: {",
-      "      parent: {",
-      "        id: 'parentId'",
-      "      }",
-      "    }",
-      "    displayName: 'mgName'",
-      "  }",
-      "}"
-    })
-  })),
-
-  -- Subscription Alias
-  s("sub", {
-    t({
-      "targetScope = 'managementGroup'",
-      "",
-      "@description('BillingAccount used for subscription billing')",
-      "param billingScope string",
-      "",
-      "@description('Display name for the subscription')",
-      "param subscriptionDisplayName string",
-      "",
-      "@description('Workload type for the subscription')",
-      "@allowlist([",
-      "  'Production'",
-      "  'DevTest'",
-      "])",
-      "param subscriptionWorkload string",
-      "",
-      "@description('Tags to be applied to the subscription')",
-      "param tags object",
-      "",
-      "@description('Management Group ID to which the subscription will be associated')",
-      "param managementGroupId string",
-      "",
-      "@description('Create subscription, This is one time operation')",
-      "resource subscription 'Microsoft.Subscription/aliases@2021-10-01' = {",
-      "  scope: tenant()",
-      "  name: subscriptionDisplayName",
-      "  properties: {",
-      "    workload: subscriptionWorkload",
-      "    displayName: subscriptionDisplayName",
-      "    billingScope: billingScope",
-      "    additionalProperties: {",
-      "      managementGroupId: '/providers/Microsoft.Management/managementGroups/${managementGroupId}' ",
-      "      tags: tags",
-      "    }",
-      "  }",
-      "}",
-      "",
-      "output subscriptionId string = subscription.properties.subscriptionId"
-    })
-  })
-})
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local c = ls.choice_node
+--
+-- -- Management Group and Subscription snippets
+-- ls.add_snippets('bicep', {
+--   -- Management Group
+--   s("mg", c(1, {
+--     t({
+--       "targetScope = 'managementGroup'",
+--       "",
+--       "@description('The name of the management group.')",
+--       "param mgName string",
+--       "",
+--       "@description('The Id of the parent management group.')",
+--       "param parentId string",
+--       "",
+--       "resource parentManagementGroup 'Microsoft.Management/managementGroups@2021-04-01' existing = {",
+--       "  name: parentId",
+--       "  scope: tenant()",
+--       "}",
+--       "",
+--       "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
+--       "  scope: tenant()",
+--       "  name: mgName",
+--       "  properties: {",
+--       "    details: {",
+--       "      parent: {",
+--       "        id: parentManagementGroup.id",
+--       "      }",
+--       "    }",
+--       "    displayName: mgName",
+--       "  }",
+--       "}",
+--       "",
+--       "@description('The name of the management group.')",
+--       "output name string = mg.name",
+--       "",
+--       "@description('The resource ID of the management group.')",
+--       "output resourceId string = mg.id"
+--     }),
+--     t({
+--       "resource mg 'Microsoft.Management/managementGroups@2023-04-01' = {",
+--       "  scope: tenant()",
+--       "  name: 'mgName'",
+--       "  properties: {",
+--       "    details: {",
+--       "      parent: {",
+--       "        id: 'parentId'",
+--       "      }",
+--       "    }",
+--       "    displayName: 'mgName'",
+--       "  }",
+--       "}"
+--     })
+--   })),
+--
+--   -- Subscription Alias
+--   s("sub", {
+--     t({
+--       "targetScope = 'managementGroup'",
+--       "",
+--       "@description('BillingAccount used for subscription billing')",
+--       "param billingScope string",
+--       "",
+--       "@description('Display name for the subscription')",
+--       "param subscriptionDisplayName string",
+--       "",
+--       "@description('Workload type for the subscription')",
+--       "@allowlist([",
+--       "  'Production'",
+--       "  'DevTest'",
+--       "])",
+--       "param subscriptionWorkload string",
+--       "",
+--       "@description('Tags to be applied to the subscription')",
+--       "param tags object",
+--       "",
+--       "@description('Management Group ID to which the subscription will be associated')",
+--       "param managementGroupId string",
+--       "",
+--       "@description('Create subscription, This is one time operation')",
+--       "resource subscription 'Microsoft.Subscription/aliases@2021-10-01' = {",
+--       "  scope: tenant()",
+--       "  name: subscriptionDisplayName",
+--       "  properties: {",
+--       "    workload: subscriptionWorkload",
+--       "    displayName: subscriptionDisplayName",
+--       "    billingScope: billingScope",
+--       "    additionalProperties: {",
+--       "      managementGroupId: '/providers/Microsoft.Management/managementGroups/${managementGroupId}' ",
+--       "      tags: tags",
+--       "    }",
+--       "  }",
+--       "}",
+--       "",
+--       "output subscriptionId string = subscription.properties.subscriptionId"
+--     })
+--   })
+-- })

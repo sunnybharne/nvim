@@ -1,0 +1,649 @@
+-- local ls = require("luasnip")
+-- local s = ls.snippet
+-- local t = ls.text_node
+-- local i = ls.insert_node
+-- local f = ls.function_node
+-- local c = ls.choice_node
+-- local fmt = require("luasnip.extras.fmt").fmt
+--
+-- -- Comprehensive Azure Resource snippets for Bicep
+-- ls.add_snippets('bicep', {
+--   -- Storage Account
+--   s("sa", fmt([[
+-- resource storageAccount 'Microsoft.Storage/storageAccounts@2023-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--   }}
+--   kind: 'StorageV2'
+--   properties: {{
+--     accessTier: 'Hot'
+--     supportsHttpsTrafficOnly: true
+--   }}
+--   tags: {{
+--     Environment: '{}'
+--     Project: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "storageAccountName"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Standard_LRS'"), t("'Standard_GRS'"), t("'Standard_ZRS'"), t("'Premium_LRS'") }),
+--     i(4, "dev"),
+--     i(5, "example"),
+--   })),
+--
+--   -- Virtual Network
+--   s("vnet", fmt([[
+-- resource virtualNetwork 'Microsoft.Network/virtualNetworks@2023-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     addressSpace: {{
+--       addressPrefixes: [
+--         '{}'
+--       ]
+--     }}
+--     subnets: [
+--       {{
+--         name: '{}'
+--         properties: {{
+--           addressPrefix: '{}'
+--         }}
+--       }}
+--     ]
+--   }}
+--   tags: {{
+--     Environment: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "vnet-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "10.0.0.0/16"),
+--     i(4, "subnet1"),
+--     i(5, "10.0.1.0/24"),
+--     i(6, "dev"),
+--   })),
+--
+--   -- Subnet
+--   s("subnet", fmt([[
+-- resource subnet 'Microsoft.Network/virtualNetworks/subnets@2023-05-01' = {{
+--   parent: {}
+--   name: '{}'
+--   properties: {{
+--     addressPrefix: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "virtualNetwork"),
+--     i(2, "subnet-name"),
+--     i(3, "10.0.1.0/24"),
+--   })),
+--
+--   -- Network Security Group
+--   s("nsg", fmt([[
+-- resource networkSecurityGroup 'Microsoft.Network/networkSecurityGroups@2023-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     securityRules: [
+--       {{
+--         name: 'AllowSSH'
+--         properties: {{
+--           priority: 1000
+--           access: 'Allow'
+--           direction: 'Inbound'
+--           destinationPortRange: '22'
+--           protocol: 'Tcp'
+--           sourceAddressPrefix: '*'
+--         }}
+--       }}
+--       {{
+--         name: 'AllowHTTP'
+--         properties: {{
+--           priority: 1010
+--           access: 'Allow'
+--           direction: 'Inbound'
+--           destinationPortRange: '80'
+--           protocol: 'Tcp'
+--           sourceAddressPrefix: '*'
+--         }}
+--       }}
+--     ]
+--   }}
+-- }}
+-- ]], {
+--     i(1, "nsg-name"),
+--     i(2, "resourceGroup().location"),
+--   })),
+--
+--   -- Public IP Address
+--   s("pip", fmt([[
+-- resource publicIP 'Microsoft.Network/publicIPAddresses@2023-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--     tier: 'Regional'
+--   }}
+--   properties: {{
+--     publicIPAllocationMethod: '{}'
+--     publicIPAddressVersion: 'IPv4'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "pip-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Basic'"), t("'Standard'") }),
+--     c(4, { t("'Dynamic'"), t("'Static'") }),
+--   })),
+--
+--   -- Network Interface
+--   s("nic", fmt([[
+-- resource networkInterface 'Microsoft.Network/networkInterfaces@2023-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     ipConfigurations: [
+--       {{
+--         name: 'ipconfig1'
+--         properties: {{
+--           privateIPAllocationMethod: 'Dynamic'
+--           subnet: {{
+--             id: {}.id
+--           }}
+--           publicIPAddress: {{
+--             id: {}.id
+--           }}
+--         }}
+--       }}
+--     ]
+--   }}
+-- }}
+-- ]], {
+--     i(1, "nic-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "subnet"),
+--     i(4, "publicIP"),
+--   })),
+--
+--   -- Virtual Machine
+--   s("vm", fmt([[
+-- resource virtualMachine 'Microsoft.Compute/virtualMachines@2023-03-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     hardwareProfile: {{
+--       vmSize: '{}'
+--     }}
+--     osProfile: {{
+--       computerName: '{}'
+--       adminUsername: '{}'
+--       adminPassword: '{}'
+--     }}
+--     storageProfile: {{
+--       imageReference: {{
+--         publisher: '{}'
+--         offer: '{}'
+--         sku: '{}'
+--         version: 'latest'
+--       }}
+--       }}
+--       osDisk: {{
+--         name: '{}'
+--         createOption: 'FromImage'
+--         diskSizeGB: {}
+--         managedDisk: {{
+--           storageAccountType: '{}'
+--         }}
+--       }}
+--     }}
+--     networkProfile: {{
+--       networkInterfaces: [
+--         {{
+--           id: {}.id
+--         }}
+--       ]
+--     }}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "vm-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Standard_B1s'"), t("'Standard_B2s'"), t("'Standard_D2s_v3'") }),
+--     i(4, "vm-name"),
+--     i(5, "adminuser"),
+--     i(6, "AdminPassword123!"),
+--     c(7, { t("'Canonical'"), t("'MicrosoftWindowsServer'") }),
+--     c(8, { t("'0001-com-ubuntu-server-jammy'"), t("'WindowsServer'") }),
+--     c(9, { t("'22_04-lts'"), t("'2022-Datacenter'") }),
+--     i(10, "osdisk-name"),
+--     i(11, "30"),
+--     c(12, { t("'Standard_LRS'"), t("'Premium_LRS'") }),
+--     i(13, "networkInterface"),
+--   })),
+--
+--   -- App Service Plan
+--   s("asp", fmt([[
+-- resource appServicePlan 'Microsoft.Web/serverfarms@2023-01-01' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--     tier: '{}'
+--     capacity: {}
+--   }}
+--   kind: 'linux'
+--   properties: {{
+--     reserved: true
+--   }}
+-- }}
+-- ]], {
+--     i(1, "asp-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'B1'"), t("'B2'"), t("'B3'"), t("'S1'"), t("'S2'"), t("'S3'") }),
+--     c(4, { t("'Basic'"), t("'Standard'"), t("'Premium'") }),
+--     i(5, "1"),
+--   })),
+--
+--   -- App Service
+--   s("app", fmt([[
+-- resource webApp 'Microsoft.Web/sites@2023-01-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     serverFarmId: {}.id
+--     siteConfig: {{
+--       linuxFxVersion: '{}'
+--       appSettings: [
+--         {{
+--           name: 'WEBSITES_ENABLE_APP_SERVICE_STORAGE'
+--           value: 'false'
+--         }}
+--       ]
+--     }}
+--     httpsOnly: true
+--   }}
+-- }}
+-- ]], {
+--     i(1, "app-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "appServicePlan"),
+--     c(4, { t("'NODE|18-lts'"), t("'DOTNET|6.0'"), t("'PYTHON|3.9'"), t("'PHP|8.0'") }),
+--   })),
+--
+--   -- Key Vault
+--   s("kv", fmt([[
+-- resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     sku: {{
+--       family: 'A'
+--       name: 'standard'
+--     }}
+--     tenantId: subscription().tenantId
+--     accessPolicies: [
+--       {{
+--         tenantId: subscription().tenantId
+--         objectId: '{}'
+--         permissions: {{
+--           keys: ['all']
+--           secrets: ['all']
+--           certificates: ['all']
+--         }}
+--       }}
+--     ]
+--     enableRbacAuthorization: false
+--     enableSoftDelete: true
+--     softDeleteRetentionInDays: 90
+--   }}
+-- }}
+-- ]], {
+--     i(1, "kv-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "object-id-here"),
+--   })),
+--
+--   -- Key Vault Secret
+--   s("kvs", fmt([[
+-- resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {{
+--   name: '{}'
+--   parent: {}
+--   properties: {{
+--     contentType: 'string'
+--     value: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "secret-name"),
+--     i(2, "keyVault"),
+--     i(3, "secret-value"),
+--   })),
+--
+--   -- SQL Server
+--   s("sqlserver", fmt([[
+-- resource sqlServer 'Microsoft.Sql/servers@2023-05-01-preview' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     administratorLogin: '{}'
+--     administratorLoginPassword: '{}'
+--     version: '12.0'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "sqlserver-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "adminuser"),
+--     i(4, "AdminPassword123!"),
+--   })),
+--
+--   -- SQL Database
+--   s("sqldb", fmt([[
+-- resource sqlDatabase 'Microsoft.Sql/servers/databases@2023-05-01-preview' = {{
+--   parent: {}
+--   name: '{}'
+--   properties: {{
+--     collation: 'SQL_Latin1_General_CP1_CI_AS'
+--     maxSizeBytes: 1073741824
+--     requestedServiceObjectiveName: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "sqlServer"),
+--     i(2, "database-name"),
+--     c(3, { t("'Basic'"), t("'S0'"), t("'S1'"), t("'S2'"), t("'P1'"), t("'P2'") }),
+--   })),
+--
+--   -- Container Registry
+--   s("acr", fmt([[
+-- resource containerRegistry 'Microsoft.ContainerRegistry/registries@2023-07-01' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--   }}
+--   properties: {{
+--     adminUserEnabled: true
+--   }}
+-- }}
+-- ]], {
+--     i(1, "acr-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Basic'"), t("'Standard'"), t("'Premium'") }),
+--   })),
+--
+--   -- Kubernetes Service (AKS)
+--   s("aks", fmt([[
+-- resource kubernetesCluster 'Microsoft.ContainerService/managedClusters@2023-10-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     dnsPrefix: '{}'
+--     agentPoolProfiles: [
+--       {{
+--         name: 'agentpool'
+--         count: {}
+--         vmSize: '{}'
+--         osType: 'Linux'
+--         mode: 'System'
+--       }}
+--     ]
+--     servicePrincipalProfile: {{
+--       clientId: '{}'
+--       secret: '{}'
+--     }}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "aks-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "aks-dns-prefix"),
+--     i(4, "1"),
+--     c(5, { t("'Standard_B2s'"), t("'Standard_D2s_v3'"), t("'Standard_DS2_v2'") }),
+--     i(6, "client-id"),
+--     i(7, "client-secret"),
+--   })),
+--
+--   -- Function App
+--   s("func", fmt([[
+-- resource functionApp 'Microsoft.Web/sites@2023-01-01' = {{
+--   name: '{}'
+--   location: {}
+--   kind: 'functionapp'
+--   properties: {{
+--     serverFarmId: {}.id
+--     siteConfig: {{
+--       appSettings: [
+--         {{
+--           name: 'AzureWebJobsStorage'
+--           value: 'DefaultEndpointsProtocol=https;AccountName={};AccountKey={};EndpointSuffix=core.windows.net'
+--         }}
+--         {{
+--           name: 'WEBSITE_CONTENTAZUREFILECONNECTIONSTRING'
+--           value: 'DefaultEndpointsProtocol=https;AccountName={};AccountKey={};EndpointSuffix=core.windows.net'
+--         }}
+--         {{
+--           name: 'WEBSITE_CONTENTSHARE'
+--           value: '{}'
+--         }}
+--         {{
+--           name: 'FUNCTIONS_EXTENSION_VERSION'
+--           value: '~4'
+--         }}
+--         {{
+--           name: 'WEBSITE_NODE_DEFAULT_VERSION'
+--           value: '~18'
+--         }}
+--       ]
+--     }}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "func-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "appServicePlan"),
+--     i(4, "storageAccountName"),
+--     i(5, "storageAccountKey"),
+--     i(6, "storageAccountName"),
+--     i(7, "storageAccountKey"),
+--     i(8, "func-content-share"),
+--   })),
+--
+--   -- Logic App
+--   s("logic", fmt([[
+-- resource logicApp 'Microsoft.Logic/workflows@2019-05-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     definition: {{
+--       '$schema': 'https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowDefinition.json#'
+--       contentVersion: '1.0.0.0'
+--       parameters: {{}}
+--       triggers: {{
+--         manual: {{
+--           type: 'Request'
+--           kind: 'Http'
+--           inputs: {{
+--             schema: {{}}
+--           }}
+--         }}
+--       }}
+--       actions: {{}}
+--       outputs: {{}}
+--     }}
+--     parameters: {{}}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "logic-app-name"),
+--     i(2, "resourceGroup().location"),
+--   })),
+--
+--   -- Event Hub Namespace
+--   s("eh", fmt([[
+-- resource eventHubNamespace 'Microsoft.EventHub/namespaces@2023-01-01-preview' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--     tier: '{}'
+--     capacity: {}
+--   }}
+--   properties: {{
+--     isAutoInflateEnabled: false
+--     maximumThroughputUnits: 0
+--   }}
+-- }}
+-- ]], {
+--     i(1, "eh-namespace-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Basic'"), t("'Standard'") }),
+--     c(4, { t("'Basic'"), t("'Standard'") }),
+--     i(5, "1"),
+--   })),
+--
+--   -- Service Bus Namespace
+--   s("sb", fmt([[
+-- resource serviceBusNamespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--     tier: '{}'
+--     capacity: {}
+--   }}
+--   properties: {{
+--     minimumTlsVersion: '1.2'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "sb-namespace-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Basic'"), t("'Standard'"), t("'Premium'") }),
+--     c(4, { t("'Basic'"), t("'Standard'"), t("'Premium'") }),
+--     i(5, "1"),
+--   })),
+--
+--   -- API Management
+--   s("apim", fmt([[
+-- resource apiManagement 'Microsoft.ApiManagement/service@2023-05-01-preview' = {{
+--   name: '{}'
+--   location: {}
+--   sku: {{
+--     name: '{}'
+--     capacity: {}
+--   }}
+--   properties: {{
+--     publisherEmail: '{}'
+--     publisherName: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "apim-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Developer'"), t("'Standard'"), t("'Premium'") }),
+--     i(4, "1"),
+--     i(5, "admin@example.com"),
+--     i(6, "Publisher Name"),
+--   })),
+--
+--   -- Redis Cache
+--   s("redis", fmt([[
+-- resource redisCache 'Microsoft.Cache/Redis@2023-08-01' = {{
+--   name: '{}'
+--   location: {}
+--   properties: {{
+--     sku: {{
+--       name: '{}'
+--       family: '{}'
+--       capacity: {}
+--     }}
+--     enableNonSslPort: false
+--     minimumTlsVersion: '1.2'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "redis-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Basic'"), t("'Standard'"), t("'Premium'") }),
+--     c(4, { t("'C'"), t("'P'") }),
+--     i(5, "1"),
+--   })),
+--
+--   -- Cosmos DB Account
+--   s("cosmos", fmt([[
+-- resource cosmosDbAccount 'Microsoft.DocumentDB/databaseAccounts@2023-09-15' = {{
+--   name: '{}'
+--   location: {}
+--   kind: 'GlobalDocumentDB'
+--   properties: {{
+--     consistencyPolicy: {{
+--       defaultConsistencyLevel: '{}'
+--     }}
+--     locations: [
+--       {{
+--         locationName: '{}'
+--         failoverPriority: 0
+--         isZoneRedundant: false
+--       }}
+--     ]
+--     databaseAccountOfferType: 'Standard'
+--     enableAutomaticFailover: false
+--     enableMultipleWriteLocations: false
+--   }}
+-- }}
+-- ]], {
+--     i(1, "cosmos-account-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'Session'"), t("'Eventual'"), t("'BoundedStaleness'"), t("'Strong'") }),
+--     i(4, "resourceGroup().location"),
+--   })),
+--
+--   -- Application Insights
+--   s("ai", fmt([[
+-- resource applicationInsights 'Microsoft.Insights/components@2020-02-02' = {{
+--   name: '{}'
+--   location: '{}'
+--   kind: 'web'
+--   properties: {{
+--     Application_Type: 'web'
+--     Request_Source: 'rest'
+--     WorkspaceResourceId: '{}'
+--   }}
+-- }}
+-- ]], {
+--     i(1, "ai-name"),
+--     i(2, "resourceGroup().location"),
+--     i(3, "logAnalyticsWorkspaceId"),
+--   })),
+--
+--   -- Log Analytics Workspace
+--   s("law", fmt([[
+-- resource logAnalyticsWorkspace 'Microsoft.OperationalInsights/workspaces@2023-09-01' = {{
+--   name: '{}'
+--   location: '{}'
+--   properties: {{
+--     sku: {{
+--       name: '{}'
+--     }}
+--     retentionInDays: {}
+--   }}
+-- }}
+-- ]], {
+--     i(1, "law-name"),
+--     i(2, "resourceGroup().location"),
+--     c(3, { t("'PerGB2018'"), t("'PerNode'"), t("'PerCore'") }),
+--     i(4, "30"),
+--   })),
+-- })
+--
+-- -- Return the snippets for proper module loading
+-- return {
+--   snippets = ls.get_snippets('bicep'),
+--   version = "1.0.0",
+--   description = "Comprehensive Azure resource snippets for Bicep"
+-- }
