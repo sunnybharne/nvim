@@ -48,31 +48,32 @@ ls.add_snippets('bicep', {
 
   -- ===== VARIABLES =====
   -- String Variable
-  -- @description('var description')
   -- var varName = 'value'
   s("var : variable", {
-    t({"@description('"}), i(1, "var_description"), t({"')"}),
-    t({"", "var "}), i(2, "varName"), t({" = '"}), i(3, "value"), t({"'"}),
+    t({"var "}), i(1, "varName"), t({" = '"}), i(2, "value"), t({"'"}),
+  }),
+
+  -- String Variable (alias)
+  -- var varName = 'value'
+  s("var : string", {
+    t({"var "}), i(1, "varName"), t({" = '"}), i(2, "value"), t({"'"}),
   }),
 
   -- Array Variable
-  -- @description('var_description')
   -- var myArray = [
   --   1
   --   'string'
   --   {objectkey: 'objectValue'}
   -- ]
   s("var : array", {
-    t({"@description('"}), i(1, "var_description"), t({"')"}),
-    t({"", "var "}), i(2, "myArray"), t({" = ["}),
-    t({"", "  "}), i(3, "1"),
-    t({"", "  '"}), i(4, "string"), t({"'"}),
-    t({"", "  {"}), i(5, "objectkey"), t({": '"}), i(6, "objectValue"), t({"'}"}),
+    t({"var "}), i(1, "myArray"), t({" = ["}),
+    t({"", "  "}), i(2, "1"),
+    t({"", "  '"}), i(3, "string"), t({"'"}),
+    t({"", "  {"}), i(4, "objectkey"), t({": '"}), i(5, "objectValue"), t({"'}"}),
     t({"", "]"}),
   }),
 
   -- Object Variable
-  -- @description('This variable holds object data for a resource.')
   -- var myObject = {
   --   name: 'example'
   --   location: 'eastus'
@@ -82,14 +83,25 @@ ls.add_snippets('bicep', {
   --   }
   -- }
   s("var : object", {
-    t({"@description('"}), i(1, "This variable holds object data for a resource."), t({"')"}),
-    t({"", "var "}), i(2, "myObject"), t({" = {"}),
-    t({"", "  "}), i(3, "name"), t({": '"}), i(4, "example"), t({"'"}),
-    t({"", "  "}), i(5, "location"), t({": '"}), i(6, "eastus"), t({"'"}),
-    t({"", "  "}), i(7, "tags"), t({": {"}),
-    t({"", "    "}), i(8, "environment"), t({": '"}), i(9, "dev"), t({"'"}),
-    t({"", "    "}), i(10, "owner"), t({": '"}), i(11, "teamA"), t({"'"}),
+    t({"var "}), i(1, "myObject"), t({" = {"}),
+    t({"", "  "}), i(2, "name"), t({": '"}), i(3, "example"), t({"'"}),
+    t({"", "  "}), i(4, "location"), t({": '"}), i(5, "eastus"), t({"'"}),
+    t({"", "  "}), i(6, "tags"), t({": {"}),
+    t({"", "    "}), i(7, "environment"), t({": '"}), i(8, "dev"), t({"'"}),
+    t({"", "    "}), i(9, "owner"), t({": '"}), i(10, "teamA"), t({"'"}),
     t({"", "  }"}),
     t({"", "}"}),
+  }),
+
+  -- Number Variable
+  -- var myNumber = 1
+  s("var : number", {
+    t({"var "}), i(1, "myNumber"), t({" = "}), i(2, "1"),
+  }),
+
+  -- Boolean Variable
+  -- var myFlag = true
+  s("var : boolean", {
+    t({"var "}), i(1, "myFlag"), t({" = "}), i(2, "true"),
   }),
 })

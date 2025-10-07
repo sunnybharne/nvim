@@ -1,126 +1,76 @@
 # Bicep Snippets
 
-## Comprehensive Bicep Support
+Azure Bicep snippets for infrastructure as code development.
 
-This configuration provides comprehensive Bicep language support in Neovim with all VSCode features and extensive snippets.
+## Overview
 
-## Features
+This module contains comprehensive Bicep snippets for Azure Resource Manager templates, covering common infrastructure patterns and best practices.
 
-### Language Server Protocol (LSP) Features
-- ✅ Syntax highlighting and validation
-- ✅ IntelliSense and autocompletion
-- ✅ Hover information and signature help
-- ✅ Go to definition and references
-- ✅ Rename and refactoring
-- ✅ Code actions and diagnostics
-- ✅ Document and workspace symbols
-- ✅ Folding and breadcrumbs
-- ✅ Inlay hints and semantic highlighting
-- ✅ Formatting and validation
-- ✅ Decompilation support
-- ✅ Azure Container Registry integration
+## Available Snippets
 
-### Comprehensive Snippets
-- **Basic Structure**: Parameters, variables, outputs, resources, modules
-- **Azure Resources**: 20+ common Azure resources with full configurations
-- **Advanced Patterns**: Complex loops, conditionals, user-defined functions
-- **VSCode Equivalents**: All VSCode Bicep extension snippets included
-- **Best Practices**: Proper decorators, validation, and error handling
+### Basic Infrastructure
+- **`bicep:resource`** - Standard Azure resource template
+- **`bicep:param`** - Parameter definition
+- **`bicep:var`** - Variable definition
+- **`bicep:output`** - Output definition
 
-### Snippet Categories
+### Advanced Patterns
+- **`bicep:loop`** - Resource loops and iterations
+- **`bicep:conditional`** - Conditional resource deployment
+- **`bicep:module`** - Bicep module reference
+- **`bicep:targetscope`** - Target scope definitions
 
-#### Basic Snippets (`basic-snippets.lua`)
-- Parameters with decorators and validation
-- Variables and outputs
-- Resources and modules
-- Arrays and objects
-- For loops and conditionals
-- Target scope and metadata
-
-#### Azure Resources (`comprehensive-resources.lua`)
-- Storage Accounts, Virtual Networks, Subnets
-- Network Security Groups, Public IPs, NICs
-- Virtual Machines, App Services, Key Vaults
-- SQL Servers, Container Registries, AKS
-- Function Apps, Logic Apps, Event Hubs
-- Service Bus, API Management, Redis Cache
-- Cosmos DB, Application Insights, Log Analytics
-
-#### Advanced Patterns (`advanced-patterns.lua`)
-- Complex template structures
-- Multi-environment configurations
-- Nested loops and dependencies
-- Cross-resource references
-- User-defined functions
-- Assertions and validation
-- Complex parameter validation
-
-#### Comprehensive Basic (`comprehensive-basic.lua`)
-- All Bicep language constructs
-- String, array, object, and numeric functions
-- Logical and comparison functions
-- Resource and deployment functions
-- List functions and scope functions
-- User-defined functions and assertions
-- With statements and imports/exports
-
-## Installation
-
-The configuration is automatically set up with:
-1. **LSP Configuration**: Enhanced Bicep language server with all features
-2. **Treesitter Support**: Syntax highlighting and semantic tokens
-3. **Filetype Detection**: Automatic `.bicep` file recognition
-4. **Comprehensive Snippets**: 100+ snippets covering all scenarios
+### Azure Resources
+- **`bicep:storage`** - Storage account templates
+- **`bicep:vm`** - Virtual machine configurations
+- **`bicep:network`** - Networking resources
+- **`bicep:appservice`** - App Service configurations
 
 ## Usage
 
-### Snippet Triggers
-- `param` - Parameter with decorators
-- `var` - Variable declaration
-- `output` - Output with description
-- `resource` - Basic resource
-- `module` - Module reference
-- `for` - For loop
-- `if` - Conditional resource
-- `func` - User-defined function
-- `assert` - Assertion
-- `sa` - Storage Account
-- `vnet` - Virtual Network
-- `vm` - Virtual Machine
-- `app` - App Service
-- `kv` - Key Vault
-- And many more...
+1. Open a `.bicep` file in Neovim
+2. Type the snippet trigger (e.g., `bicep:resource`)
+3. Press `<Tab>` to expand the snippet
+4. Fill in the placeholders
 
-### LSP Features
-- `<leader>f` - Format document
-- `K` - Hover information
-- `gd` - Go to definition
-- `gr` - References
-- `<leader>rn` - Rename
-- `<leader>ca` - Code actions
-- `]d` / `[d` - Navigate diagnostics
+## Examples
 
-## Configuration
+### Resource Template
+```bicep
+// Type 'bicep:resource' and press Tab
+resource storageAccount 'Microsoft.Storage/storageAccounts@2021-09-01' = {
+  name: 'st${resourceGroup().name}${uniqueString(resourceGroup().id)}'
+  location: resourceGroup().location
+  sku: {
+    name: 'Standard_LRS'
+  }
+  kind: 'StorageV2'
+  properties: {
+    accessTier: 'Hot'
+    supportsHttpsTrafficOnly: true
+  }
+}
+```
 
-The configuration includes:
-- Enhanced LSP settings with all Bicep features enabled
-- Treesitter with semantic highlighting
-- Filetype detection for `.bicep` files
-- Comprehensive snippet collection
-- VSCode-equivalent functionality
+### Parameter Definition
+```bicep
+// Type 'bicep:param' and press Tab
+@description('The name of the resource group')
+param resourceGroupName string = 'rg-${uniqueString(resourceGroup().id)}'
+```
 
-## Requirements
+## Version
 
-- Neovim with LSP support
-- Bicep CLI installed
-- .NET SDK for language server
-- LuaSnip for snippets
-- Treesitter for syntax highlighting
+Current version: 1.0.0
 
-## Troubleshooting
+## Changelog
 
-If you encounter issues:
-1. Ensure Bicep CLI is installed: `az bicep install`
-2. Verify .NET SDK is available
-3. Check LSP server is running: `:LspInfo`
-4. Update Treesitter: `:TSUpdate bicep`
+See [CHANGELOG.md](./CHANGELOG.md) for version history.
+
+## Contributing
+
+When adding new snippets:
+1. Follow the existing snippet authoring style guide
+2. Update this README with new snippet descriptions
+3. Update the changelog
+4. Test snippets in `.bicep` files
