@@ -5,6 +5,7 @@ return {
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-tree/nvim-web-devicons",
+      "nvim-telescope/telescope-ui-select.nvim",
     },
     lazy = false,
     keys = {
@@ -88,6 +89,7 @@ return {
 
       -- Load extensions
       telescope.load_extension("fzf")
+      telescope.load_extension("ui-select")
     end,
   },
   {

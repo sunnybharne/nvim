@@ -13,6 +13,12 @@ vim.opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard
 -- Color
 vim.opt.termguicolors = true -- Enable 24-bit color support
 
+-- Indentation (2-space soft tabs)
+vim.opt.expandtab = true      -- Insert spaces instead of tabs
+vim.opt.shiftwidth = 2        -- Indent by 2 spaces
+vim.opt.softtabstop = 2       -- A <Tab> feels like 2 spaces when editing
+vim.opt.tabstop = 2           -- Display tabs as 2 spaces
+
 -- Temporary shims for deprecated LSP APIs used by some plugins
 if vim.lsp and vim.lsp.get_clients then
   ---@diagnostic disable-next-line: duplicate-set-field

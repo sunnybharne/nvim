@@ -9,7 +9,6 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
-      "L3MON4D3/LuaSnip",
       "saadparwaiz1/cmp_luasnip",
     },
     config = function()
@@ -98,93 +97,5 @@ return {
       -- This will be used by your LSP servers
       vim.g.cmp_capabilities = capabilities
     end,
-  },
-  {
-    "L3MON4D3/LuaSnip",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-    config = function()
-      require("luasnip.loaders.from_vscode").lazy_load()
-      
-      -- Load custom snippets from your snippets folder
-      require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/lua/snippets" } })
-      
-      -- Set up snippet keymaps
-      local luasnip = require("luasnip")
-      
-      -- Jump forward/backward in snippets
-      vim.keymap.set({ "i", "s" }, "<C-k>", function()
-        if luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        end
-      end, { desc = "Expand or jump snippet" })
-      
-      vim.keymap.set({ "i", "s" }, "<C-j>", function()
-        if luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        end
-      end, { desc = "Jump back in snippet" })
-      
-      -- Change snippet choice
-      vim.keymap.set({ "i" }, "<C-l>", function()
-        if luasnip.choice_active() then
-          luasnip.change_choice(1)
-        end
-      end, { desc = "Change snippet choice" })
-      
-      -- Debug command to check snippets
-      vim.api.nvim_create_user_command("CheckBicepSnippets", function()
-        print("Checking Bicep snippets...")
-        local luasnip = require("luasnip")
-        local snippets = luasnip.get_snippets("bicep")
-        if snippets and #snippets > 0 then
-          print("✅ Found " .. #snippets .. " Bicep snippets")
-          
-          -- Check for duplicate param snippets
-          local param_count = 0
-          for i, snippet in ipairs(snippets) do
-            if snippet.name == "param" then
-              param_count = param_count + 1
-              print("  - " .. snippet.name .. " (duplicate #" .. param_count .. ")")
-            elseif i <= 10 then -- Show first 10 snippets
-              print("  - " .. (snippet.name or "unnamed"))
-            end
-          end
-          
-          if param_count > 1 then
-            print("⚠️  Found " .. param_count .. " duplicate 'param' snippets!")
-          end
-          
-          if #snippets > 10 then
-            print("  ... and " .. (#snippets - 10) .. " more")
-          end
-        else
-          print("❌ No Bicep snippets found")
-        end
-      end, { desc = "Check if Bicep snippets are loaded" })
-      
-      -- Reload snippets command
-      vim.api.nvim_create_user_command("ReloadBicepSnippets", function()
-        print("Reloading all snippets...")
-        require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/lua/snippets" } })
-        print("✅ All snippets reloaded")
-      end, { desc = "Reload all snippets" })
-      
-      -- Test filetype detection
-      vim.api.nvim_create_user_command("TestBicepFiletype", function()
-        local ft = vim.bo.filetype
-        print("Current filetype: " .. ft)
-        if ft == "bicep" then
-          print("✅ Bicep filetype detected correctly")
-        else
-          print("❌ Bicep filetype not detected. Current: " .. ft)
-        end
-      end, { desc = "Test Bicep filetype detection" })
-    end,
-  },
-  {
-    "rafamadriz/friendly-snippets",
-    lazy = true,
   },
 }
