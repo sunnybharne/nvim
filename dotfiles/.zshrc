@@ -87,3 +87,7 @@ complete -o nospace -C /usr/bin/terraform terraform
 # Added by Windsurf
 export PATH="/Users/sunnybharne/.codeium/windsurf/bin:$PATH"
 
+
+# Created by `pipx` on 2025-10-08 21:29:22
+export PATH="$PATH:/Users/sunnybharne/.local/bin"
+export REPOSITORY_PATH="/Users/sunnybharne/.config/nvim"

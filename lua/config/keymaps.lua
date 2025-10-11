@@ -54,4 +54,4 @@ end, { desc = "Force quit everything" })
 vim.keymap.set("n", "<Leader>p", ":Telescope projects<CR>", { desc = "Open project picker" })
 vim.keymap.set("n", "<Leader>P", ":ProjectRoot<CR>", { desc = "Change to project root" })
 vim.keymap.set("n", "<Leader>f", ":Telescope find_files<CR>", { desc = "Find files in project" })
-vim.keymap.set("n", "<Leader>sg", ":Telescope live_grep<CR>", { desc = "Live grep in project" })
+-- Note: <leader>fg is defined in telescope.lua plugin config
