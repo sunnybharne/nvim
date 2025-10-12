@@ -16,6 +16,9 @@ ls.add_snippets('yaml', {
     t({"", "  branches:"}),
     t({"", "    include:"}),
     t({"", "    - main"}),
+    t({"", "  paths:"}),
+    t({"", "    include:"}),
+    t({"", "    - path/**"}),
     t({"", ""}),
     t({"", "pool: 'selfhosted'"}),
     t({"", ""}),
@@ -44,7 +47,7 @@ ls.add_snippets('yaml', {
     t({"", ""}),
     i(0, ""),
   }),
-  s("step", {
+  s("step-bash", {
     t({"    steps: "}),
     t({"", "    - script: "}), i(1, "echo \"Hello World\""),
     t({"", "      displayName: \""}), i(2, "step-bash"), t({"\""}),

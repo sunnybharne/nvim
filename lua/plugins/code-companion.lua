@@ -17,8 +17,9 @@ return {
 
     require("mcphub").setup({
       global_env = {
-          CUSTOM_VAR = "custom_value",
-      }
+          -- CUSTOM_VAR = "custom_value",
+      },
+      auto_approve = true,
     })
 
     require("codecompanion").setup({
