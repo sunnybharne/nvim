@@ -172,9 +172,63 @@ return {
         },
       })
       
+      -- Terraform LSP specific settings
+      vim.lsp.config("terraformls", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          terraform = {
+            path = "terraform",
+            telemetry = {
+              enable = false,
+            },
+            experimentalFeatures = {
+              validateOnSave = true,
+              prefillRequiredFields = true,
+            },
+          },
+        },
+        filetypes = { "terraform", "terraform-vars" },
+        root_dir = function(fname)
+          return vim.fn.getcwd()
+        end,
+        flags = {
+          debounce_text_changes = 150,
+        },
+      })
+
+      -- TFLint LSP settings
+      vim.lsp.config("tflint", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "terraform", "terraform-vars" },
+        root_dir = function(fname)
+          return vim.fn.getcwd()
+        end,
+      })
+
+      -- Enable filetype detection for Terraform
+      vim.cmd([[autocmd BufNewFile,BufRead *.tf,*.tfvars set filetype=terraform]])
+      vim.cmd([[autocmd BufNewFile,BufRead *.hcl set filetype=hcl]])
+      
+      -- Set commentstring for Terraform files
+      vim.cmd([[autocmd FileType terraform setlocal commentstring=#\ %s]])
+      vim.cmd([[autocmd FileType hcl setlocal commentstring=#\ %s]])
+      
+      -- Ensure Terraform filetype is recognized
+      vim.filetype.add({
+        extension = {
+          tf = "terraform",
+          tfvars = "terraform-vars",
+          hcl = "hcl",
+        },
+      })
+
       -- Enable LSP servers
       vim.lsp.enable("lua_ls")
       vim.lsp.enable("bicep")
+      vim.lsp.enable("terraformls")
+      vim.lsp.enable("tflint")
     end,
   }
 }
