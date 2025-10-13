@@ -44,6 +44,29 @@ return {
           adapter = "copilot",
         }
       },
+      -- Enable file access and workspace context
+      file_access = true,
+      workspace_context = true,
+      -- Chat window configuration using the correct format
+      display = {
+        chat = {
+          window = {
+            layout = "vertical",  -- Use vertical split instead of float
+            width = 0.25,         -- 25% of screen width (narrow)
+            height = 1.0,         -- 100% of screen height (full height)
+            border = "single",
+            position = "right",   -- Right side
+            relative = "editor",
+            opts = {
+              wrap = true,
+              linebreak = true,
+              signcolumn = "no",
+              number = false,
+              relativenumber = false,
+            },
+          },
+        },
+      },
     })
 
     -- Keymaps for CodeCompanion
