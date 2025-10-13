@@ -74,4 +74,18 @@ ls.add_snippets('yaml', {
     t({"", ""}),
     i(0, ""),
   }),
+  s("ado-variables", {
+    t({"variables:", ""}),
+    t({"  - name: variableKey", ""}),
+    t({"    value: 'variableValue'", ""})
+  }),
+  s("variables-multi", {
+    t({"variables:"}),
+    t({"", "  "}), i(1, "key"), t({":"}),
+    t({"", "    - "}), i(2, "value1"),
+    t({"", "    - "}), i(3, "value2"),
+    t({"", "    - "}), i(4, "value3"),
+    t({"", ""}),
+    i(0, ""),
+  })
 })
