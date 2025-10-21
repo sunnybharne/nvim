@@ -30,6 +30,23 @@ nvim
 - Azure
 
 ## Plugins Used
+## Available Snippets
+
+Below are the available snippet modules and how to use them. To expand a snippet, type the trigger word and press `<Tab>` (or your configured keymap).
+
+| Module             | Description                        | Example Trigger(s)      | Usage Notes                       |
+|--------------------|------------------------------------|-------------------------|------------------------------------|
+| Bicep              | Azure Bicep templates               | `bicep-main`            | Creates a main Bicep template      |
+| Terraform          | Terraform resources and modules     | `tf-main`, `tf-res`     | Main config, resource block        |
+| TypeScript CDKTF   | CDK for Terraform in TypeScript     | `cdktf-main`            | Scaffold CDKTF app                 |
+| Azure DevOps       | Azure DevOps pipeline YAML          | `azdo-pipeline`         | Pipeline starter                   |
+| GitHub Actions     | GitHub Actions workflow YAML        | `gha-workflow`          | Workflow starter                   |
+| Docker             | Dockerfile and Compose              | `dockerfile`, `compose` | Dockerfile, docker-compose.yml     |
+| Pester             | PowerShell Pester tests             | `pester-test`           | Basic test block                   |
+| Lua                | Lua config and plugin setup         | `lua-plugin`            | Neovim plugin setup                |
+| Azure              | Azure CLI and ARM templates         | `az-cli`, `arm-main`    | CLI commands, ARM template starter |
+
+You can customize triggers and snippet content in `lua/snippets/<module>.lua`.
 
 | Plugin                | Description                                                                 | Key Features / Usage Notes                                  |
 |-----------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
