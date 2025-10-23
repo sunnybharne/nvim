@@ -13,9 +13,10 @@ local generate_output_description = utils.generate_output_description
 local generate_tags = utils.generate_tags
 
 -- Terraform configuration snippets
--- Version: 1.2.0
--- Last Updated: 2024-12-19
+-- Version: 1.3.0
+-- Last Updated: 2025-10-21
 -- Changelog:
+--   v1.3.0 - Removed AWS provider support (Azure-focused)
 --   v1.2.0 - Added AWS provider support
 --   v1.1.0 - Added locals and data sources
 --   v1.0.0 - Initial terraform snippets
@@ -38,19 +39,6 @@ local terraform_snippets = {
       "  }",
       "}"
     })
-  }),
-
-  -- Terraform with AWS
-  s("terraform-aws", {
-    t({"", "terraform {"}),
-    t({"  required_version = \">= 1.0\"",""}),
-    t({"", "  required_providers {"}),
-    t({"", "    aws = {"}),
-    t({"      source  = \"hashicorp/aws\"",""}),
-    t({"      version = \"~> 5.0\"",""}),
-    t({"", "    }"}),
-    t({"", "  }"}),
-    t({"", "}"})
   }),
 
   -- Variables block
@@ -94,11 +82,12 @@ local terraform_snippets = {
 
 -- Version metadata
 local version_info = {
-  version = "1.2.0",
-  last_updated = "2024-12-19",
+  version = "1.3.0",
+  last_updated = "2025-10-21",
   author = "sunnybharne",
-  description = "Terraform configuration snippets",
+  description = "Terraform configuration snippets (Azure-focused)",
   changelog = {
+    ["1.3.0"] = "Removed AWS provider support (Azure-focused)",
     ["1.2.0"] = "Added AWS provider support and improved formatting",
     ["1.1.0"] = "Added locals and data sources",
     ["1.0.0"] = "Initial terraform snippets with basic blocks"

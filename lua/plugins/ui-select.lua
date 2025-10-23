@@ -194,6 +194,9 @@ return {
       -- Register fzf-lua as ui-select
       require("fzf-lua").register_ui_select()
     end,
+    -- Disabled FzfLua keymaps to avoid conflicts with Telescope
+    -- If you want to use FzfLua instead, uncomment these and disable Telescope keymaps
+    --[[
     keys = {
       { "<leader>ff", ":FzfLua files<CR>", desc = "Find files" },
       { "<leader>fg", ":FzfLua live_grep<CR>", desc = "Live grep" },
@@ -208,6 +211,7 @@ return {
       { "<leader>gc", ":FzfLua git_commits<CR>", desc = "Git commits" },
       { "<leader>gC", ":FzfLua git_bcommits<CR>", desc = "Git buffer commits" },
     },
+    ]]--
   },
   
   -- Mini.pick as alternative picker

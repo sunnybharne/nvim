@@ -6,13 +6,17 @@ return {
     "rafamadriz/friendly-snippets",
   },
   config = function()
+    local luasnip = require("luasnip")
+    
+    -- Load vscode snippets
     require("luasnip.loaders.from_vscode").lazy_load()
     
-    -- Load custom snippets
-    require("luasnip.loaders.from_lua").load({ paths = { "~/.config/nvim/lua/snippets" } })
+    -- Load custom Lua snippets
+    -- Using load() instead of lazy_load() because we have custom directory structure
+    -- This will load all snippets immediately when nvim starts
+    require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
     
     -- Set up keymaps for snippet navigation
-    local luasnip = require("luasnip")
     
     vim.keymap.set({ "i", "s" }, "<C-j>", function()
       if luasnip.expand_or_jumpable() then

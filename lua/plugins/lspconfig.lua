@@ -31,9 +31,9 @@ return {
         vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, { desc = "Rename" }))
         vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, { desc = "Code action" }))
         vim.keymap.set("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, { desc = "References" }))
-        vim.keymap.set("n", "<leader>f", function()
+        vim.keymap.set("n", "<leader>lf", function()
           vim.lsp.buf.format({ async = true })
-        end, vim.tbl_extend("force", opts, { desc = "Format" }))
+        end, vim.tbl_extend("force", opts, { desc = "LSP Format" }))
       end
 
       -- LSP capabilities

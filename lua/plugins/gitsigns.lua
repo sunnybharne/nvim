@@ -109,8 +109,8 @@ return {
 
           map("n", "<leader>hq", gitsigns.setqflist, { desc = "Set quickfix list" })
 
-          -- Toggles
-          map("n", "<leader>tb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
+          -- Toggles (changed tb to hb to avoid conflict with telescope git branches)
+          map("n", "<leader>hb", gitsigns.toggle_current_line_blame, { desc = "Toggle current line blame" })
           map("n", "<leader>tw", gitsigns.toggle_word_diff, { desc = "Toggle word diff" })
 
           -- Text object

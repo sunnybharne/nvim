@@ -32,9 +32,7 @@ return {
         table.insert(sources, builtins.diagnostics.eslint_d)
         -- If you prefer eslint over eslint_d, swap to builtins.diagnostics.eslint
       end
-      if has_exe("tflint") then
-        table.insert(sources, builtins.diagnostics.tflint)
-      end
+      -- Note: tflint diagnostics are handled by the tflint LSP server, not none-ls
 
       null_ls.setup({
         sources = sources,

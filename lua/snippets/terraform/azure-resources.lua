@@ -4,11 +4,21 @@ local t = ls.text_node
 
 -- Azure Resource snippets
 ls.add_snippets('terraform', {
-  -- Resource Group
+  -- Resource Group (AzureRM)
   s("rg", {
     t({"resource \"azurerm_resource_group\" \"example\" {",""}),
     t({"  name     = \"example-rg\"",""}),
     t({"  location = \"East US\"",""}),
+    t({"", "}"})
+  }),
+
+  -- Resource Group (AzAPI)
+  s("rg-azapi", {
+    t({"resource \"azapi_resource\" \"resourceGroupName\" {",""}),
+    t({"  type      = \"Microsoft.Resources/resourceGroups@2025-04-01\"",""}),
+    t({"  parent_id = \"/subscriptions/subId\"",""}),
+    t({"  name      = \"rg-name\"",""}),
+    t({"  location  = \"swedencentral\"",""}),
     t({"", "}"})
   }),
 
