@@ -228,7 +228,7 @@ return {
       })
 
       -- LSP servers are automatically enabled when setup() is called above
-      -- No need to manually enable them in Neovim 0.10.4
+      -- Copilot LSP is handled by copilot.vim plugin
     end,
   }
 }

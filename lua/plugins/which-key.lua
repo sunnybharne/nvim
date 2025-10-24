@@ -48,7 +48,7 @@ return {
       { "<leader>h", group = "Git Hunks" },
       { "<leader>l", group = "LazyGit/LSP" },
       { "<leader>n", group = "Neogit" },
-      { "<leader>w", group = "Workspace" },
+      { "<leader>w", group = "Windows/Workspace" },
       { "<leader>m", group = "Markdown" },
       { "<leader>g", group = "Git" },
       { "<leader>a", group = "AI Assistant" },
