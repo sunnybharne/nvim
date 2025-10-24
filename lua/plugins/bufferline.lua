@@ -11,14 +11,14 @@ return {
 
       bufferline.setup({
         options = {
-          mode = "buffers", -- set to "tabs" to only show tabpages instead
+          mode = "buffers",                               -- set to "tabs" to only show tabpages instead
           style_preset = bufferline.style_preset.default, -- or bufferline.style_preset.minimal,
-          themable = true, -- allows highlight groups to be overridden
-          numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
-          close_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-          right_mouse_command = "bdelete! %d", -- can be a string | function, see "Mouse actions"
-          left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-          middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+          themable = true,                                -- allows highlight groups to be overridden
+          numbers = "none",                               -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+          close_command = "bdelete! %d",                  -- can be a string | function, see "Mouse actions"
+          right_mouse_command = "bdelete! %d",            -- can be a string | function, see "Mouse actions"
+          left_mouse_command = "buffer %d",               -- can be a string | function, see "Mouse actions"
+          middle_mouse_command = nil,                     -- can be a string | function, see "Mouse actions"
           -- NOTE: this plugin is designed with this icon in mind,
           -- and so changing this is NOT recommended, this is intended
           -- as an "escape hatch" for people who cannot bear it for whatever reason
@@ -42,8 +42,8 @@ return {
             end
           end,
           max_name_length = 18,
-          max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-          truncate_names = true, -- whether or not tab names should be truncated
+          max_prefix_length = 15,   -- prefix used when a buffer is de-duplicated
+          truncate_names = true,    -- whether or not tab names should be truncated
           tab_size = 18,
           diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc",
           diagnostics_update_in_insert = false,
@@ -93,7 +93,7 @@ return {
           show_close_icon = true,
           show_tab_indicators = true,
           show_duplicate_prefix = true, -- whether to show duplicate buffer prefix
-          persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+          persist_buffer_sort = true,   -- whether or not custom sorted buffers should persist
           -- can also be a table containing 2 custom separators
           -- [focused and unfocused]. eg: { '|', '|' }
           separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },

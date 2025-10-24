@@ -1,17 +1,5 @@
 #!/bin/bash
 
-# FIXME: add the highligh thing for selected stuff
-# FIXME: the colors in ghostty terminal is not very good make changes there 
-# FIXME: the colors in ghostty terminal when I open tmux is not very good can you please make chnges there.
-# FIXME: make sure to use some pair plugin which bisually shows the open and close pairs.
-# FIXME: Add some sore of error showing mechanism.
-# FIXME: Add configuration for bicep and document it in some sort of readme file.
-# FIXME: Add configuration for terraform and document it in some sort of readme file.
-# FIXME: Add configuration for typescript
-# FIXME: Add configuration for python
-# FIXME: Add configuration for c#
-# NOTE: Create your own copilot nvim plugin
-#
 # Install Homebrew if not already installed
 if ! command -v brew &> /dev/null; then
     echo "Installing Homebrew..."

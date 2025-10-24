@@ -7,6 +7,7 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-cmdline",
+      "robitx/gp.nvim",
       "hrsh7th/cmp-vsnip",
       "hrsh7th/vim-vsnip",
       "saadparwaiz1/cmp_luasnip",
