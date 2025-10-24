@@ -7,8 +7,23 @@ vim.opt.number = true -- Show absolute line numbers
 vim.opt.relativenumber = true -- Enable relative line numbers
 vim.opt.cursorline = true -- Highlight the current line
 
--- Clipboard
-vim.opt.clipboard = "unnamed,unnamedplus" -- Use system clipboard
+-- Clipboard (Enhanced for macOS)
+vim.opt.clipboard = "unnamedplus" -- Use system clipboard
+-- Ensure clipboard works on macOS
+if vim.fn.has('macunix') == 1 then
+  vim.g.clipboard = {
+    name = 'macOS-clipboard',
+    copy = {
+      ['+'] = 'pbcopy',
+      ['*'] = 'pbcopy',
+    },
+    paste = {
+      ['+'] = 'pbpaste',
+      ['*'] = 'pbpaste',
+    },
+    cache_enabled = 0,
+  }
+end
 
 -- Color
 vim.opt.termguicolors = true -- Enable 24-bit color support

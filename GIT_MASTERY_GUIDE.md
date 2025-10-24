@@ -16,8 +16,7 @@ You have **4 powerful Git tools** installed. Each has its strengths:
 ```
 1. Make changes to files
 2. <Space>hs - Stage individual hunks (or <Space>hS for whole file)
-3. <Space>gg - Open LazyGit
-4. Press 'c' to commit
+3. <Space>gg - Open LazyGit 4. Press 'c' to commit
 5. Write commit message
 6. Press 'P' to push
 ```
@@ -39,6 +38,7 @@ You have **4 powerful Git tools** installed. Each has its strengths:
 ### Master Hunk Operations (Gitsigns)
 
 **The Power of Hunks:**
+
 - A "hunk" is a block of changed lines
 - Stage only what you need for a logical commit
 - Keep commits small and focused
@@ -54,6 +54,7 @@ Workflow:
 ```
 
 **Exercise:**
+
 - Make 3 unrelated changes to one file
 - Stage them as 3 separate commits with meaningful messages
 
@@ -74,6 +75,7 @@ Workflow:
 Open LazyGit: `<Space>gg`
 
 **In LazyGit:**
+
 ```
 Navigation:
 1,2,3,4,5 - Jump to panels (Files, Branches, Commits, Stash, etc.)
@@ -110,6 +112,7 @@ o         - Open file
 ```
 
 **Exercises:**
+
 1. Create a new branch, make changes, commit, push
 2. Switch between branches
 3. Merge a branch
@@ -119,6 +122,7 @@ o         - Open file
 ### LazyGit Workflows
 
 **Feature Branch Workflow:**
+
 ```
 1. <Space>gg
 2. Press 'n' to create new branch
@@ -130,6 +134,7 @@ o         - Open file
 ```
 
 **Interactive Rebase (Advanced):**
+
 ```
 1. <Space>gg
 2. Navigate to Commits (press 3)
@@ -143,6 +148,7 @@ o         - Open file
 ### Diffview - Your Review Tool
 
 **Review All Changes Before Commit:**
+
 ```
 1. <Space>dd - Open Diffview
 2. j/k to navigate files
@@ -154,6 +160,7 @@ o         - Open file
 ```
 
 **View File History:**
+
 ```
 1. <Space>dh - Open file history
 2. See all commits that touched current file
@@ -161,6 +168,7 @@ o         - Open file
 ```
 
 **Merge Conflict Resolution:**
+
 ```
 When you have conflicts:
 1. <Space>dd - Open Diffview
@@ -173,6 +181,7 @@ When you have conflicts:
 ```
 
 **Exercise:**
+
 - Create a conflict (edit same line in two branches)
 - Merge and resolve using Diffview
 
@@ -228,6 +237,7 @@ Work on multiple branches simultaneously:
 - Better for keyboard-only workflow
 
 **Essential Neogit:**
+
 ```
 <Space>gn  - Open Neogit
 
@@ -247,6 +257,7 @@ r r        - Rebase
 ```
 
 **When to use Neogit over LazyGit:**
+
 - You're already in a buffer and don't want to switch context
 - Keyboard-only workflow
 - Need to reference code while committing
@@ -255,24 +266,28 @@ r r        - Rebase
 ## 🎓 Mastery Checklist
 
 ### Week 1: Foundations
+
 - [ ] Make 20 commits using `<Space>hs` + `<Space>gg`
 - [ ] Navigate hunks with `]c` and `[c` 20 times
 - [ ] Preview 10 hunks with `<Space>hp`
 - [ ] Use `<Space>hb` to check blame on 10 different lines
 
 ### Week 2: Branching
+
 - [ ] Create 5 feature branches
 - [ ] Merge 3 branches using LazyGit
 - [ ] Resolve 2 merge conflicts with Diffview
 - [ ] Stash and pop changes 5 times
 
 ### Week 3: Advanced Staging
+
 - [ ] Stage partial files (visual mode) 10 times
 - [ ] Make 5 "surgical commits" from messy changes
 - [ ] Use `<Space>dh` to review file history 10 times
 - [ ] Amend commits 5 times
 
 ### Week 4: Power User
+
 - [ ] Interactive rebase 3 commits
 - [ ] Use Neogit for a full workflow (stage, commit, push)
 - [ ] Set up a worktree
@@ -281,12 +296,14 @@ r r        - Rebase
 ## 🔑 Pro Tips
 
 ### 1. Think in Hunks, Not Files
+
 ```
 ❌ Bad:  Stage whole file with random changes
 ✅ Good: Stage logical hunks that belong together
 ```
 
 ### 2. Commit Message Quality
+
 ```
 ❌ Bad:  "fixed stuff"
 ✅ Good: "fix: Add null check in user authentication
@@ -297,6 +314,7 @@ r r        - Rebase
 ```
 
 ### 3. Review Before Commit
+
 ```
 Always:
 1. <Space>dd - Open Diffview
@@ -306,6 +324,7 @@ Always:
 ```
 
 ### 4. Use Blame to Learn
+
 ```
 When you see weird code:
 1. <Space>hb - Toggle blame
@@ -315,6 +334,7 @@ When you see weird code:
 ```
 
 ### 5. Keyboard Shortcuts You Must Know
+
 ```
 In any Git tool:
 ?         - Always shows help
@@ -327,15 +347,19 @@ j/k       - Navigate (Vim style)
 ## 🚨 Common Mistakes to Avoid
 
 1. **Never commit without reviewing:**
+
    - Always `<Space>dd` before committing
 
 2. **Don't stage everything blindly:**
+
    - Use hunks! Be selective!
 
 3. **Don't amend pushed commits:**
+
    - Rewrites history, confuses teammates
 
 4. **Don't force push to main:**
+
    - Use feature branches, then merge
 
 5. **Don't resolve conflicts blindly:**
@@ -344,16 +368,19 @@ j/k       - Navigate (Vim style)
 ## 📚 Learning Path
 
 ### Month 1: Build Muscle Memory
+
 - Use Gitsigns for all staging
 - Use LazyGit for all commits
 - Use Diffview for all reviews
 
 ### Month 2: Add Complexity
+
 - Start using Neogit
 - Practice branching workflows
 - Learn interactive rebase
 
 ### Month 3: Master Advanced
+
 - Partial file staging
 - Cherry-picking
 - Worktrees
@@ -363,26 +390,32 @@ j/k       - Navigate (Vim style)
 
 ```markdown
 1. Start work:
+
    - <Space>tb to switch/create branch
 
 2. Make changes:
+
    - Code normally
    - Use ]c/[c to review changes as you go
 
 3. Before commit:
+
    - <Space>dd to review everything
    - Ask: Is this logical? Tested?
 
 4. Stage:
+
    - <Space>hs for each logical hunk
    - Or visual mode + <Space>hs for partial staging
 
 5. Commit:
+
    - <Space>gg
    - Press 'c', write good message
    - Consider using conventional commits
 
 6. Push:
+
    - In LazyGit, press 'P'
 
 7. Code review (others' PRs):
@@ -395,6 +428,7 @@ j/k       - Navigate (Vim style)
 ## 🏆 Final Goal: The 10-Second Commit
 
 **Mastery is when you can:**
+
 1. Review changes
 2. Stage hunks
 3. Write commit message

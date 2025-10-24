@@ -82,13 +82,29 @@ Work through these guides in order for the best learning experience:
 - Search and replace across project
 - File history investigation
 
-**Why last:** Combines all tools into real-world scenarios - this is where everything clicks!
+**Why fifth:** Combines all tools into real-world scenarios - this is where everything clicks!
+
+---
+
+### 6. AI-Powered Development (45 minutes)
+**File:** `07-ai-copilot-sidekick.md`
+
+**What you'll learn:**
+- GitHub Copilot code completion
+- Sidekick.nvim AI CLI integration
+- Context-aware code assistance
+- AI-powered debugging and code review
+- Smart code generation with prompts
+- Next Edit Suggestions (NES)
+- Multi-tool AI workflows
+
+**Why sixth:** Master AI-assisted development for maximum productivity - learn to leverage AI as your coding partner!
 
 ---
 
 ## 🎯 Quick Start
 
-### Option 1: Full Course (3-4 hours)
+### Option 1: Full Course (4-5 hours)
 Work through all guides in order:
 ```
 01-gitsigns.md
@@ -100,6 +116,8 @@ Work through all guides in order:
 04-telescope.md
   ↓
 05-complete-workflows.md
+  ↓
+07-ai-copilot-sidekick.md
 ```
 
 ### Option 2: Git Focus (2 hours)
@@ -108,7 +126,13 @@ Focus on Git mastery:
 01-gitsigns.md → 02-neogit.md → 03-diffview.md → 05-complete-workflows.md
 ```
 
-### Option 3: Quick Wins (30 minutes)
+### Option 3: AI-Enhanced Development (2.5 hours)
+Modern development with AI assistance:
+```
+01-gitsigns.md → 04-telescope.md → 07-ai-copilot-sidekick.md
+```
+
+### Option 4: Quick Wins (30 minutes)
 Learn the essentials:
 ```
 01-gitsigns.md (Steps 1-4)

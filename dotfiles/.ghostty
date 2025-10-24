@@ -1,0 +1,10 @@
+font-family = "JetBrainsMono Nerd Font"
+font-size = 2
+font-thicken = true
+window-colorspace = display-p3
+term = xterm-256color
+alpha-blending = linear-corrected
+cursor-color = #e4007c
+cursor-style = bar
+cursor-style-blink = false
+cursor-text = #ffffff

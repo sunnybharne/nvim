@@ -1,5 +1,6 @@
 return {
   "olimorris/codecompanion.nvim",
+  enabled = false, -- Disabled: Requires Neovim 0.11, currently running 0.10.4
   opts = {},
   dependencies = {
     "nvim-lua/plenary.nvim",
