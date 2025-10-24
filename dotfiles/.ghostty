@@ -8,3 +8,4 @@ cursor-color = #e4007c
 cursor-style = bar
 cursor-style-blink = false
 cursor-text = #ffffff
+theme = TokyoNight Night

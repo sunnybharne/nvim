@@ -28,7 +28,7 @@ return {
         hijack_cursor = false,
         update_cwd = true,
         diagnostics = {
-          enable = true,
+          enable = false,
           show_on_dirs = false, -- Disable on directories to prevent conflicts
           debounce_delay = 50,
           severity = {

@@ -22,11 +22,17 @@ return {
         
         -- Customize specific highlight groups
         on_highlights = function(hl, c)
-            -- More subtle visual selection
+            -- Pink background with white text for visual selection
             hl.Visual = {
-                bg = "#364a82", -- Darker blue background
-                fg = "#c0caf5", -- Standard foreground
+                bg = "#ff69b4", -- Hot pink background
+                fg = "#ffffff", -- Pure white text
             }
+            -- Alternative pink options:
+            -- bg = "#ff1493", -- Deep pink
+            -- bg = "#ff6b9d", -- Soft pink
+            -- bg = "#e91e63", -- Material pink
+            -- bg = "#c21471", -- Dark pink
+            
             -- Tone down cursor line
             hl.CursorLineNr = {
                 fg = c.blue,
