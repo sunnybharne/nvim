@@ -35,6 +35,18 @@ vim.keymap.set("i", "<C-v>", '<Esc>"+pa', { desc = "Paste from system clipboard 
 -- Window navigation is handled by vim-tmux-navigator plugin
 -- See lua/plugins/tmux-navigator.lua for configuration
 
+-- Window splitting keymaps
+vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split window vertically" })
+vim.keymap.set("n", "<leader>wh", "<C-w>s", { desc = "Split window horizontally" })
+vim.keymap.set("n", "<leader>we", "<C-w>=", { desc = "Make splits equal size" })
+vim.keymap.set("n", "<leader>wx", "<cmd>close<CR>", { desc = "Close current split" })
+
+-- Window resizing
+vim.keymap.set("n", "<leader>w>", "<C-w>5>", { desc = "Increase width" })
+vim.keymap.set("n", "<leader>w<", "<C-w>5<", { desc = "Decrease width" })
+vim.keymap.set("n", "<leader>w+", "<C-w>5+", { desc = "Increase height" })
+vim.keymap.set("n", "<leader>w-", "<C-w>5-", { desc = "Decrease height" })
+
 -- Smart quit keybindings for Neo-tree scenarios
 vim.keymap.set("n", "<Leader>q", function()
   -- Check if Neo-tree is open
@@ -47,7 +59,7 @@ vim.keymap.set("n", "<Leader>q", function()
       break
     end
   end
-  
+
   if neo_tree_open then
     -- Close Neo-tree first, then quit the current buffer
     vim.cmd("Neotree close")
