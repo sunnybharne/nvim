@@ -44,8 +44,11 @@ return {
         properties = { "documentation", "detail", "additionalTextEdits" }
       }
 
+      -- Setup LSP servers using lspconfig
+      local lspconfig = require("lspconfig")
+      
       -- Lua LSP specific settings
-      vim.lsp.config("lua_ls", {
+      lspconfig.lua_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -68,7 +71,7 @@ return {
       })
 
       -- Bicep LSP specific settings with comprehensive features
-      vim.lsp.config("bicep", {
+      lspconfig.bicep.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -173,7 +176,7 @@ return {
       })
       
       -- Terraform LSP specific settings
-      vim.lsp.config("terraformls", {
+      lspconfig.terraformls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
@@ -198,7 +201,7 @@ return {
       })
 
       -- TFLint LSP settings
-      vim.lsp.config("tflint", {
+      lspconfig.tflint.setup({
         on_attach = on_attach,
         capabilities = capabilities,
         filetypes = { "terraform", "terraform-vars" },
@@ -224,11 +227,8 @@ return {
         },
       })
 
-      -- Enable LSP servers
-      vim.lsp.enable("lua_ls")
-      vim.lsp.enable("bicep")
-      vim.lsp.enable("terraformls")
-      vim.lsp.enable("tflint")
+      -- LSP servers are automatically enabled when setup() is called above
+      -- No need to manually enable them in Neovim 0.10.4
     end,
   }
 }

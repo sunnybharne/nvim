@@ -16,6 +16,22 @@ vim.keymap.set("n", "<Leader>mt", ":MarkdownPreviewToggle<CR>", { desc = "Toggle
 vim.api.nvim_set_keymap("v", "<", "<gv", { noremap = true }) -- Indent left and reselect
 vim.api.nvim_set_keymap("v", ">", ">gv", { noremap = true }) -- Indent right and reselect
 
+-- Enhanced Clipboard Operations
+-- Copy to system clipboard explicitly
+vim.keymap.set("v", "<Leader>y", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "<Leader>y", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "<Leader>Y", '"+Y', { desc = "Copy line to system clipboard" })
+
+-- Paste from system clipboard
+vim.keymap.set("n", "<Leader>p", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set("n", "<Leader>P", '"+P', { desc = "Paste before from system clipboard" })
+
+-- Copy entire file to clipboard
+vim.keymap.set("n", "<Leader>ca", ":%y+<CR>", { desc = "Copy entire file to clipboard" })
+
+-- Paste in insert mode from system clipboard
+vim.keymap.set("i", "<C-v>", '<Esc>"+pa', { desc = "Paste from system clipboard in insert mode" })
+
 -- Window navigation is handled by vim-tmux-navigator plugin
 -- See lua/plugins/tmux-navigator.lua for configuration
 

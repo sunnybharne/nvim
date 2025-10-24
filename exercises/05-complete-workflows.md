@@ -8,12 +8,12 @@ Advanced workflows combining Gitsigns, Neogit, Diffview, and Telescope.
 
 You now have 4 powerful tools:
 
-| Tool | Purpose | When to Use |
-|------|---------|-------------|
-| **Gitsigns** | Hunk-level operations | Jump between changes, stage precise hunks |
-| **Neogit** | Git operations | Commit, branch, push, stash |
-| **Diffview** | Code review | Compare branches, review commits, resolve conflicts |
-| **Telescope** | Discovery & navigation | Find files, search code, switch branches |
+| Tool          | Purpose                | When to Use                                         |
+| ------------- | ---------------------- | --------------------------------------------------- |
+| **Gitsigns**  | Hunk-level operations  | Jump between changes, stage precise hunks           |
+| **Neogit**    | Git operations         | Commit, branch, push, stash                         |
+| **Diffview**  | Code review            | Compare branches, review commits, resolve conflicts |
+| **Telescope** | Discovery & navigation | Find files, search code, switch branches            |
 
 **Master principle:** Each tool excels at specific tasks. Use the right tool for the job!
 
@@ -24,16 +24,20 @@ You now have 4 powerful tools:
 **Scenario:** Build a new feature from scratch to PR
 
 ### Phase 1: Setup
+
 ```
 <Space>gn       → Open Neogit
 bc              → Create new branch
 ```
+
 Type: "feature/awesome-feature" → `<Enter>`
+
 ```
 q               → Close Neogit
 ```
 
 ### Phase 2: Code & Review
+
 ```
 (Make changes in Neovim)
 
@@ -44,6 +48,7 @@ q               → Close Neogit
 ```
 
 ### Phase 3: Selective Staging
+
 ```
 ]c              → Jump to first logical chunk
 V               → Visual mode
@@ -55,6 +60,7 @@ jjj             → Select lines
 ```
 
 ### Phase 4: First Commit
+
 ```
 <Space>dd       → Open Diffview
 <Tab>           → Focus file panel
@@ -68,19 +74,23 @@ j j             → Navigate files
 cc              → Commit
 i               → Insert mode
 ```
+
 Type commit message:
+
 ```
 feat: add awesome feature core logic
 
 - Implemented base functionality
 - Added helper functions
 ```
+
 ```
 <Esc>
 :wq             → Save commit
 ```
 
 ### Phase 5: Continue Development
+
 ```
 (Make more changes)
 
@@ -89,12 +99,15 @@ feat: add awesome feature core logic
 <Space>gn       → Neogit
 cc              → Commit
 ```
+
 Type: "feat: add tests"
+
 ```
 :wq             → Save
 ```
 
 ### Phase 6: Pre-PR Review
+
 ```
 :DiffviewOpen main  → Compare with main
 <Tab>               → File panel
@@ -103,12 +116,15 @@ j                   → First file
 ]c                  → Jump through changes
 ]D                  → Next file
 ```
+
 Review every file, then:
+
 ```
 :DiffviewClose
 ```
 
 ### Phase 7: Push & Create PR
+
 ```
 <Space>gn       → Neogit
 pp              → Push to remote
@@ -124,10 +140,13 @@ q               → Close
 **Scenario:** Fix a critical bug and deploy fast
 
 ### Speed Run:
+
 ```
 <Space>fg       → Search for bug location
 ```
+
 Type the error/function name → `<Enter>`
+
 ```
 (Fix the bug)
 
@@ -136,7 +155,9 @@ Type the error/function name → `<Enter>`
 cc              → Commit
 i               → Insert
 ```
+
 Type: "fix: resolve critical bug in X"
+
 ```
 <Esc>
 :wq             → Save
@@ -153,17 +174,21 @@ q               → Close
 **Scenario:** Review a teammate's branch before approving
 
 ### Review Process:
+
 ```
 <Space>gn       → Neogit
 Pp              → Pull latest
 bb              → Branch checkout
 ```
+
 Type their branch name → `<Enter>`
+
 ```
 q               → Close Neogit
 ```
 
 ### Compare Their Branch:
+
 ```
 :DiffviewOpen main  → Compare with main
 <Tab>               → File panel
@@ -173,6 +198,7 @@ j                   → First file
 ```
 
 Take notes mentally, then:
+
 ```
 ]D              → Next file
 ]c              → Review changes
@@ -181,6 +207,7 @@ Take notes mentally, then:
 Repeat for all files.
 
 ### Leave Comments (In Web Interface):
+
 ```
 :DiffviewClose
 ```
@@ -188,7 +215,9 @@ Repeat for all files.
 Go to GitHub/GitLab, leave your review comments.
 
 ### Approve or Request Changes:
+
 If approved:
+
 ```
 <Space>gn       → Neogit
 bb              → Switch back to main
@@ -201,44 +230,55 @@ bb              → Switch back to main
 **Scenario:** Your PR has conflicts with main
 
 ### Step 1: Update Your Branch
+
 ```
 <Space>gn       → Neogit
 bb              → Checkout main
 Pp              → Pull latest
 bb              → Switch back to your branch
 ```
+
 Type your branch name → `<Enter>`
 
 ### Step 2: Merge Main
+
 ```
 <Space>nm       → Neogit merge
 ```
+
 Type: "main" → `<Enter>`
 
 **Conflicts occur!**
 
 ### Step 3: Resolve with Diffview
+
 ```
 <Space>dd       → Open Diffview
 ```
 
 You'll see 3-way merge view:
+
 ```
 OURS  │  BASE  │  THEIRS
 ```
 
 ### Step 4: Choose Sides
+
 ```
 ]c              → Jump to conflict
 co              → Choose OURS (your code)
 ```
+
 Or:
+
 ```
 ct              → Choose THEIRS (main's code)
 ```
+
 Or manually edit the conflict markers.
 
 ### Step 5: Stage & Commit
+
 ```
 :w              → Save file
 <Tab>           → File panel
@@ -246,13 +286,16 @@ s               → Stage resolved file
 ```
 
 Repeat for all conflicted files, then:
+
 ```
 :DiffviewClose
 <Space>gn       → Neogit
 cc              → Commit merge
 i               → Insert
 ```
+
 Type: "Merge branch 'main' into feature-branch"
+
 ```
 <Esc>
 :wq             → Save
@@ -267,6 +310,7 @@ q               → Close
 **Scenario:** Made many changes, need to organize into logical commits
 
 ### Step 1: Audit All Changes
+
 ```
 <Space>dd       → Diffview
 <Tab>           → File panel
@@ -277,16 +321,19 @@ j j j           → Navigate
 ```
 
 ### Step 2: Stage Related Changes
+
 ```
 ]c              → First change
 ```
 
 If it's part of commit 1:
+
 ```
 <Space>hs       → Stage it
 ```
 
 If not:
+
 ```
 ]c              → Skip to next
 ```
@@ -294,36 +341,44 @@ If not:
 Continue until all commit 1 changes are staged.
 
 ### Step 3: Commit First Logical Unit
+
 ```
 <Space>gn       → Neogit
 =               → Review staged (make sure it's complete)
 cc              → Commit
 i               → Insert
 ```
+
 Type: "refactor: extract helper functions"
+
 ```
 <Esc>
 :wq             → Save
 ```
 
 ### Step 4: Repeat for Other Logical Units
+
 ```
 ]c              → Next unstaged change
 <Space>hs       → Stage related changes
 <Space>gn       → Neogit
 cc              → Commit
 ```
+
 Type: "refactor: rename variables for clarity"
+
 ```
 :wq             → Save
 ```
 
 ### Step 5: Final Review & Push
+
 ```
 :DiffviewOpen HEAD~3..HEAD  → Review last 3 commits
 ```
 
 Verify commits are logical, then:
+
 ```
 :DiffviewClose
 <Space>gn       → Neogit
@@ -338,27 +393,34 @@ q               → Close
 **Scenario:** Working on feature A, urgent bug in production requires immediate attention
 
 ### Save Current Work:
+
 ```
 <Space>gn       → Neogit
 zz              → Stash changes
 ```
+
 Type stash message: "WIP: feature A progress"
+
 ```
 q               → Close
 ```
 
 ### Switch to Main & Create Hotfix:
+
 ```
 <Space>gn       → Neogit
 bb              → Checkout main
 bc              → Create hotfix branch
 ```
+
 Type: "hotfix/critical-bug"
+
 ```
 q               → Close
 ```
 
 ### Fix Bug:
+
 ```
 <Space>fg       → Find bug location
 (Fix it)
@@ -366,7 +428,9 @@ q               → Close
 <Space>gn       → Neogit
 cc              → Commit
 ```
+
 Type: "hotfix: resolve production issue"
+
 ```
 :wq             → Save
 pp              → Push
@@ -374,6 +438,7 @@ q               → Close
 ```
 
 ### Return to Feature Work:
+
 ```
 <Space>gn       → Neogit
 bb              → Switch back to feature branch
@@ -390,32 +455,39 @@ q               → Close
 **Scenario:** Rename a function used in 20 files
 
 ### Step 1: Find All Occurrences
+
 ```
 <Space>fg       → Live grep
 ```
+
 Type old function name: "oldFunction"
+
 ```
 <C-q>           → Send to quickfix
 <Esc>           → Close Telescope
 ```
 
 ### Step 2: Replace in All Files
+
 ```
 :cdo s/oldFunction/newFunction/gc
 ```
 
 The `c` flag asks for confirmation on each:
+
 - `y` = yes, replace
 - `n` = no, skip
 - `a` = replace all in file
 - `q` = quit
 
 ### Step 3: Save All Files
+
 ```
 :wa             → Write all
 ```
 
 ### Step 4: Review Changes
+
 ```
 <Space>dd       → Diffview
 <Tab>           → File panel
@@ -424,13 +496,16 @@ j <Enter>       → Review first file
 ```
 
 ### Step 5: Commit
+
 ```
 :DiffviewClose
 <Space>gn       → Neogit
 S               → Stage all
 cc              → Commit
 ```
+
 Type: "refactor: rename oldFunction to newFunction"
+
 ```
 :wq             → Save
 pp              → Push
@@ -444,6 +519,7 @@ q               → Close
 **Scenario:** "Who changed this function and why?"
 
 ### Step 1: Select Function
+
 ```
 (Open file with the function)
 V               → Visual mode
@@ -451,6 +527,7 @@ j j j           → Select function lines
 ```
 
 ### Step 2: View History
+
 ```
 :'<,'>DiffviewFileHistory
 ```
@@ -458,6 +535,7 @@ j j j           → Select function lines
 You'll see all commits that touched those lines!
 
 ### Step 3: Review Commits
+
 ```
 j               → Navigate commits
 <Enter>         → View commit diff
@@ -465,17 +543,20 @@ j               → Navigate commits
 ```
 
 ### Step 4: Find the Culprit
+
 ```
 <Tab>           → On commit, see details
 ```
 
 You can see:
+
 - Commit message
 - Author
 - Date
 - All changes
 
 ### Step 5: Close
+
 ```
 :DiffviewClose
 ```
@@ -489,12 +570,15 @@ You can see:
 **Scenario:** What did I work on yesterday?
 
 ### Review Recent Files:
+
 ```
 <Space>fr       → Recent files
 ```
+
 Scroll through, see what you touched.
 
 ### Review Commits:
+
 ```
 <Space>gn       → Neogit
 ll              → Log
@@ -503,6 +587,7 @@ j j j           → Navigate commits
 ```
 
 ### Review Specific Commit:
+
 ```
 :DiffviewOpen HEAD~5  → Review 5th commit ago
 ]c ]D                 → Navigate changes
@@ -510,6 +595,7 @@ j j j           → Navigate commits
 ```
 
 **Prepare your standup:**
+
 - "Yesterday I worked on X (show commit)"
 - "Today I'm continuing Y"
 - "No blockers"
@@ -521,6 +607,7 @@ j j j           → Navigate commits
 **Scenario:** Made messy commits, want to clean up history
 
 ### Review Commit History:
+
 ```
 <Space>gn       → Neogit
 ll              → Log
@@ -529,6 +616,7 @@ ll              → Log
 See your commits, identify which to squash.
 
 ### Interactive Rebase (Advanced):
+
 ```
 :!git rebase -i HEAD~3
 ```
@@ -538,11 +626,13 @@ Change `pick` to `squash` or `fixup` in editor.
 Save and close.
 
 ### Force Push:
+
 ```
 <Space>gn       → Neogit
 ```
 
 In Neogit, press:
+
 ```
 P               → Push menu
 p               → Force push (with lease)
@@ -554,27 +644,33 @@ q               → Close
 ## Pro Tips for Maximum Speed
 
 ### 1. Chain Commands
+
 Don't think, just type:
+
 ```
 ]c<Space>hp<Space>hs]c<Space>hs<Space>gncc
 ```
 
 ### 2. Use Telescope for Everything
+
 ```
 <Space>f...     → Your first instinct should be Telescope
 ```
 
 ### 3. Preview Before Committing
+
 ```
 Always: <Space>dd → Review → :DiffviewClose → <Space>gn → cc
 ```
 
 ### 4. Keep Commits Small
+
 ```
 Stage often, commit often, push often
 ```
 
 ### 5. Use Visual Mode Staging
+
 ```
 When in doubt: V → select → <Space>hs
 ```
@@ -584,16 +680,20 @@ When in doubt: V → select → <Space>hs
 ## Muscle Memory Drills
 
 ### Drill 1: Speed Commit (30 seconds)
+
 1. Make a change
 2. `]c` → `<Space>hs` → `<Space>gn` → `cc` → type → `:wq` → `pp` → `q`
 
 ### Drill 2: Branch Switch (10 seconds)
+
 1. `<Space>gn` → `bb` → type → `<Enter>` → `q`
 
 ### Drill 3: Search & Fix (45 seconds)
+
 1. `<Space>fg` → type → `<Enter>` → fix → `<Space>hs` → `<Space>gn` → `cc` → `:wq`
 
 ### Drill 4: Conflict Resolution (60 seconds)
+
 1. `<Space>dd` → `]c` → `co` → `:w` → `<Tab>` → `s` → `:DiffviewClose` → `<Space>gn` → `cc` → `:wq`
 
 **Practice these daily until they're automatic!**
@@ -603,27 +703,32 @@ When in doubt: V → select → <Space>hs
 ## Troubleshooting Common Issues
 
 ### Issue: "Telescope is slow"
+
 ```
 <Space>tf       → Use git_files instead of find_files
 ```
 
 ### Issue: "Neogit not refreshing"
+
 ```
 r               → In Neogit, press r to refresh
 ```
 
 ### Issue: "Diffview stuck open"
+
 ```
 :DiffviewClose  → Always close explicitly
 ```
 
 ### Issue: "Forgot what I staged"
+
 ```
 <Space>gn       → Neogit
 =               → View staged changes
 ```
 
 ### Issue: "Made a bad commit"
+
 ```
 <Space>gn       → Neogit
 ca              → Amend commit (fix last commit)
@@ -634,6 +739,7 @@ ca              → Amend commit (fix last commit)
 ## The Ultimate Daily Workflow
 
 **Morning:**
+
 ```
 <Space>gn → Pp  → Pull latest
 <Space>fr       → See recent files
@@ -641,6 +747,7 @@ ca              → Amend commit (fix last commit)
 ```
 
 **During Work:**
+
 ```
 (Code)
 ]c              → Jump to changes
@@ -651,6 +758,7 @@ cc              → Commit
 ```
 
 **Before Lunch:**
+
 ```
 <Space>dd       → Review morning's work
 :DiffviewClose
@@ -658,6 +766,7 @@ cc              → Commit
 ```
 
 **End of Day:**
+
 ```
 :DiffviewOpen main  → Review day's work
 :DiffviewClose

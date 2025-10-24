@@ -3,10 +3,10 @@ return {
     lazy = false,
     priority = 1000,
     opts = {
-        -- TokyoNight configuration options
-        style = "storm", -- The theme comes in different styles: storm, night, moon, day
-        transparent = false, -- Enable this to disable setting the background color
-        terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+        -- TokyoNight configuration options  
+        style = "night", -- The theme comes in different styles: storm, night, moon, day
+        transparent = false, -- Disable transparency for better color control
+        terminal_colors = false, -- Let terminal handle colors for better consistency
         styles = {
             -- Style to be applied to different syntax groups
             comments = { italic = true },
@@ -22,21 +22,21 @@ return {
         
         -- Customize specific highlight groups
         on_highlights = function(hl, c)
-            -- Improve visual selection visibility with Deep Pink
+            -- More subtle visual selection
             hl.Visual = {
-                bg = "#FF1493", -- Deep Pink background
-                fg = "#ffffff", -- White text
-                bold = true,
+                bg = "#364a82", -- Darker blue background
+                fg = "#c0caf5", -- Standard foreground
             }
-            -- Also improve visual mode cursor line
+            -- Tone down cursor line
             hl.CursorLineNr = {
-                fg = c.orange,
-                bold = true,
+                fg = c.blue,
+                bold = false,
             }
         end,
     },
     config = function(_, opts)
         require("tokyonight").setup(opts)
-        vim.cmd("colorscheme tokyonight-night")
+        -- Load the theme that matches the style setting
+        vim.cmd("colorscheme tokyonight-" .. opts.style)
     end,
 }

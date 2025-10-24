@@ -51,6 +51,8 @@ return {
       { "<leader>w", group = "Workspace" },
       { "<leader>m", group = "Markdown" },
       { "<leader>g", group = "Git" },
+      { "<leader>a", group = "AI Assistant" },
+      { "<leader>s", group = "Sidekick/Swap" },
     })
   end,
 }
