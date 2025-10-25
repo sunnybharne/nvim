@@ -86,25 +86,39 @@ Work through these guides in order for the best learning experience:
 
 ---
 
-### 6. AI-Powered Development (45 minutes)
-**File:** `07-ai-copilot-sidekick.md`
+### 6. Quickfix List (30 minutes)
+**File:** `06-quickfix.md`
 
 **What you'll learn:**
-- GitHub Copilot code completion
-- Sidekick.nvim AI CLI integration
-- Context-aware code assistance
-- AI-powered debugging and code review
-- Smart code generation with prompts
-- Next Edit Suggestions (NES)
-- Multi-tool AI workflows
+- Quickfix list basics
+- Navigation between errors
+- Project-wide find and replace
+- Integration with Telescope and Git
+- Custom quickfix workflows
 
-**Why sixth:** Master AI-assisted development for maximum productivity - learn to leverage AI as your coding partner!
+**Why sixth:** Essential for project-wide operations and error handling.
+
+---
+
+### 7. Octa - AI-Powered Development (45 minutes)
+**File:** `07-octa.md`
+
+**What you'll learn:**
+- AI-assisted code completion
+- Interactive chat for problem solving
+- Code generation from descriptions
+- Intelligent refactoring suggestions
+- Automated documentation generation
+- Context-aware code explanations
+- AI-powered debugging assistance
+
+**Why seventh:** Master AI-assisted development for maximum productivity - learn to leverage AI as your coding partner!
 
 ---
 
 ## 🎯 Quick Start
 
-### Option 1: Full Course (4-5 hours)
+### Option 1: Full Course (5-6 hours)
 Work through all guides in order:
 ```
 01-gitsigns.md
@@ -117,7 +131,9 @@ Work through all guides in order:
   ↓
 05-complete-workflows.md
   ↓
-07-ai-copilot-sidekick.md
+06-quickfix.md
+  ↓
+07-octa.md
 ```
 
 ### Option 2: Git Focus (2 hours)
@@ -129,7 +145,7 @@ Focus on Git mastery:
 ### Option 3: AI-Enhanced Development (2.5 hours)
 Modern development with AI assistance:
 ```
-01-gitsigns.md → 04-telescope.md → 07-ai-copilot-sidekick.md
+01-gitsigns.md → 04-telescope.md → 07-octa.md
 ```
 
 ### Option 4: Quick Wins (30 minutes)
