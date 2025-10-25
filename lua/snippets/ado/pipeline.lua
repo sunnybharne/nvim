@@ -9,6 +9,10 @@ local f = ls.function_node
 local utils = require("snippets.utils")
 local fn = utils.fn
 
+local ls = require("luasnip")
+local s = ls.snippet
+local t = ls.text_node
+
 -- Azure Pipelines snippets
 ls.add_snippets('yaml', {
   s("trigger", {
