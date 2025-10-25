@@ -31,13 +31,13 @@ ls.add_snippets('terraform', {
       "",
       "provider \"azapi\" {",
       "  tenant_id       = \""
-    }), 
-    i(1, "tenantId"), 
+    }),
+    i(1, "tenantId"),
     t({
       "\"",
       "  subscription_id = \""
-    }), 
-    i(2, "subId"), 
+    }),
+    i(2, "subId"),
     t({
       "\"",
       "}",
