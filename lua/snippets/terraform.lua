@@ -5,6 +5,117 @@ local i = ls.insert_node
 
 -- Provider snippets
 ls.add_snippets('terraform', {
+  -- Variable with validation
+  s("variable", {
+    t('variable "'),
+    i(1, "variableName"),
+    t({
+      '" {',
+      '  description = "'
+    }),
+    i(2, "description"),
+    t({
+      '"',
+      '  type        = '
+    }),
+    i(3, "string"),
+    t({
+      '',
+      '  default     = "'
+    }),
+    i(4, "default"),
+    t({
+      '"',
+      '',
+      '  validation {',
+      '    condition     = contains(["'
+    }),
+    i(5, "default"),
+    t('", "'),
+    i(6, "somethingelse"),
+    t('"], var.'),
+    i(7, "variableName"),
+    t({
+      ')',
+      '    error_message = "'
+    }),
+    i(8, "The error message"),
+    t({
+      '"',
+      '  }',
+      '}'
+    }),
+    i(0)
+  }),
+
+  -- Azure Policy Definition
+  s("definitions-azapi", {
+    t('resource "azapi_resource" "policy_definitions_'),
+    i(1, "name"),
+    t({
+      '" {',
+      '  type      = "Microsoft.Authorization/policyDefinitions@2025-03-01"',
+      '  name      = "'
+    }),
+    i(2, "somename"),
+    t({
+      '"',
+      '  parent_id = "/providers/Microsoft.Management/managementGroups/${'
+    }),
+    i(3, "mg_id"),
+    t({
+      '}"',
+      '  body = {',
+      '    properties = {',
+      '      description = "'
+    }),
+    i(4, "some description"),
+    t({
+      '"',
+      '      displayName = "'
+    }),
+    i(5, "some display name"),
+    t({
+      '"',
+      '      policyType  = "Custom"',
+      '      mode        = "All"',
+      '      metadata = {',
+      '        category = "'
+    }),
+    i(6, "General"),
+    t({
+      '"',
+      '      }',
+      '      parameters = {',
+      '        allowedLocations = {',
+      '          type = "Array"',
+      '          metadata = {',
+      '            displayName = "Allowed locations"',
+      '            description = "The list of allowed locations for resources"',
+      '          }',
+      '          defaultValue = ["eastus", "westus"]',
+      '        }',
+      '      }',
+      '      policyRule = {',
+      '        if = {',
+      '          field = "location"',
+      '          in    = ["eastus", "westus"]',
+      '        }',
+      '        then = {',
+      '          effect = "deny"',
+      '        }',
+      '      }',
+      '      version = "string"',
+      '      versions = [',
+      '        "string"',
+      '      ]',
+      '    }',
+      '  }',
+      '}'
+    }),
+    i(0)
+  }),
+
   -- Terraform with Azure (AzureRM + AzAPI + Random)
   s("provider-azure", {
     t({
@@ -22,6 +133,13 @@ ls.add_snippets('terraform', {
       "      source  = \"hashicorp/random\"",
       "      version = \"~>3.0\"",
       "    }",
+      "  }",
+      "  backend \"azurerm\" {",
+      "    use_azuread_auth     = true",
+      "    tenant_id            = \"tenantid\"",
+      "    storage_account_name = \"storageaccountname\"",
+      "    container_name       = \"containername\"",
+      "    key                  = \"nameoftheblob\"",
       "  }",
       "}",
       "",
