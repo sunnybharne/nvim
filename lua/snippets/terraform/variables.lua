@@ -112,6 +112,20 @@ ls.add_snippets('terraform', {
     t({"", "}"})
   }),
 
+  -- Variable with contains validation
+  s("var-contains", {
+    t({"variable \"variableName\" {",""}),
+    t({"  description = \"description\"",""}),
+    t({"", "  type        = string"}),
+    t({"  default     = \"default\"",""}),
+    t({"",""}),
+    t({"", "  validation {"}),
+    t({"    condition     = contains([\"default\", \"somethingelse\"], var.variableName)",""}),
+    t({"    error_message = \"The error message\"",""}),
+    t({"", "  }"}),
+    t({"", "}"})
+  }),
+
   -- Common variables
   s("vars-common", {
     t({"variable \"project_name\" {",""}),
