@@ -134,12 +134,12 @@ ls.add_snippets('terraform', {
       "      version = \"~>3.0\"",
       "    }",
       "  }",
+      "",
       "  backend \"azurerm\" {",
-      "    use_azuread_auth     = true",
-      "    tenant_id            = \"tenantid\"",
+      "    resource_group_name  = \"rgname\"",
       "    storage_account_name = \"storageaccountname\"",
       "    container_name       = \"containername\"",
-      "    key                  = \"nameoftheblob\"",
+      "    key                  = \"terraform.tfstate\"",
       "  }",
       "}",
       "",
@@ -148,21 +148,12 @@ ls.add_snippets('terraform', {
       "}",
       "",
       "provider \"azapi\" {",
-      "  tenant_id       = \""
-    }),
-    i(1, "tenantId"),
-    t({
-      "\"",
-      "  subscription_id = \""
-    }),
-    i(2, "subId"),
-    t({
-      "\"",
+      "  tenant_id       = \"tenantId\"",
+      "  subscription_id = \"subscriptionId\"",
       "}",
       "",
       "provider \"random\" {",
-      "}"
+      "}",
     }),
-    i(0)
   }),
 })
