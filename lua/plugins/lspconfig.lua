@@ -3,6 +3,8 @@ return {
     "neovim/nvim-lspconfig",
     lazy = false,
     config = function()
+      -- Suppress lspconfig deprecation warning for nvim 0.11+
+      vim.deprecate = function() end
       -- LSP keybindings
       vim.keymap.set("n", "<leader>de", vim.diagnostic.open_float, { desc = "Open diagnostics" })
       vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Previous diagnostic" })

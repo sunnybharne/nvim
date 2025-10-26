@@ -145,6 +145,8 @@ ls.add_snippets('terraform', {
       "",
       "provider \"azurerm\" {",
       "  features {}",
+      "  tenant_id       = \"tenantId\"",
+      "  subscription_id = \"subscriptionId\"",
       "}",
       "",
       "provider \"azapi\" {",
