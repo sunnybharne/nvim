@@ -91,21 +91,3 @@ vim.keymap.set("n", "<leader>ga", function()
   vim.system({ "git", "push" }, { text = true })
   vim.notify("Staged, amended last commit, and pushed!", vim.log.levels.INFO)
 end, { desc = "Stage all + Amend last commit + Push" })
-
-vim.keymap.set("n", "<leader>gp", function()
-  vim.system({ "git", "add", "." }, { text = true }, function(add_out)
-    vim.system({ "git", "commit", "-m", "auto" }, { text = true }, function(commit_out)
-      if commit_out.code == 0 then
-        vim.system({ "git", "push" }, { text = true }, function(push_out)
-          if push_out.code == 0 then
-            vim.notify("Staged, committed, and pushed!", vim.log.levels.INFO)
-          else
-            vim.notify("Push failed: " .. (push_out.stderr or ""), vim.log.levels.ERROR)
-          end
-        end)
-      else
-        vim.notify("Nothing to commit or commit failed: " .. (commit_out.stderr or ""), vim.log.levels.WARN)
-      end
-    end)
-  end)
-end, { desc = "Stage + Commit + Push (sequential)" })
