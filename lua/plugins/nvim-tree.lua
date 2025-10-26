@@ -57,6 +57,26 @@ return {
           number = false,
           relativenumber = false,
           signcolumn = "yes",
+          float = {
+            enable = true,
+            quit_on_focus_loss = true,
+            open_win_config = function()
+              local screen_w = vim.opt.columns:get()
+              local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+              local window_w = math.floor(screen_w * 0.5)
+              local window_h = math.floor(screen_h * 0.8)
+              local center_x = (screen_w - window_w) / 2
+              local center_y = (screen_h - window_h) / 2
+              return {
+                relative = "editor",
+                border = "rounded",
+                width = window_w,
+                height = window_h,
+                row = center_y,
+                col = center_x,
+              }
+            end,
+          },
         },
         renderer = {
           indent_markers = {

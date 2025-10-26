@@ -99,7 +99,7 @@ return {
       })
 
       -- Keymaps for neogit
-      vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
+      vim.keymap.set("n", "<leader>gn", "<cmd>Neogit<cr>", { desc = "Open Neogit" })
       vim.keymap.set("n", "<leader>nc", "<cmd>Neogit commit<cr>", { desc = "Neogit commit" })
       vim.keymap.set("n", "<leader>np", "<cmd>Neogit push<cr>", { desc = "Neogit push" })
       vim.keymap.set("n", "<leader>nP", "<cmd>Neogit pull<cr>", { desc = "Neogit pull" })
