@@ -78,9 +78,9 @@ end, { desc = "Force quit everything" })
 
 -- Reserve <Leader>e for NvimTree (set in plugin config)
 
--- Project management keymaps
-vim.keymap.set("n", "<Leader>p", ":Telescope projects<CR>", { desc = "Open project picker" })
-vim.keymap.set("n", "<Leader>P", ":ProjectRoot<CR>", { desc = "Change to project root" })
+-- Project management keymaps (using <Leader>pr to avoid conflict with paste commands)
+vim.keymap.set("n", "<Leader>pr", ":Telescope projects<CR>", { desc = "Open project picker" })
+vim.keymap.set("n", "<Leader>pR", ":ProjectRoot<CR>", { desc = "Change to project root" })
 -- Removed <Leader>f mapping - conflicts with telescope <leader>ff, <leader>fg, etc.
 -- Telescope keymaps are defined in telescope.lua plugin config
 --
