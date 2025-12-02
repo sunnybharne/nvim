@@ -158,4 +158,32 @@ ls.add_snippets('terraform', {
       "}",
     }),
   }),
+
+  -- Locals block with JSON decode
+  -- locals {
+  --   json_object = jsondecode(file("${path.module}/somejsonfiles.json"))
+  -- }
+  s("locals", {
+    t({
+      "locals {",
+      "  "
+    }),
+    i(1, "json_object"),
+    t(" = jsondecode(file(\"${path.module}/"),
+    i(2, "somejsonfiles.json"),
+    t({
+      "\"))",
+      "}",
+    }),
+    i(0)
+  }),
+
+  -- JSON decode function
+  -- jsondecode(file("${path.module}/somejsonfiles.json"))
+  s("jsondecode", {
+    t("jsondecode(file(\"${path.module}/"),
+    i(1, "somejsonfiles.json"),
+    t("\"))"),
+    i(0)
+  }),
 })

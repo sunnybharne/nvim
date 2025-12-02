@@ -1,7 +1,6 @@
 # Path to your Oh My Zsh installation
 export ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
-export ZSH_CACHE_DIR="$HOME/.oh-my-zsh/cache"
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom" export ZSH_CACHE_DIR="$HOME/.oh-my-zsh/cache"
 
 # Use the Robby Russell Theme
 ZSH_THEME="robbyrussell"
@@ -88,7 +87,6 @@ complete -o nospace -C /usr/bin/terraform terraform
 
 # Added by Windsurf
 export PATH="/Users/sunnybharne/.codeium/windsurf/bin:$PATH"
-
 
 # Created by `pipx` on 2025-10-08 21:29:22
 export PATH="$PATH:/Users/sunnybharne/.local/bin"
