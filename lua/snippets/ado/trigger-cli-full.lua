@@ -4,7 +4,7 @@ local t = ls.text_node
 
 -- Azure Pipelines trigger snippet
 ls.add_snippets('yaml', {
-  s("trigger-cli-full", {
+  s("ado-trigger-cli-full", {
     t({"trigger:"}),
     t({"", "  branches:"}),
     t({"", "    include:"}),
