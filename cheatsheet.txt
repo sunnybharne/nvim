@@ -1,0 +1,8 @@
+# My Custom Neovim Cheatsheet
+
+## ado
+Reload configuration | <Leader>rr
+Open cheatsheet | <Leader>?
+Edit cheatsheet | <Leader>?!
+
+

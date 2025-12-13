@@ -78,5 +78,3 @@ return {
     vim.keymap.set("v", "<leader>ci", ":CodeCompanion<CR>", { desc = "CodeCompanion Inline (selection)" })    -- Inline for visual selection
   end
 }
-
-}
