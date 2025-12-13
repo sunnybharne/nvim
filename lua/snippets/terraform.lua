@@ -186,4 +186,140 @@ ls.add_snippets('terraform', {
     t("\"))"),
     i(0)
   }),
+
+  -- Azure Billing MCA Account Scope and Subscription
+  s("subscription-create", {
+    t({
+      'data "azurerm_billing_mca_account_scope" "scope" {',
+      '  billing_account_name = var.billing_account_name',
+      '  billing_profile_name = var.billing_profile_name',
+      '  invoice_section_name = var.invoice_section_name',
+      '}',
+      '',
+      'resource "azurerm_subscription" "subscription" {',
+      '  subscription_name = var.subscription_name',
+      '  billing_scope_id  = data.azurerm_billing_mca_account_scope.scope.id',
+      '}',
+    }),
+    i(0)
+  }),
+
+  -- Azure Policy Definition with outputs
+  -- resource "azurerm_policy_definition" "policy" {
+  --   name         = "policy-name"
+  --   policy_type  = "Custom"
+  --   mode         = "All"
+  --   display_name = "Display Name"
+  --   description  = "Description"
+  --   metadata = jsonencode({
+  --     version  = "1.0.0"
+  --     category = "General"
+  --   })
+  --   policy_rule = jsonencode({
+  --     if = {
+  --       field = "location"
+  --       in    = ["eastus", "westus"]
+  --     }
+  --     then = {
+  --       effect = "deny"
+  --     }
+  --   })
+  --   parameters          = jsonencode({})
+  --   management_group_id = "/providers/Microsoft.Management/managementGroups/management-group-id"
+  -- }
+  -- output "policy_definition_id" {
+  --   value = azurerm_policy_definition.policy.id
+  -- }
+  -- output "policy_definition_name" {
+  --   value = azurerm_policy_definition.policy.name
+  -- }
+  s("policy-definition", {
+    t({'resource "azurerm_policy_definition" "'}),
+    i(1, "policy"),
+    t({
+      '" {',
+      '  name         = "'
+    }),
+    i(2, "policy-name"),
+    t({
+      '"',
+      '  policy_type  = "'
+    }),
+    i(3, "Custom"),
+    t({
+      '" //BuiltIn, NotSpecified and Static',
+      '  mode         = "'
+    }),
+    i(4, "All"),
+    t({
+      '"',
+      '  display_name = "'
+    }),
+    i(5, "Display Name"),
+    t({
+      '"',
+      '  description  = "'
+    }),
+    i(6, "Description"),
+    t({
+      '"',
+      '  metadata = jsonencode({',
+      '    version  = "'
+    }),
+    i(7, "1.0.0"),
+    t({
+      '" // Actual policy version',
+      '    category = "'
+    }),
+    i(8, "General"),
+    t({
+      '"',
+      '  })',
+      '  policy_rule = jsonencode({',
+      '    if = {',
+      '      field = "'
+    }),
+    i(9, "location"),
+    t({
+      '"',
+      '      in    = ['
+    }),
+    i(10, '"eastus", "westus"'),
+    t({
+      ']',
+      '    }',
+      '    then = {',
+      '      effect = "'
+    }),
+    i(11, "deny"),
+    t({
+      '"',
+      '    }',
+      '  })',
+      '  parameters          = jsonencode({})',
+      '  management_group_id = "/providers/Microsoft.Management/managementGroups/'
+    }),
+    i(12, "management-group-id"),
+    t({
+      '"',
+      '}',
+      '',
+      'output "policy_definition_id" {',
+      '  value = azurerm_policy_definition.'
+    }),
+    i(13, "policy"),
+    t({
+      '.id',
+      '}',
+      '',
+      'output "policy_definition_name" {',
+      '  value = azurerm_policy_definition.'
+    }),
+    i(14, "policy"),
+    t({
+      '.name',
+      '}',
+    }),
+    i(0)
+  }),
 })
