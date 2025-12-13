@@ -5,7 +5,7 @@ local t = ls.text_node
 -- Azure Pipelines pool snippet
 ls.add_snippets('yaml', {
   s("ado-pool", {
-    t({"pool: 'selfhosted'"}),
+    t({"pool: 'selfhosted' # 'default'"}),
     t({"", ""}),
   }),
 })
