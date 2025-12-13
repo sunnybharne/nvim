@@ -91,3 +91,7 @@ export PATH="/Users/sunnybharne/.codeium/windsurf/bin:$PATH"
 # Created by `pipx` on 2025-10-08 21:29:22
 export PATH="$PATH:/Users/sunnybharne/.local/bin"
 export REPOSITORY_PATH="/Users/sunnybharne/.config/nvim"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/sunnybharne/.lmstudio/bin"
+# End of LM Studio CLI section
