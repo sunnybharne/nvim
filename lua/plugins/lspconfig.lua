@@ -229,6 +229,61 @@ return {
         },
       })
 
+      -- Python LSP (Pyright)
+      lspconfig.pyright.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "basic", -- "off", "basic", "strict"
+              autoImportCompletions = true,
+              autoSearchPaths = true,
+              diagnosticMode = "workspace", -- "openFilesOnly", "workspace"
+              useLibraryCodeForTypes = true,
+            },
+          },
+        },
+        filetypes = { "python" },
+        root_dir = function(fname)
+          return lspconfig.util.root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git")(fname) or vim.fn.getcwd()
+        end,
+      })
+
+      -- C# LSP (OmniSharp)
+      lspconfig.omnisharp.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        cmd = { "omnisharp", "--lsp" },
+        settings = {
+          omnisharp = {
+            enableRoslynAnalyzers = true,
+            enableEditorConfigSupport = true,
+            enableImportCompletion = true,
+            enableDecompilationSupport = true,
+            organizeImportsOnFormat = true,
+            enableAsyncCompletion = true,
+            enableMsBuildLoadProjectsOnDemand = false,
+            sdkIncludePrereleases = false,
+            analyzeOpenDocumentsOnly = false,
+          },
+        },
+        filetypes = { "cs", "csx" },
+        root_dir = function(fname)
+          return lspconfig.util.root_pattern("*.sln", "*.csproj", ".git")(fname) or vim.fn.getcwd()
+        end,
+      })
+
+      -- Alternative: C# LSP using csharp_ls (uncomment if you prefer this over OmniSharp)
+      -- lspconfig.csharp_ls.setup({
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      --   filetypes = { "cs", "csx" },
+      --   root_dir = function(fname)
+      --     return lspconfig.util.root_pattern("*.sln", "*.csproj", ".git")(fname) or vim.fn.getcwd()
+      --   end,
+      -- })
+
       -- LSP servers are automatically enabled when setup() is called above
       -- Copilot LSP is handled by copilot.vim plugin
     end,

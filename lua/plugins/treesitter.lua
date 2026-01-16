@@ -23,6 +23,8 @@ return {
           "powershell",
           "terraform",
           "hcl",
+          "python",
+          "c_sharp",
         },
         
         -- Install parsers synchronously (only applied to `ensure_installed`)
