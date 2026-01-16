@@ -4,7 +4,7 @@ local t = ls.text_node
 
 -- Azure Pipelines trigger snippet with PowerShell tasks
 ls.add_snippets('yaml', {
-  s("ado-trigger-pwsh-full", {
+  s("trigger-pwsh-full-lua", {
     t({"trigger:"}),
     t({"", "  branches:"}),
     t({"", "    include:"}),

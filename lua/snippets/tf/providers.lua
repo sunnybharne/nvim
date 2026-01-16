@@ -5,7 +5,7 @@ local t = ls.text_node
 -- Terraform providers snippet
 ls.add_snippets('terraform', {
   -- Terraform with Azure (AzureRM + AzAPI + Random)
-  s("provider-azure", {
+  s("provider-azure-lua", {
     t({
       "terraform {",
       "  required_providers {",

@@ -5,7 +5,7 @@ local i = ls.insert_node
 
 -- Azure Pipelines PowerShell task snippet
 ls.add_snippets('yaml', {
-  s("ado-step-pwsh-task", {
+  s("step-pwsh-task-lua", {
     t({"    - task: azurepowershell@5"}),
     t({"", "      inputs:"}),
     t({"", "        azureSubscription: '${"}), i(1, "serviceConnection"), t({"}'"}),

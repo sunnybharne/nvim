@@ -5,16 +5,21 @@ local i = ls.insert_node
 
 -- Terraform random provider snippets
 ls.add_snippets('terraform', {
-  s("random-id", {
+  s("random-string-lua", {
     t({
-      'resource "random_id" "',
+      'resource "random_string" "',
     }),
-    i(1, "random"),
+    i(1, "example"),
     t({
       '" {',
-      '  byte_length = ',
+      '  length  = ',
     }),
-    i(2, "4"),
+    i(2, "16"),
+    t({
+      '',
+      '  special = ',
+    }),
+    i(3, "false"),
     t({
       '',
       '}',
@@ -22,4 +27,3 @@ ls.add_snippets('terraform', {
     i(0),
   }),
 })
-

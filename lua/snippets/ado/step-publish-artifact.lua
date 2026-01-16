@@ -5,7 +5,7 @@ local i = ls.insert_node
 
 -- Azure Pipelines publish artifact snippet
 ls.add_snippets('yaml', {
-  s("ado-step-publish-artifact", {
+  s("step-publish-artifact-lua", {
     t({"    - task: PublishPipelineArtifact@1"}),
     t({"", "      inputs:"}),
     t({"", "        targetPath: '$(System.DefaultWorkingDirectory)/"}), i(1, "pathtofile"), t({"'"}),

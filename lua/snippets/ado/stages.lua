@@ -5,7 +5,7 @@ local i = ls.insert_node
 
 -- Azure Pipelines stages snippet with AzureCLI@2 tasks
 ls.add_snippets('yaml', {
-  s("ado-stages", {
+  s("stages-lua", {
     t({"stages:"}),
     t({"", "- stage: "}), i(1, "stage_name"),
     t({"", "  displayName: "}), i(2, "stage_name"),
