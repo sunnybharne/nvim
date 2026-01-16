@@ -5,7 +5,7 @@ local i = ls.insert_node
 
 -- Azure Pipelines download artifact snippet
 ls.add_snippets('yaml', {
-  s("ado-step-download-artifact", {
+  s("step-download-artifact-lua", {
     t({"    - task: DownloadPipelineArtifact@2"}),
     t({"", "      inputs:"}),
     t({"", "        buildType: 'current'"}),
