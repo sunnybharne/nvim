@@ -4,5 +4,3 @@
 Reload configuration | <Leader>rr
 Open cheatsheet | <Leader>?
 Edit cheatsheet | <Leader>?!
-
-
