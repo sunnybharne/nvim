@@ -14,7 +14,9 @@ return {
     -- Load custom Lua snippets
     -- Using load() instead of lazy_load() because we have custom directory structure
     -- This will load all snippets immediately when nvim starts
-    local snippets_path = vim.fn.expand("~/code/azure-enterprise-platform/luasnip-snippets")
+    local snippets_path = vim.fn.stdpath("config") .. "/lua/snippets"
+    require("luasnip.loaders.from_lua").load({ paths = { snippets_path .. "/ado" } })
+    require("luasnip.loaders.from_lua").load({ paths = { snippets_path .. "/tf" } })
     -- Set up keymaps for snippet navigation
     
     vim.keymap.set({ "i", "s" }, "<C-j>", function()
