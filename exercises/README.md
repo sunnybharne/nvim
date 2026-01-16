@@ -116,9 +116,42 @@ Work through these guides in order for the best learning experience:
 
 ---
 
+### 8. Python Development (60+ minutes)
+**File:** `08-python-development.md`
+
+**What you'll learn:**
+- LSP features (autocomplete, go-to-definition, hover)
+- Debugging with DAP (debugpy)
+- Formatting and linting (black, isort, flake8, mypy, ruff)
+- Code navigation and symbol search
+- Testing with pytest
+- Virtual environment support
+- Real-world Python workflows
+
+**Why eighth:** Master Python development in Neovim - from simple scripts to complex projects with full IDE features!
+
+---
+
+### 9. C# Development (60+ minutes)
+**File:** `09-csharp-development.md`
+
+**What you'll learn:**
+- OmniSharp LSP features (IntelliSense, code actions)
+- Debugging with DAP (netcoredbg)
+- Formatting with CSharpier
+- Solution/project management
+- NuGet package support
+- Testing with xUnit/NUnit
+- Async/await and LINQ support
+- Real-world C# workflows
+
+**Why ninth:** Master C# development in Neovim - build .NET applications with full IDE capabilities!
+
+---
+
 ## 🎯 Quick Start
 
-### Option 1: Full Course (5-6 hours)
+### Option 1: Full Course (7-8 hours)
 Work through all guides in order:
 ```
 01-gitsigns.md
@@ -134,6 +167,10 @@ Work through all guides in order:
 06-quickfix.md
   ↓
 07-octa.md
+  ↓
+08-python-development.md
+  ↓
+09-csharp-development.md
 ```
 
 ### Option 2: Git Focus (2 hours)
@@ -154,6 +191,14 @@ Learn the essentials:
 01-gitsigns.md (Steps 1-4)
 02-neogit.md (Steps 1-6)
 04-telescope.md (Steps 1-6)
+```
+
+### Option 5: Language Development Focus (3-4 hours)
+Master Python and C# development:
+```
+04-telescope.md (Steps 1-6)  → Navigation basics
+08-python-development.md     → Python mastery
+09-csharp-development.md    → C# mastery
 ```
 
 ---
@@ -187,6 +232,10 @@ You'll be able to:
 - ✅ Find files and code instantly with fuzzy search
 - ✅ Complete entire workflows without leaving Neovim
 - ✅ Work keyboard-only (no mouse needed!)
+- ✅ Develop Python with full IDE features (LSP, debugging, formatting)
+- ✅ Develop C# with OmniSharp and .NET debugging
+- ✅ Debug code directly in Neovim (Python and C#)
+- ✅ Navigate large codebases efficiently
 
 ---
 
@@ -202,6 +251,9 @@ You'll be able to:
 - **Neogit:** [NeogitOrg/neogit](https://github.com/NeogitOrg/neogit)
 - **Diffview:** [sindrets/diffview.nvim](https://github.com/sindrets/diffview.nvim)
 - **Telescope:** [nvim-telescope/telescope.nvim](https://github.com/nvim-telescope/telescope.nvim)
+- **LSP:** [neovim/nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
+- **DAP:** [mfussenegger/nvim-dap](https://github.com/mfussenegger/nvim-dap)
+- **Mason:** [williamboman/mason.nvim](https://github.com/williamboman/mason.nvim)
 
 ---
 
@@ -222,6 +274,9 @@ You'll be able to:
 - Interactive rebase
 - Advanced conflict resolution
 - Integrate with CI/CD
+- Master Python/C# development workflows
+- Advanced debugging techniques
+- Custom LSP configurations
 
 ---
 

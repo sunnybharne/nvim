@@ -27,9 +27,87 @@ return {
       map("n", "<leader>dq", function() dap.terminate() end, "DAP Terminate")
       map("n", "<leader>dc", function() dap.run_to_cursor() end, "DAP Run to Cursor")
 
-      -- Note: Adapters/configurations are language-specific and can be added later.
-      -- Examples: python (debugpy), node/python/csharp, etc.
-      -- This base setup keeps the plugin lightweight until you add adapters.
+      -- Python DAP adapter (debugpy)
+      dap.adapters.python = {
+        type = "executable",
+        command = "python",
+        args = { "-m", "debugpy.adapter" },
+      }
+
+      dap.configurations.python = {
+        {
+          type = "python",
+          request = "launch",
+          name = "Launch file",
+          program = "${file}",
+          pythonPath = function()
+            return vim.fn.exepath("python3") or vim.fn.exepath("python") or "python"
+          end,
+          console = "integratedTerminal",
+          justMyCode = false,
+        },
+        {
+          type = "python",
+          request = "attach",
+          name = "Attach to process",
+          processId = "${command:pickProcess}",
+          justMyCode = false,
+        },
+        {
+          type = "python",
+          request = "launch",
+          name = "Django",
+          program = "${workspaceFolder}/manage.py",
+          args = { "runserver" },
+          django = true,
+          justMyCode = false,
+        },
+        {
+          type = "python",
+          request = "launch",
+          name = "Flask",
+          module = "flask",
+          args = { "run", "--no-debugger", "--no-reload" },
+          jinja = true,
+          justMyCode = false,
+        },
+        {
+          type = "python",
+          request = "launch",
+          name = "Pytest",
+          module = "pytest",
+          args = { "${file}" },
+          console = "integratedTerminal",
+          justMyCode = false,
+        },
+      }
+
+      -- C# DAP adapter (netcoredbg)
+      dap.adapters.coreclr = {
+        type = "executable",
+        command = "netcoredbg",
+        args = { "--interpreter=vscode" },
+      }
+
+      dap.configurations.cs = {
+        {
+          type = "coreclr",
+          name = "Launch .NET Core",
+          request = "launch",
+          program = function()
+            return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+          end,
+          cwd = "${workspaceFolder}",
+          stopAtEntry = false,
+          console = "internalConsole",
+        },
+        {
+          type = "coreclr",
+          name = "Attach to .NET Core",
+          request = "attach",
+          processId = "${command:pickProcess}",
+        },
+      }
     end,
   },
 }

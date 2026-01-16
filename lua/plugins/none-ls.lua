@@ -24,6 +24,30 @@ return {
         builtins.diagnostics.yamllint,
       }
 
+      -- Python formatters and linters (optional - only add if executable exists)
+      if has_exe("black") then
+        table.insert(sources, builtins.formatting.black)
+      end
+      if has_exe("isort") then
+        table.insert(sources, builtins.formatting.isort)
+      end
+      if has_exe("autopep8") then
+        table.insert(sources, builtins.formatting.autopep8)
+      end
+      if has_exe("flake8") then
+        table.insert(sources, builtins.diagnostics.flake8)
+      end
+      if has_exe("pylint") then
+        table.insert(sources, builtins.diagnostics.pylint)
+      end
+      if has_exe("mypy") then
+        table.insert(sources, builtins.diagnostics.mypy)
+      end
+      if has_exe("ruff") then
+        table.insert(sources, builtins.formatting.ruff)
+        table.insert(sources, builtins.diagnostics.ruff)
+      end
+
       -- Optional: only add if executable exists
       if has_exe("prettier") then
         table.insert(sources, builtins.formatting.prettier)
