@@ -2,10 +2,10 @@ local codex_acp_package = "@agentclientprotocol/codex-acp@1.6.2"
 
 local function codex_acp_command()
   if vim.fn.executable("codex-acp") == 1 then
-    return { "codex-acp" }
+    return { "env", "-u", "OPENAI_API_KEY", "-u", "CODEX_API_KEY", "codex-acp" }
   end
 
-  return { "npx", "-y", codex_acp_package }
+  return { "env", "-u", "OPENAI_API_KEY", "-u", "CODEX_API_KEY", "npx", "-y", codex_acp_package }
 end
 
 return {
@@ -29,15 +29,18 @@ return {
       adapters = {
         acp = {
           codex = function()
-            return require("codecompanion.adapters").extend("codex", {
+            local adapter = require("codecompanion.adapters").extend("codex", {
               commands = {
                 default = codex_acp_command(),
               },
               defaults = {
-                auth_method = "chatgpt",
+                auth_method = "chat-gpt",
                 timeout = 60000,
               },
             })
+
+            adapter.env = {}
+            return adapter
           end,
         },
       },
