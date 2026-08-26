@@ -51,7 +51,6 @@ You can customize triggers and snippet content in `lua/snippets/<module>.lua`.
 | Plugin                | Description                                                                 | Key Features / Usage Notes                                  |
 |-----------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
 | bufferline            | Buffer/tab line for Neovim                                                  | Visual buffer management, icons, diagnostics                |
-| code-companion        | AI-powered code assistant and chat                                          | Chat, inline, command strategies, integrates with MCP Hub   |
 | comment               | Easy commenting for code                                                    | Toggle comments, supports custom filetypes                  |
 | copilot-vim           | GitHub Copilot integration                                                  | AI code suggestions, accepts with Tab, filetype control     |
 | dap                   | Debug Adapter Protocol integration                                          | Debugging, breakpoints, REPL, language adapters             |
