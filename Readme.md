@@ -68,6 +68,7 @@ You can customize triggers and snippet content in `lua/snippets/<module>.lua`.
 | none-ls               | Inject LSP diagnostics/formatters                                           | Formatters, diagnostics, auto-format on save                |
 | nvim-cmp              | Completion engine                                                           | Integrates with LSP, snippets, buffer, path, cmdline        |
 | nvim-tree             | File explorer                                                               | Tree view, icons, git integration, auto-open/close          |
+| pi-agent              | Personal Codex CLI bridge                                                   | Floating Codex terminal, buffer/selection prompts, status   |
 | project               | Project root detection and management                                       | Patterns, LSP/pattern detection, telescope integration      |
 | render-markdown       | Enhanced Markdown rendering in Neovim                                       | Custom filetypes, improved Markdown display                 |
 | tab-management        | Tab management via Telescope                                                | Tab navigation, picker integration                          |
