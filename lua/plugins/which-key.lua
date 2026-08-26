@@ -43,7 +43,7 @@ return {
       { "<leader>f", group = "Find (Telescope)" },
       { "<leader>t", group = "Tabs/Git" },
       { "<leader>b", group = "Buffers" },
-      { "<leader>c", group = "Copilot Chat" },
+      { "<leader>c", group = "Code/Chat" },
       { "<leader>d", group = "Diffview/Diagnostics" },
       { "<leader>h", group = "Git Hunks" },
       { "<leader>l", group = "LazyGit/LSP" },
