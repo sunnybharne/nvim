@@ -1,4 +1,12 @@
-local github_models_adapter = "papliba_githubmodels"
+local codex_acp_package = "@agentclientprotocol/codex-acp@1.6.2"
+
+local function codex_acp_command()
+  if vim.fn.executable("codex-acp") == 1 then
+    return { "codex-acp" }
+  end
+
+  return { "npx", "-y", codex_acp_package }
+end
 
 return {
   "olimorris/codecompanion.nvim",
@@ -7,57 +15,27 @@ return {
     "nvim-lua/plenary.nvim",
   },
   cmd = {
-    "CodeCompanion",
     "CodeCompanionActions",
     "CodeCompanionChat",
-    "CodeCompanionCmd",
   },
   keys = {
     { "<leader>cc", "<cmd>CodeCompanionChat Toggle<cr>", desc = "Toggle CodeCompanion Chat" },
     { "<leader>ca", "<cmd>CodeCompanionActions<cr>", desc = "CodeCompanion Actions" },
-    { "<leader>ci", "<cmd>CodeCompanion<cr>", desc = "CodeCompanion Inline" },
-    { "<leader>cmd", "<cmd>CodeCompanionCmd<cr>", desc = "CodeCompanion Command" },
     { "<leader>cc", "<cmd>CodeCompanionChat Add<cr>", mode = "v", desc = "Add Selection to CodeCompanion" },
     { "<leader>ca", "<cmd>CodeCompanionActions<cr>", mode = "v", desc = "CodeCompanion Actions" },
-    { "<leader>ci", "<cmd>CodeCompanion<cr>", mode = "v", desc = "CodeCompanion Inline" },
   },
   opts = function()
-    local secrets = require("config.secrets")
-
-    local function setup_github_models(self)
-      local model = self.schema.model.default
-      local model_opts = self.schema.model.choices[model]
-      if model_opts and model_opts.opts then
-        self.opts = vim.tbl_deep_extend("force", self.opts, model_opts.opts)
-      end
-
-      if self.opts and self.opts.stream then
-        self.parameters.stream = true
-      end
-
-      local token, err = secrets.github_token()
-      if not token then
-        vim.notify("CodeCompanion: " .. err, vim.log.levels.ERROR)
-        return false
-      end
-
-      return true
-    end
-
     return {
       adapters = {
-        http = {
-          [github_models_adapter] = function()
-            return require("codecompanion.adapters").extend("githubmodels", {
-              name = github_models_adapter,
-              formatted_name = "GitHub Models (Papliba)",
-              env = {
-                api_key = function()
-                  return secrets.github_token()
-                end,
+        acp = {
+          codex = function()
+            return require("codecompanion.adapters").extend("codex", {
+              commands = {
+                default = codex_acp_command(),
               },
-              handlers = {
-                setup = setup_github_models,
+              defaults = {
+                auth_method = "chatgpt",
+                timeout = 60000,
               },
             })
           end,
@@ -65,13 +43,13 @@ return {
       },
       strategies = {
         chat = {
-          adapter = github_models_adapter,
+          adapter = "codex",
         },
         inline = {
-          adapter = github_models_adapter,
+          adapter = "openai_responses",
         },
         cmd = {
-          adapter = github_models_adapter,
+          adapter = "openai_responses",
         },
       },
       display = {
