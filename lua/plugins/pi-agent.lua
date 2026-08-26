@@ -18,6 +18,7 @@ return {
     build = "chmod +x bin/pi-agent",
     keys = {
       { "<leader>cc", "<cmd>PiAgentPanel<cr>", desc = "Open Pi Agent panel" },
+      { "<leader>cc", ":PiAgentPanel<cr>", mode = "v", desc = "Open Pi Agent panel with selection" },
       { "<leader>aa", "<cmd>PiAgentActions<cr>", desc = "Pi Agent actions" },
       { "<leader>ac", "<cmd>PiAgentChat Toggle<cr>", desc = "Toggle Pi Agent chat" },
       { "<leader>ai", "<cmd>PiAgent<cr>", desc = "Pi Agent inline" },
