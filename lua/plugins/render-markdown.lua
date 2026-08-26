@@ -1,9 +1,9 @@
 return {
   "MeanderingProgrammer/render-markdown.nvim",
-  ft = { "markdown", "codecompanion" },
+  ft = { "markdown" },
   config = function()
     require("render-markdown").setup({
-      file_types = { "markdown", "codecompanion" },
+      file_types = { "markdown" },
     })
   end,
 }
