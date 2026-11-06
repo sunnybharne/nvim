@@ -126,30 +126,13 @@ fi
 # Install Oh My Zsh if not already installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     echo "Installing Oh My Zsh..."
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
     echo "✓ Oh My Zsh installed successfully!"
 else
     echo "✓ Oh My Zsh is already installed"
 fi
 
-# Setup .zshrc symlink
-echo "Setting up .zshrc symlink..."
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-
-# Backup existing .zshrc if it exists and is not a symlink
-if [ -f "$HOME/.zshrc" ] && [ ! -L "$HOME/.zshrc" ]; then
-    echo "Backing up existing .zshrc to .zshrc.backup"
-    mv "$HOME/.zshrc" "$HOME/.zshrc.backup"
-fi
-
-# Remove existing symlink if it exists
-if [ -L "$HOME/.zshrc" ]; then
-    rm "$HOME/.zshrc"
-fi
-
-# Create symlink to your dotfiles .zshrc
-ln -s "$SCRIPT_DIR/dotfiles/.zshrc" "$HOME/.zshrc"
-echo "✓ .zshrc symlinked to dotfiles!"
 
 # Set zsh as default shell if it isn't already
 if [ "$SHELL" != "$(which zsh)" ]; then
