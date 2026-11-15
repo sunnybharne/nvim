@@ -54,12 +54,19 @@ ls.add_snippets('yaml', {
               terraform_version: "<>"
 
           - name: Plan
+            id: plan
             run: |
               terraform init -input=false
               terraform validate
-              terraform plan -input=false -out=tfplan
+              status=0
+              terraform plan -input=false -detailed-exitcode -out=tfplan || status=$?
+              case "$status" in
+                2) echo "changes=true" >>>> "$GITHUB_OUTPUT" ;;
+                *) exit "$status" ;;
+              esac
 
           - name: Deploy
+            if: steps.plan.outputs.changes == 'true'
             run: terraform apply -input=false tfplan
   ]], {
     i(1, "<workflow-name>"),
