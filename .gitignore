@@ -1,3 +1,4 @@
 # Local shell configuration
 .zshrc
 .zshrc.*
+.DS_Store
