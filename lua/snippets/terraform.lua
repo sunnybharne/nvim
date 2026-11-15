@@ -48,6 +48,18 @@ ls.add_snippets('terraform', {
     }
   ]], { i(1, "<organization-name>"), i(2, "<workspace-name>") })),
 
+  s("subscription-lua", fmta([[
+    module "subscription" {
+      source            = "<>"
+      subscription_name = <>
+      billing_scope_id  = <>
+    }
+  ]], {
+    i(1, "../../../modules/subscription"),
+    i(2, "var.subscription_name"),
+    i(3, "var.billing_scope_id"),
+  })),
+
   -- Terraform variable snippet
   s("variable-lua", {
     t('variable "'),
