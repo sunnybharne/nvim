@@ -1,4 +1,5 @@
 local ls = require("luasnip")
+local fmta = require("luasnip.extras.fmt").fmta
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
@@ -9,48 +10,43 @@ local i = ls.insert_node
 
 -- Terraform providers snippet
 ls.add_snippets('terraform', {
-  -- Terraform with Azure (AzureRM + AzAPI + Random)
-  s("provider-azure-lua", {
-    t({
-      "terraform {",
-      "  required_providers {",
-      "    azapi = {",
-      "      source  = \"Azure/azapi\"",
-      "      version = \"~>2.0\"",
-      "    }",
-      "    azurerm = {",
-      "      source  = \"hashicorp/azurerm\"",
-      "      version = \"~>4.0\"",
-      "    }",
-      "    random = {",
-      "      source  = \"hashicorp/random\"",
-      "      version = \"~>3.0\"",
-      "    }",
-      "  }",
-      "",
-      "  backend \"azurerm\" {",
-      "    resource_group_name  = \"rgname\"",
-      "    storage_account_name = \"storageaccountname\"",
-      "    container_name       = \"containername\"",
-      "    key                  = \"terraform.tfstate\"",
-      "  }",
-      "}",
-      "",
-      "provider \"azurerm\" {",
-      "  features {}",
-      "  tenant_id       = \"tenantId\"",
-      "  subscription_id = \"subscriptionId\"",
-      "}",
-      "",
-      "provider \"azapi\" {",
-      "  tenant_id       = \"tenantId\"",
-      "  subscription_id = \"subscriptionId\"",
-      "}",
-      "",
-      "provider \"random\" {",
-      "}",
-    }),
-  }),
+  s("provider-azure-lua", fmta([[
+    terraform {
+      required_version = "= 1.16.6"
+
+      required_providers {
+        azurerm = {
+          source  = "hashicorp/azurerm"
+          version = "= 5.10.0"
+        }
+      }
+
+      cloud {
+        organization = "<>"
+
+        workspaces {
+          name = "<>"
+        }
+      }
+    }
+
+    provider "azurerm" {
+      tenant_id       = var.tenant_id
+      subscription_id = var.subscription_id
+      features {}
+    }
+
+    variable "tenant_id" {
+      description = "Azure tenant ID. Defaults to the tenant used for authentication."
+      type        = string
+      default     = null
+    }
+
+    variable "subscription_id" {
+      description = "ID of the Azure subscription to manage."
+      type        = string
+    }
+  ]], { i(1, "<organization-name>"), i(2, "<workspace-name>") })),
 
   -- Terraform variable snippet
   s("variable-lua", {
