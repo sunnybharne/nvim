@@ -31,6 +31,15 @@ ls.add_snippets('yaml', {
     jobs:
       terraform:
         runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          id-token: write
+        env:
+          ARM_USE_OIDC: "true"
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          TF_TOKEN_app_terraform_io: ${{ secrets.TF_API_TOKEN }}
         defaults:
           run:
             working-directory: "<>"
