@@ -1,12 +1,49 @@
 local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
+local i = ls.insert_node
+local fmta = require("luasnip.extras.fmt").fmta
+local is_github_workflow = require("snippets.utils").is_github_workflow
 
 -- ============================================================================
 -- GITHUB ACTIONS SNIPPETS (YAML)
 -- ============================================================================
 
 ls.add_snippets('yaml', {
+  s({ trig = "trigger-lua", condition = is_github_workflow, show_condition = is_github_workflow }, fmta([[
+    name: "<>"
+
+    on:
+      workflow_dispatch:
+      push:
+        branches: [main]
+
+    jobs:
+      terraform:
+        runs-on: ubuntu-latest
+        defaults:
+          run:
+            working-directory: "<>"
+
+        steps:
+          - name: Check out the repository
+            uses: actions/checkout@v7.0.1
+
+          - name: Set up Terraform
+            uses: hashicorp/setup-terraform@v4.0.1
+            with:
+              terraform_version: "<>"
+
+          - name: Plan
+            run: |
+              terraform init -input=false
+              terraform validate
+              terraform plan -input=false -out=tfplan
+
+          - name: Deploy
+            run: terraform apply -input=false tfplan
+  ]], { i(1, "<workflow-name>"), i(2, "<terraform-directory>"), i(3, "<terraform-version>") })),
+
   -- Basic workflow
   s("workflow", {
     t({"", "name: Example Workflow"}),

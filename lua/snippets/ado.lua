@@ -2,6 +2,11 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local i = ls.insert_node
+local is_github_workflow = require("snippets.utils").is_github_workflow
+
+local function outside_github_workflows()
+  return not is_github_workflow()
+end
 
 -- ============================================================================
 -- AZURE DEVOPS PIPELINES SNIPPETS (YAML)
@@ -27,7 +32,7 @@ ls.add_snippets('yaml', {
   }),
 
   -- Trigger snippet (basic)
-  s("trigger-lua", {
+  s({ trig = "trigger-lua", condition = outside_github_workflows, show_condition = outside_github_workflows }, {
     t({"trigger:"}),
     t({"", "  branches:"}),
     t({"", "    include:"}),

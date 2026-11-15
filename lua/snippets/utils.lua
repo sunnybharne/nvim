@@ -7,5 +7,9 @@ end
 
 -- Export the basic function for use in any snippet file
 return {
-  fn = fn
+  fn = fn,
+  is_github_workflow = function()
+    local path = vim.api.nvim_buf_get_name(0):gsub("\\", "/")
+    return path:match("/%.github/workflows/[^/]+%.ya?ml$") ~= nil
+  end,
 }
