@@ -5,6 +5,14 @@ local i = ls.insert_node
 local fmta = require("luasnip.extras.fmt").fmta
 local is_github_workflow = require("snippets.utils").is_github_workflow
 
+local function terraform_push_path(args)
+  local directory = args[1][1]:gsub("^%./", ""):gsub("/+$", "")
+  if directory == "." or directory == "" then
+    return "**"
+  end
+  return directory .. "/**"
+end
+
 -- ============================================================================
 -- GITHUB ACTIONS SNIPPETS (YAML)
 -- ============================================================================
@@ -17,6 +25,8 @@ ls.add_snippets('yaml', {
       workflow_dispatch:
       push:
         branches: [main]
+        paths:
+          - "<>"
 
     jobs:
       terraform:
@@ -42,7 +52,12 @@ ls.add_snippets('yaml', {
 
           - name: Deploy
             run: terraform apply -input=false tfplan
-  ]], { i(1, "<workflow-name>"), i(2, "<terraform-directory>"), i(3, "<terraform-version>") })),
+  ]], {
+    i(1, "<workflow-name>"),
+    ls.function_node(terraform_push_path, { 2 }),
+    i(2, "<terraform-directory>"),
+    i(3, "<terraform-version>"),
+  })),
 
   -- Basic workflow
   s("workflow", {
